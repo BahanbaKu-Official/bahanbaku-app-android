@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.bangkit.bahanbaku" >
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:name=".application.MainApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.BahanbaKu"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m" >
+        <activity
+            android:name=".presentation.splashscreen.SplashScreenActivity"
+            android:theme="@style/SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.landing.LandingPageActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDEwx4-wMU6vpJNdUElRDKUKrT6DYLORhM" />
+
+        <activity
+            android:name=".presentation.profile.edit.EditProfileActivity"
+            android:exported="false"
+            android:label="@string/edit_profile" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.profile.ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.updatelocation.UpdateLocationActivity"
+            android:exported="true"
+            android:label="@string/title_activity_update_location" />
+        <activity
+            android:name=".presentation.maps.MapsActivity"
+            android:exported="false"
+            android:label="@string/food_map" />
+        <activity
+            android:name=".presentation.snapfood.result.SnapFoodResultActivity"
+            android:exported="false"
+            android:label="@string/snapfood" />
+        <activity
+            android:name=".presentation.camera.CameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.forgotpassword.ForgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.profile.ProfileActivity"
+            android:exported="false"
+            android:label="@string/profile" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.main.MainActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.snaprecipe.SnapRecipeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.search.SearchActivity"
+            android:exported="false"
+            android:label="@string/search" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.main.MainActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.ingredient.IngredientActivity"
+            android:exported="false"
+            android:label="@string/ingredients" />
+        <activity
+            android:name=".presentation.detail.DetailActivity"
+            android:exported="false"
+            android:label="@string/recipe" />
+        <activity
+            android:name=".presentation.register.RegisterActivity"
+            android:exported="false"
+            android:label="@string/register" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.login.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.login.LoginActivity"
+            android:exported="false"
+            android:label="@string/login" />
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:exported="false" >
+        </activity>
+    </application>
+
+</manifest>

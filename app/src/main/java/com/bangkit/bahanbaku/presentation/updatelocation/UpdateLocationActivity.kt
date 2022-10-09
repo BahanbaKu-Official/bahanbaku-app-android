@@ -1,0 +1,186 @@
+package com.bangkit.bahanbaku.presentation.updatelocation
+
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import com.bangkit.bahanbaku.R
+import com.bangkit.bahanbaku.core.data.Resource
+import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
+import com.bangkit.bahanbaku.databinding.ActivityUpdateLocationBinding
+import com.bangkit.bahanbaku.presentation.ingredient.IngredientActivity
+import com.bangkit.bahanbaku.presentation.login.LoginActivity
+import com.bangkit.bahanbaku.presentation.main.MainActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class UpdateLocationActivity : AppCompatActivity(), OnMapReadyCallback {
+
+    private val binding: ActivityUpdateLocationBinding by lazy {
+        ActivityUpdateLocationBinding.inflate(layoutInflater)
+    }
+
+    private val viewModel: UpdateLocationViewModel by viewModels()
+
+    private var location: Location? = null
+    private lateinit var mMap: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        getToken()
+    }
+
+    private fun getToken() {
+        viewModel.getToken().observe(this) {
+            if (it.length <= 5) {
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            } else {
+                val token = "Bearer $it"
+                setupView(token)
+            }
+        }
+    }
+
+    private fun setupView(token: String) {
+        binding.btnUpdateLocation.setOnClickListener {
+            if (location != null) {
+                viewModel.updateLocation(token, location!!.latitude, location!!.longitude)
+                    .observe(this) { result ->
+                        when (result) {
+                            is Resource.Loading -> {
+                                binding.progressBar.isVisible = true
+                            }
+                            is Resource.Error -> {
+                                binding.progressBar.isVisible = false
+                                Toast.makeText(this, result.message ?: ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT).show()
+                            }
+                            is Resource.Success -> {
+                                binding.progressBar.isVisible = false
+                                Toast.makeText(
+                                    this,
+                                    getString(R.string.location_updated_success),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                val toIngredients =
+                                    intent.getBooleanExtra(EXTRA_TO_INGREDIENTS, false)
+
+                                if (toIngredients) {
+                                    val search = intent.getStringArrayListExtra(
+                                        IngredientActivity.EXTRA_SEARCH
+                                    )
+
+                                    val intent = Intent(this, IngredientActivity::class.java)
+                                    intent.putExtra(IngredientActivity.EXTRA_SEARCH, search)
+                                    startActivity(intent)
+                                    finish()
+                                } else {
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        getLastLocation()
+    }
+
+    private fun showCurrentLocation(location: Location) {
+        val loc = LatLng(location.latitude, location.longitude)
+        mMap.addMarker(
+            MarkerOptions()
+                .position(loc)
+                .title(getString(R.string.youre_here))
+        )
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15f))
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+                    getLastLocation()
+                }
+                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
+                    getLastLocation()
+                }
+            }
+        }
+
+    private fun getLastLocation() {
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) && checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                this.location = location
+                showCurrentLocation(location)
+            }
+        } else {
+            requestPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun checkPermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    companion object {
+        const val EXTRA_TO_INGREDIENTS = "extra_to_ingredients"
+    }
+}
