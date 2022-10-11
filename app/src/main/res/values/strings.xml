@@ -128,4 +128,6 @@
     <string name="our_local_cuisine_highlight">Our Local Cuisine Highlight</string>
     <string name="opening_camera">Opening camera</string>
     <string name="opening_gallery">Opening gallery</string>
+    <string name="placeholder_measurement">300gr</string>
+    <string name="add">Add</string>
 </resources>
