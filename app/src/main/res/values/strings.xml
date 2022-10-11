@@ -130,4 +130,10 @@
     <string name="opening_gallery">Opening gallery</string>
     <string name="placeholder_measurement">300gr</string>
     <string name="add">Add</string>
+    <string name="servings">Servings</string>
+    <string name="placeholder_review_label">Review (300)</string>
+    <string name="placeholder_serving_amount">3 Servings</string>
+    <string name="placeholder_review_amount">4.5 from 5.0</string>
+    <string name="one">1</string>
+    <string name="buy_ingredients">Buy Ingredients</string>
 </resources>

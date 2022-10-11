@@ -41,6 +41,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.topAppBarRecipeDetail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         getToken()
@@ -87,7 +88,7 @@ class DetailActivity : AppCompatActivity() {
                         this.recipe = recipe
                         checkIfRecipeBookmarked(token, recipe.id)
 
-                        binding.tvRecipe.text = recipe.title
+                        supportActionBar?.title = recipe.title
                         binding.tvDescription.text = recipe.description
                         binding.tvServings.text = "${recipe.servings} servings"
 
