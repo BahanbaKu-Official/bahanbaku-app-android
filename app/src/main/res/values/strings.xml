@@ -136,4 +136,12 @@
     <string name="placeholder_review_amount">4.5 from 5.0</string>
     <string name="one">1</string>
     <string name="buy_ingredients">Buy Ingredients</string>
+    <string name="placeholder_time">15 minutes</string>
+    <string name="indonesian">Indonesian</string>
+    <string name="recommended">Recommended</string>
+    <string name="best_rated">Best Rated</string>
+    <string name="placeholder_greetings">Good Morning, John</string>
+    <string name="morning_recommendation">Morning recommendation</string>
+    <string name="see_all">See All</string>
+    <string name="discover_more">Discover more</string>
 </resources>

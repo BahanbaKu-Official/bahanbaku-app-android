@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="180dp"
+    app:cardCornerRadius="16dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="4dp"
+    style="@style/Widget.Material3.CardView.Elevated"
+    app:cardBackgroundColor="@color/pure_white"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_recipe"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_recipe_name"
+            style="@style/Text.Title.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/placeholder_recipe_name"
+            app:layout_constraintTop_toBottomOf="@+id/img_recipe" />
+
+        <TextView
+            android:id="@+id/tv_recipe_description"
+            style="@style/Text.Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginTop="4dp"
+            android:text="@string/placeholder_description_food"
+            android:textColor="@color/gray_text"
+            app:layout_constraintEnd_toEndOf="@+id/tv_recipe_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_recipe_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_recipe_name" />
+
+        <ImageView
+            android:id="@+id/ic_star_outline"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/ic_star_outline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_recipe_description"
+            app:layout_constraintTop_toBottomOf="@id/tv_recipe_description" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/placeholder_rating"
+            android:textColor="@color/gray_text"
+            app:layout_constraintBottom_toBottomOf="@id/ic_star_outline"
+            app:layout_constraintStart_toEndOf="@+id/ic_star_outline"
+            app:layout_constraintTop_toTopOf="@id/ic_star_outline" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
