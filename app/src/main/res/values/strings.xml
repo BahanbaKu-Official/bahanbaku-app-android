@@ -144,4 +144,9 @@
     <string name="morning_recommendation">Morning recommendation</string>
     <string name="see_all">See All</string>
     <string name="discover_more">Discover more</string>
+    <string name="orders">Orders</string>
+    <string name="favorite">Favorite</string>
+    <string name="chicken">Chicken</string>
+    <string name="recommendation_1">Recommendation 1</string>
+    <string name="recommendation_2">Recommendation 2</string>
 </resources>

@@ -10,12 +10,22 @@
     <item
         android:id="@+id/navigation_bookmark"
         android:icon="@drawable/ic_baseline_bookmarks_24"
-        android:title="@string/bookmark" />
+        android:title="@string/favorite" />
 
     <item
-        android:id="@+id/navigation_snapfood"
+        android:id="@+id/placeholder"
+        android:title=""/>
+
+    <item
+        android:id="@+id/navigation_orders"
         android:icon="@drawable/ic_baseline_photo_camera_24"
         app:iconTint="@color/black"
-        android:title="@string/snapfood" />
+        android:title="@string/orders" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_baseline_photo_library_24"
+        app:iconTint="@color/black"
+        android:title="@string/profile" />
 
 </menu>

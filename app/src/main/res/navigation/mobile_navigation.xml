@@ -16,7 +16,7 @@
         android:label="@string/bookmark"
         tools:layout="@layout/fragment_bookmark"/>
     <fragment
-        android:id="@+id/navigation_snapfood"
+        android:id="@+id/navigation_orders"
         android:name="com.bangkit.bahanbaku.presentation.snapfood.SnapFoodFragment"
         android:label="@string/snapfood"
         tools:layout="@layout/fragment_snap_food"/>
