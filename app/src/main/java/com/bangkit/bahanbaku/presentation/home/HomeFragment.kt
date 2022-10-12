@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.bahanbaku.core.adapter.HomeRecipeAdapter
+import com.bangkit.bahanbaku.core.adapter.RecipeCardLargeAdapter
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.databinding.FragmentHomeBinding
@@ -67,24 +68,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
-        binding.imgProfile.setOnClickListener {
-            val intent = Intent(requireContext(), ProfileActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.cardSearch.setOnClickListener {
             val intent = Intent(requireContext(), SearchActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnGetLocation.setOnClickListener {
-            val intent = Intent(requireContext(), UpdateLocationActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.cardFoodHighlight.cardLocalHighlight.setOnClickListener {
-            val intent = Intent(requireContext(), SearchActivity::class.java)
-            intent.putExtra(SearchActivity.EXTRA_HIGHLIGHT, "bakso")
             startActivity(intent)
         }
     }
@@ -141,33 +126,14 @@ class HomeFragment : Fragment() {
 
                     is Resource.Success -> {
                         val data = result.data!!
-                        binding.rvDiscoverRecipes.apply {
-                            adapter = HomeRecipeAdapter(data)
+                        binding.rvMoreRecipes.apply {
+                            adapter = RecipeCardLargeAdapter(data)
                             layoutManager = LinearLayoutManager(
                                 requireContext(),
                                 LinearLayoutManager.HORIZONTAL,
                                 false
                             )
                         }
-                    }
-                }
-            }
-
-            viewModel.getProfile(token).observe(requireActivity()) { result ->
-                when (result) {
-                    is Resource.Loading -> {
-
-                    }
-
-                    is Resource.Error -> {
-
-                    }
-
-                    is Resource.Success -> {
-                        val data = result.data as Profile
-                        Glide.with(requireContext())
-                            .load(data.picture + "?rand=${Random(2000000)}")
-                            .into(binding.imgProfile)
                     }
                 }
             }
