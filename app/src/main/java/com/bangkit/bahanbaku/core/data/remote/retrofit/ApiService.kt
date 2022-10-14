@@ -73,7 +73,7 @@ interface ApiService {
     fun getRecipeById(
         @Header("Authorization") token: String,
         @Path("id") id: String
-    ): Flowable<RecipeByIdResponse>
+    ): Flowable<GetRecipeByIdResponse>
 
     @GET("/ingredients")
     fun getIngredient(

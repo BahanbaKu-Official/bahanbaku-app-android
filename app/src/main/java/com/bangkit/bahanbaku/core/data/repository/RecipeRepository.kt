@@ -5,6 +5,7 @@ import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.data.local.datasource.LocalDataSource
 import com.bangkit.bahanbaku.core.data.remote.ApiResponse
 import com.bangkit.bahanbaku.core.data.remote.datasource.RemoteDataSource
+import com.bangkit.bahanbaku.core.data.remote.response.RecipeDetailItem
 import com.bangkit.bahanbaku.core.data.remote.response.RecipeItem
 import com.bangkit.bahanbaku.core.domain.model.Recipe
 import com.bangkit.bahanbaku.core.domain.repository.IRecipeRepository
@@ -41,24 +42,6 @@ class RecipeRepository (
     override fun searchRecipe(token: String, query: String): Flowable<Resource<List<Recipe>>> =
         remoteDataSource.searchRecipe(token, query)
 
-    override fun getRecipeById(token: String, id: String): Flowable<Resource<Recipe>> =
-        object : NetworkBoundResource<Recipe, List<RecipeItem>>(appExecutors) {
-            override fun createCall(): Flowable<ApiResponse<List<RecipeItem>>> {
-                return remoteDataSource.getNewRecipes(token)
-            }
-
-            override fun loadFromDB(): Flowable<Recipe> {
-                return localDataSource.getRecipeById(id).map {
-                    DataMapper.mapRecipeEntitiesToRecipeDomain(it)
-                }
-            }
-
-            override fun shouldFetch(data: Recipe?): Boolean = data == null
-
-            override fun saveCallResult(data: List<RecipeItem>) {
-                val recipeList = DataMapper.mapRecipeResponseToRecipeEntity(data)
-                localDataSource.insertRecipes(recipeList)
-            }
-
-        }.asFlowable()
+    override fun getRecipeById(token: String, id: String): Flowable<Resource<RecipeDetailItem>> =
+        remoteDataSource.getRecipeById(token, id)
 }

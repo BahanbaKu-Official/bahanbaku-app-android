@@ -6,6 +6,7 @@ import com.bangkit.bahanbaku.core.data.remote.ApiResponse
 import com.bangkit.bahanbaku.core.data.remote.response.*
 import com.bangkit.bahanbaku.core.data.remote.retrofit.ApiService
 import com.bangkit.bahanbaku.core.domain.model.Recipe
+import com.bangkit.bahanbaku.core.domain.model.RecipeDetail
 import com.bangkit.bahanbaku.core.utils.DataMapper
 import com.bangkit.bahanbaku.core.utils.ERROR_NULL_VALUE
 import io.reactivex.BackpressureStrategy
@@ -72,8 +73,8 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         return resultData.toFlowable(BackpressureStrategy.BUFFER)
     }
 
-    fun getRecipeById(token: String, id: String): Flowable<ApiResponse<RecipeItem>> {
-        val resultData = PublishSubject.create<ApiResponse<RecipeItem>>()
+    fun getRecipeById(token: String, id: String): Flowable<Resource<RecipeDetailItem>> {
+        val resultData = PublishSubject.create<Resource<RecipeDetailItem>>()
         val client = apiService.getRecipeById(token, id)
 
         val disposable = client
@@ -82,9 +83,13 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             .take(1)
             .subscribe({ response ->
                 val data = response.results
-                resultData.onNext(if (data.title.isNotEmpty()) ApiResponse.Success(data) else ApiResponse.Empty)
+                resultData.onNext(
+                    if (data.title.isNotEmpty()) Resource.Success(data) else Resource.Error(
+                        ERROR_NULL_VALUE
+                    )
+                )
             }, { error ->
-                resultData.onNext(ApiResponse.Error(error.message.toString()))
+                resultData.onNext(Resource.Error(error.message.toString()))
                 Log.e(TAG, error.toString())
             })
 
