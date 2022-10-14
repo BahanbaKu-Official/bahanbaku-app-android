@@ -23,8 +23,8 @@ data class RecipeItem(
 	@field:SerializedName("createdAt")
 	val createdAt: String,
 
-	@field:SerializedName("deletedAt")
-	val deletedAt: String,
+//	@field:SerializedName("deletedAt")
+//	val deletedAt: String,
 
 	@field:SerializedName("author")
 	val author: String,
@@ -36,7 +36,7 @@ data class RecipeItem(
 	val portion: Int,
 
 	@field:SerializedName("rating")
-	val rating: Int,
+	val rating: Double,
 
 	@field:SerializedName("description")
 	val description: String,

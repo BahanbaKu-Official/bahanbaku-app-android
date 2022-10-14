@@ -10,9 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.bahanbaku.R
+import com.bangkit.bahanbaku.core.adapter.RecipeDetailIngredientsGridAdapter
+import com.bangkit.bahanbaku.core.adapter.RecipeDetailStepsListAdapter
 import com.bangkit.bahanbaku.core.data.Resource
-import com.bangkit.bahanbaku.core.domain.model.Recipe
+import com.bangkit.bahanbaku.core.data.remote.response.RecipeDetailItem
 import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.databinding.ActivityDetailBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
@@ -28,7 +32,7 @@ class DetailActivity : AppCompatActivity() {
 
     private val viewModel: DetailViewModel by viewModels()
     private var isRecipeBookmarked = MutableLiveData(false)
-    internal var recipe: Recipe? = null
+    internal var recipe: RecipeDetailItem? = null
     internal var isLocationNull = true
     private var token: String? = null
     private var isBookmarkChanged = false
@@ -90,13 +94,13 @@ class DetailActivity : AppCompatActivity() {
                         binding.tvServings.text = "${recipe.portion} servings"
 
                         binding.rvIngredients.apply {
-//                            adapter = DetailItemAdapter(recipe.ingredients)
-//                            layoutManager = LinearLayoutManager(this@DetailActivity)
+                            adapter = RecipeDetailIngredientsGridAdapter(recipe.ingredients)
+                            layoutManager = GridLayoutManager(this@DetailActivity, 2)
                         }
 
                         binding.rvInstructions.apply {
-//                            adapter = DetailItemAdapter(recipe.steps)
-//                            layoutManager = LinearLayoutManager(this@DetailActivity)
+                            adapter = RecipeDetailStepsListAdapter(recipe.steps)
+                            layoutManager = LinearLayoutManager(this@DetailActivity)
                         }
 
                         Glide.with(this)

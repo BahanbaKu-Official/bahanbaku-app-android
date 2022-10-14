@@ -16,9 +16,9 @@ interface ApiService {
     ): Flowable<RegisterResponse>
 
     @FormUrlEncoded
-    @POST("user/login")
+    @POST("login")
     fun login(
-        @Field("email") email: String,
+        @Field("username") email: String,
         @Field("password") password: String
     ): Flowable<LoginResponse>
 
@@ -61,15 +61,15 @@ interface ApiService {
         @Path("id") id: String
     ): Flowable<DeleteBookmarkResponse>
 
-    @GET("/recipe")
+    @GET("/recipes")
     fun getRecipe(
         @Header("Authorization") token: String,
-        @Query("search") search: String? = null,
-        @Query("featured") featured: Int? = null,
+        @Query("name") name: String? = null,
+        @Query("newest") featured: Int? = null,
         @Query("new") new: Int? = null
     ): Flowable<GetAllRecipesResponse>
 
-    @GET("/recipe/{id}")
+    @GET("/recipes/{id}")
     fun getRecipeById(
         @Header("Authorization") token: String,
         @Path("id") id: String

@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bangkit.bahanbaku.core.adapter.RecipeCardLargeAdapter
+import com.bangkit.bahanbaku.core.adapter.RecipeCardMediumAdapter
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.databinding.FragmentHomeBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
@@ -86,6 +88,13 @@ class HomeFragment : Fragment() {
                         val data = result.data!!
                         binding.rvMoreRecipes.apply {
                             adapter = RecipeCardLargeAdapter(data)
+                            layoutManager = StaggeredGridLayoutManager(
+                                2, LinearLayoutManager.VERTICAL
+                            )
+                        }
+
+                        binding.rvRecipeRecommendation1.apply {
+                            adapter = RecipeCardMediumAdapter(data)
                             layoutManager = LinearLayoutManager(
                                 requireContext(),
                                 LinearLayoutManager.HORIZONTAL,

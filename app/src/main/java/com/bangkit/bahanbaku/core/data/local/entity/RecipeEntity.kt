@@ -12,8 +12,8 @@ data class RecipeEntity(
     @field:SerializedName("createdAt")
     val createdAt: String,
 
-    @field:SerializedName("deletedAt")
-    val deletedAt: String,
+//    @field:SerializedName("deletedAt")
+//    val deletedAt: String,
 
     @field:SerializedName("author")
     val author: String,
@@ -25,7 +25,7 @@ data class RecipeEntity(
     val portion: Int,
 
     @field:SerializedName("rating")
-    val rating: Int,
+    val rating: Double,
 
     @field:SerializedName("description")
     val description: String,

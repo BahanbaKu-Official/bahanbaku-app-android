@@ -12,7 +12,7 @@ import com.bangkit.bahanbaku.core.domain.model.RecipeDetail
 
 object DataMapper {
 
-    /*
+    /* TODO: Clean up is needed
     * These functions are used to convert the data between responses, entities, and domains
     * These couple of functions are for recipe data
     */
@@ -28,7 +28,7 @@ object DataMapper {
             portion = it.portion,
             recipeId = it.recipeId,
             updatedAt = it.updatedAt,
-            deletedAt = it.deletedAt
+//            deletedAt = it.deletedAt
         )
     }
 
@@ -43,7 +43,7 @@ object DataMapper {
         portion = input.portion,
         recipeId = input.recipeId,
         updatedAt = input.updatedAt,
-        deletedAt = input.deletedAt
+//        deletedAt = input.deletedAt
     )
 
     fun mapRecipeDomainToRecipeEntity(input: Recipe) = RecipeEntity(
@@ -57,7 +57,7 @@ object DataMapper {
         portion = input.portion,
         recipeId = input.recipeId,
         updatedAt = input.updatedAt,
-        deletedAt = input.deletedAt
+//        deletedAt = input.deletedAt
     )
 
     fun mapRecipeResponseToRecipeEntity(input: List<RecipeItem>): List<RecipeEntity> =
@@ -73,7 +73,7 @@ object DataMapper {
                 portion = it.portion,
                 recipeId = it.recipeId,
                 updatedAt = it.updatedAt,
-                deletedAt = it.deletedAt
+//                deletedAt = it.deletedAt
             )
         }
 
@@ -88,7 +88,7 @@ object DataMapper {
         portion = input.portion,
         recipeId = input.recipeId,
         updatedAt = input.updatedAt,
-        deletedAt = input.deletedAt
+//        deletedAt = input.deletedAt
     )
 
     /*

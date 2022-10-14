@@ -7,11 +7,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Recipe(
     val createdAt: String,
-    val deletedAt: String,
+//    val deletedAt: String,
     val author: String,
     val imageUrl: String,
     val portion: Int,
-    val rating: Int,
+    val rating: Double,
     val description: String,
     val time: Int,
     val title: String,

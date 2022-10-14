@@ -28,7 +28,7 @@
                 android:layout_height="30dp">
 
                 <TextView
-                    android:id="@+id/tv_dash"
+                    android:id="@+id/tv_number"
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:textAlignment="center"
@@ -41,7 +41,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/tv_ingredient"
+            android:id="@+id/tv_step"
             style="@style/Text.Body.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

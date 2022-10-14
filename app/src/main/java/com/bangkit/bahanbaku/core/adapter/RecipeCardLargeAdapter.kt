@@ -35,9 +35,7 @@ class RecipeCardLargeAdapter(private val list: List<Recipe>) : RecyclerView.Adap
             binding.let {
                 binding.tvRecipeName.text = recipe?.title
                 binding.tvRecipeDescription.text = recipe?.description
-                
-                // TODO: Implement time
-
+                binding.tvTime.text = recipe?.time.toString()
                 binding.tvRating.text = recipe?.rating.toString()
 
                 Glide.with(itemView.context)
