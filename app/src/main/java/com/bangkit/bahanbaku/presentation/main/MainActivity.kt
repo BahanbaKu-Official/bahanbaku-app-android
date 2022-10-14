@@ -28,9 +28,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-        validateToken()
+//        validateToken() TODO: remove when done
 
         val navView: BottomNavigationView = binding.navView
+        navView.background = null
+        navView.menu.getItem(2).isEnabled = false
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 

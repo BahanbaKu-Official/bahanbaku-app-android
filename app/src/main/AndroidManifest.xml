@@ -26,10 +26,7 @@
             android:name=".presentation.splashscreen.SplashScreenActivity"
             android:theme="@style/SplashScreen"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".presentation.landing.LandingPageActivity"
@@ -86,6 +83,7 @@
             android:label="@string/ingredients" />
         <activity
             android:name=".presentation.detail.DetailActivity"
+            android:theme="@style/Theme.BahanbaKuDetails"
             android:exported="false"
             android:label="@string/recipe" />
         <activity
@@ -102,7 +100,11 @@
             android:label="@string/login" />
         <activity
             android:name=".presentation.main.MainActivity"
-            android:exported="false" >
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

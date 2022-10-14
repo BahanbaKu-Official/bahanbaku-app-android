@@ -23,7 +23,7 @@ class RecipeCardLargeAdapter(private val list: List<Recipe>) : RecyclerView.Adap
 
         holder.binding.cardRecipe.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailActivity::class.java)
-            intent.putExtra(DetailActivity.EXTRA_RECIPE_ID, recipe.id)
+            intent.putExtra(DetailActivity.EXTRA_RECIPE_ID, recipe.recipeId)
             holder.itemView.context.startActivity(intent)
         }
     }
@@ -41,7 +41,7 @@ class RecipeCardLargeAdapter(private val list: List<Recipe>) : RecyclerView.Adap
                 binding.tvRating.text = recipe?.rating.toString()
 
                 Glide.with(itemView.context)
-                    .load(recipe?.image)
+                    .load(recipe?.imageUrl)
                     .into(binding.imgRecipe)
             }
         }

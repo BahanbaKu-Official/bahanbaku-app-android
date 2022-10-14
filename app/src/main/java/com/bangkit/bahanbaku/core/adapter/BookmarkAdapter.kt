@@ -26,7 +26,7 @@ class BookmarkAdapter :
 
         holder.binding.cardBookmark.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailActivity::class.java)
-            intent.putExtra(DetailActivity.EXTRA_RECIPE_ID, recipe.id)
+            intent.putExtra(DetailActivity.EXTRA_RECIPE_ID, recipe.recipeId)
             holder.itemView.context.startActivity(intent)
         }
     }
@@ -37,12 +37,12 @@ class BookmarkAdapter :
             binding.tvRecipe.text = recipe.title
             binding.tvRecipeDescription.text = recipe.description
             binding.tvServings.text =
-                itemView.context.getString(R.string.serving).format(recipe.servings)
+                itemView.context.getString(R.string.serving).format(recipe.portion)
 
             binding.rating.tvRating.text = recipe.rating.toString()
 
             Glide.with(itemView.context)
-                .load(recipe.image)
+                .load(recipe.imageUrl)
                 .into(binding.imgRecipe)
         }
     }

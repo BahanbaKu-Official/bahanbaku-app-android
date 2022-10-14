@@ -67,7 +67,7 @@ interface ApiService {
         @Query("search") search: String? = null,
         @Query("featured") featured: Int? = null,
         @Query("new") new: Int? = null
-    ): Flowable<RecipeResponse>
+    ): Flowable<GetAllRecipesResponse>
 
     @GET("/recipe/{id}")
     fun getRecipeById(

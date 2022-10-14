@@ -13,8 +13,8 @@ interface RecipeDao {
     @Query("SELECT * FROM recipe")
     fun getRecipes(): Flowable<List<RecipeEntity>>
 
-    @Query("SELECT * FROM recipe WHERE id = :id")
-    fun getRecipeById(id: String): Flowable<RecipeEntity>
+    @Query("SELECT * FROM recipe WHERE recipeId = :recipeId")
+    fun getRecipeById(recipeId: String): Flowable<RecipeEntity>
 
     @Query("DELETE FROM recipe")
     fun deleteAllRecipes()

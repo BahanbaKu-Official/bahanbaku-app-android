@@ -9,18 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.bahanbaku.core.adapter.HomeRecipeAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeCardLargeAdapter
 import com.bangkit.bahanbaku.core.data.Resource
-import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.databinding.FragmentHomeBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
-import com.bangkit.bahanbaku.presentation.profile.ProfileActivity
 import com.bangkit.bahanbaku.presentation.search.SearchActivity
-import com.bangkit.bahanbaku.presentation.updatelocation.UpdateLocationActivity
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -79,41 +73,6 @@ class HomeFragment : Fragment() {
         if (token != null) {
             val token = this.token as String
 
-            /*viewModel.getFeaturedRecipe(token).observe(requireActivity()) { result ->
-                when (result) {
-                    is Resource.Loading -> {
-                        binding.progressBar.isVisible = true
-                    }
-
-                    is Resource.Error -> {
-                        val error = result.error
-                        Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
-                        binding.progressBar.isVisible = false
-                    }
-
-                    is Resource.Success -> {
-                        binding.progressBar.isVisible = false
-                        val data = result.data
-                        binding.cardFeatured.tvRecipe.text = data.title
-                        binding.cardFeatured.tvRecipeDescription.text = data.description
-                        binding.cardFeatured.tvServings.text =
-                            getString(R.string.serving).format(data.servings)
-
-                        binding.cardFeatured.rating.tvRating.text = data.rating.toString()
-
-                        binding.cardFeatured.cardFeatured.setOnClickListener {
-                            val intent = Intent(requireContext(), DetailActivity::class.java)
-                            intent.putExtra(DetailActivity.EXTRA_RECIPE_ID, data.id)
-                            startActivity(intent)
-                        }
-
-                        Glide.with(this)
-                            .load(data.image)
-                            .into(binding.cardFeatured.imgRecipe)
-                    }
-                }
-            }*/
-
             viewModel.getRecipes(token).observe(requireActivity()) { result ->
                 when (result) {
                     is Resource.Loading -> {
@@ -121,7 +80,6 @@ class HomeFragment : Fragment() {
                     }
 
                     is Resource.Error -> {
-
                     }
 
                     is Resource.Success -> {

@@ -1,16 +1,12 @@
-package com.bangkit.bahanbaku.core.data.local.entity
+package com.bangkit.bahanbaku.core.domain.model
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "ingredient")
-data class IngredientEntity(
+data class Ingredient(
 
-    @PrimaryKey
     @field:SerializedName("ingredientId")
     val ingredientId: String,
 
@@ -39,5 +35,5 @@ data class IngredientEntity(
     val updatedAt: String,
 
     @field:SerializedName("products")
-    val products: ProductEntity
+    val products: Product
 ) : Parcelable

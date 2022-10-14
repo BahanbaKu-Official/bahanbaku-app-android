@@ -17,11 +17,6 @@ class DialogIngredientsAdapter(private val list: ArrayList<IngredientEntity>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ingredient = list[position]
         holder.bind(ingredient)
-
-        holder.binding.cbIngredient.setOnClickListener {
-            val isChecked = holder.binding.cbIngredient.isChecked
-            ingredient.checked = isChecked
-        }
     }
 
     override fun getItemCount() = list.size
@@ -29,7 +24,6 @@ class DialogIngredientsAdapter(private val list: ArrayList<IngredientEntity>) :
     class ViewHolder(val binding: ItemIngredientsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: IngredientEntity) {
             binding.tvIngredient.text = item.ingredient
-            binding.cbIngredient.isChecked = item.checked
         }
     }
 }

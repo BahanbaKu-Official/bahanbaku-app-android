@@ -4,12 +4,12 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Product(
+data class Step(
+    val sequence: Int,
     val createdAt: String,
-    val deletedAt: String,
-    val productId: String,
-    val price: Int,
-    val name: String,
-    val stock: Int,
+    val stepId: String,
+    val ingredients: List<Ingredient>,
+    val step: String,
+    val recipeId: String,
     val updatedAt: String
 ) : Parcelable

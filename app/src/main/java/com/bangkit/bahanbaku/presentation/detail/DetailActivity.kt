@@ -9,11 +9,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
-import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.bahanbaku.R
-import com.bangkit.bahanbaku.core.adapter.DetailItemAdapter
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.domain.model.Recipe
 import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
@@ -35,7 +32,6 @@ class DetailActivity : AppCompatActivity() {
     internal var isLocationNull = true
     private var token: String? = null
     private var isBookmarkChanged = false
-    private lateinit var ingredientsDialog: IngredientsDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +40,8 @@ class DetailActivity : AppCompatActivity() {
         setSupportActionBar(binding.topAppBarRecipeDetail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        getToken()
+
+//        getToken()
     }
 
     private fun getToken() {
@@ -86,38 +83,38 @@ class DetailActivity : AppCompatActivity() {
                         binding.progressBar.isVisible = false
                         val recipe = result.data!!
                         this.recipe = recipe
-                        checkIfRecipeBookmarked(token, recipe.id)
+                        checkIfRecipeBookmarked(token, recipe.recipeId)
 
                         supportActionBar?.title = recipe.title
                         binding.tvDescription.text = recipe.description
-                        binding.tvServings.text = "${recipe.servings} servings"
+                        binding.tvServings.text = "${recipe.portion} servings"
 
                         binding.rvIngredients.apply {
-                            adapter = DetailItemAdapter(recipe.ingredients)
-                            layoutManager = LinearLayoutManager(this@DetailActivity)
+//                            adapter = DetailItemAdapter(recipe.ingredients)
+//                            layoutManager = LinearLayoutManager(this@DetailActivity)
                         }
 
                         binding.rvInstructions.apply {
-                            adapter = DetailItemAdapter(recipe.steps)
-                            layoutManager = LinearLayoutManager(this@DetailActivity)
+//                            adapter = DetailItemAdapter(recipe.steps)
+//                            layoutManager = LinearLayoutManager(this@DetailActivity)
                         }
 
                         Glide.with(this)
-                            .load(recipe.image)
+                            .load(recipe.imageUrl)
                             .into(binding.imgRecipe)
                     }
                 }
             }
         }
 
-        binding.btnCheckIngredients.setOnClickListener {
-            val ingredients = recipe?.ingredients
-            if (ingredients != null) {
-                ingredientsDialog = IngredientsDialog()
-                ingredientsDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.TransparentDialog)
-                ingredientsDialog.show(supportFragmentManager, INGREDIENTS_DIALOG)
-            }
-        }
+//        binding.btnCheckIngredients.setOnClickListener {
+//            val ingredients = recipe?.ingredients
+//            if (ingredients != null) {
+//                ingredientsDialog = IngredientsDialog()
+//                ingredientsDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.TransparentDialog)
+//                ingredientsDialog.show(supportFragmentManager, INGREDIENTS_DIALOG)
+//            }
+//        }
     }
 
     internal fun cleanseIngredients(list: List<String>): ArrayList<String> {
