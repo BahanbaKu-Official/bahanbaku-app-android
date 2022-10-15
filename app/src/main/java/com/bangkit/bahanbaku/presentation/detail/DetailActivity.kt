@@ -21,6 +21,7 @@ import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.data.remote.response.RecipeDetailItem
 import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.databinding.ActivityDetailBinding
+import com.bangkit.bahanbaku.presentation.cookingguide.CookingGuideActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -91,6 +92,13 @@ class DetailActivity : AppCompatActivity() {
                         binding.progressBar.isVisible = false
                         val recipe = result.data!!
                         this.recipe = recipe
+
+                        binding.fabCookGuide.setOnClickListener {
+                            val intent = Intent(this, CookingGuideActivity::class.java)
+                            intent.putExtra(CookingGuideActivity.EXTRA_ID, recipe.recipeId)
+                            startActivity(intent)
+                        }
+
 //                        checkIfRecipeBookmarked(token, recipe.recipeId)
 
                         binding.topAppBarRecipeDetail.title = recipe.title
