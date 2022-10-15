@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/bookmark"
-        android:icon="@drawable/ic_baseline_bookmark_border_24"
+        android:icon="@drawable/ic_favorite"
         android:title="@string/bookmark"
         app:showAsAction="always"
         />

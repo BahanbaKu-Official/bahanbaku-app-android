@@ -2,24 +2,30 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/top_app_bar_layout"
         android:layout_width="match_parent"
+        app:liftOnScroll="true"
+        android:fitsSystemWindows="true"
         android:backgroundTint="@color/pure_white"
         android:layout_height="wrap_content">
         
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            style="?attr/collapsingToolbarLayoutMediumStyle"
+            style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
             app:maxLines="3"
+            app:titleCollapseMode="scale"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             android:layout_height="?attr/collapsingToolbarLayoutMediumSize">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/top_app_bar_recipe_detail"
                 android:layout_width="match_parent"
+                app:layout_collapseMode="pin"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/placeholder_recipe_name"
                 app:menu="@menu/menu_item_recipe"
@@ -31,6 +37,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="match_parent">
 
@@ -176,13 +183,25 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_description"
                 app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_icon_ingredients_view"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:icon="@drawable/ic_grid_view"
+                app:iconTint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_ingredients"
+                app:layout_constraintBottom_toBottomOf="@id/tv_ingredients"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginHorizontal="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ingredients"
+                app:layout_constraintTop_toBottomOf="@+id/btn_icon_ingredients_view"
                 tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:orientation="vertical"
                 app:spanCount="2"
@@ -208,20 +227,9 @@
                 app:layout_constraintEnd_toEndOf="@+id/tv_instructions"
                 app:layout_constraintStart_toStartOf="@+id/tv_instructions"
                 app:layout_constraintTop_toBottomOf="@+id/tv_instructions"
-                tools:listitem="@layout/item_card_step_list" />
-
-            <Button
-                android:id="@+id/btn_check_ingredients"
-                style="@style/Button.Active"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/buy_ingredients"
-                app:layout_constraintTop_toBottomOf="@id/rv_instructions"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="8dp"
-                />
+                android:layout_marginBottom="100dp"
+                tools:listitem="@layout/item_card_step_list" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -235,4 +243,68 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchorGravity="top|end"
+        app:layout_anchor="@id/layout_bottom_bar"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/play_circle"
+        android:layout_marginBottom="100dp"
+        app:backgroundTint="@color/pure_white"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_bottom_bar"
+        android:layout_width="match_parent"
+        android:elevation="8dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/pure_white">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btn_add_to_cart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="W,1:1"
+            android:layout_marginStart="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/black"
+            style="@style/Widget.Material3.CardView.Elevated"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_check_ingredients"
+            app:layout_constraintBottom_toBottomOf="@id/btn_check_ingredients">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/local_mall"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/btn_check_ingredients"
+            style="@style/Button.Active"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/btn_add_to_cart"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/buy_ingredients"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

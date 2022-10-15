@@ -4,7 +4,7 @@
 
     <item>
         <bitmap
-            android:src="@drawable/logo_bahanbaku_extended"
+            android:src="@drawable/logo_bahanbaku"
             android:gravity="center"/>
     </item>
 </layer-list>

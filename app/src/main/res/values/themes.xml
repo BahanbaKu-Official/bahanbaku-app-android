@@ -15,10 +15,11 @@
         <!-- Customize your theme here. -->
         <item name="colorSurface">@color/white</item>
         <item name="android:colorBackground">@color/white</item>
-        <item name="android:navigationBarColor">@color/primary</item>
+        <item name="android:navigationBarColor">@color/white</item>
 
         <item name="actionBarStyle">@style/ActionBar</item>
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="colorSecondaryContainer">#FFEB92</item>
     </style>
 
     <!-- Details application theme. -->
@@ -37,9 +38,10 @@
         <!-- Customize your theme here. -->
         <item name="colorSurface">@color/white</item>
         <item name="android:colorBackground">@color/white</item>
-        <item name="android:navigationBarColor">@color/primary</item>
+        <item name="android:navigationBarColor">@color/white</item>
 
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="colorSecondaryContainer">#FFEB92</item>
     </style>
 
     <style name="ActionBar" parent="Widget.Material3.Light.ActionBar.Solid">
@@ -48,8 +50,8 @@
 
     <style name="SplashScreen" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
-        <item name="colorPrimary">@color/primary</item>
-        <item name="android:statusBarColor">@color/primary</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:statusBarColor">@color/white</item>
     </style>
 
 <!--    DIALOG FRAGMENTS-->
@@ -63,11 +65,13 @@
 <!--    BOTTOM NAV-->
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+        <item name="colorSecondaryContainer">#FFEB92</item>
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
         <item name="colorSurface">@color/primary_lighter</item>
         <item name="colorOnSurfaceVariant">@color/primary</item>
+        <item name="colorSecondaryContainer">#FFEB92</item>
     </style>
 
 <!--    TEXT FIELD-->

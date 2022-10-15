@@ -111,7 +111,7 @@ data class RecipeDetailItem(
 	val portion: Int,
 
 	@field:SerializedName("rating")
-	val rating: Int,
+	val rating: Double,
 
 	@field:SerializedName("description")
 	val description: String,
@@ -126,7 +126,7 @@ data class RecipeDetailItem(
 	val recipeId: String,
 
 	@field:SerializedName("tags")
-	val tags: List<String>,
+	val tags: List<RecipeTagsResponse>,
 
 	@field:SerializedName("createdAt")
 	val createdAt: String,

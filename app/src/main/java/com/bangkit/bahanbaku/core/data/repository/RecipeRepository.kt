@@ -19,25 +19,7 @@ class RecipeRepository (
     private val appExecutors: AppExecutors
 ) : IRecipeRepository {
     override fun getNewRecipes(token: String): Flowable<Resource<List<Recipe>>> =
-        object : NetworkBoundResource<List<Recipe>, List<RecipeItem>>(appExecutors) {
-            override fun createCall(): Flowable<ApiResponse<List<RecipeItem>>> {
-                return remoteDataSource.getNewRecipes(token)
-            }
-
-            override fun loadFromDB(): Flowable<List<Recipe>> {
-                return localDataSource.getAllRecipes().map {
-                    DataMapper.mapRecipeEntitiesToRecipeDomain(it)
-                }
-            }
-
-            override fun shouldFetch(data: List<Recipe>?): Boolean = data == null || data.isEmpty()
-
-            override fun saveCallResult(data: List<RecipeItem>) {
-                val recipeList = DataMapper.mapRecipeResponseToRecipeEntity(data)
-                localDataSource.insertRecipes(recipeList)
-            }
-
-        }.asFlowable()
+        remoteDataSource.getNewRecipes(token)
 
     override fun searchRecipe(token: String, query: String): Flowable<Resource<List<Recipe>>> =
         remoteDataSource.searchRecipe(token, query)

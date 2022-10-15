@@ -12,8 +12,10 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.adapter.RecipeDetailIngredientsGridAdapter
+import com.bangkit.bahanbaku.core.adapter.RecipeDetailIngredientsListAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeDetailStepsListAdapter
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.data.remote.response.RecipeDetailItem
@@ -33,19 +35,21 @@ class DetailActivity : AppCompatActivity() {
     private val viewModel: DetailViewModel by viewModels()
     private var isRecipeBookmarked = MutableLiveData(false)
     internal var recipe: RecipeDetailItem? = null
-    internal var isLocationNull = true
     private var token: String? = null
     private var isBookmarkChanged = false
+    private var isIngredientsViewGrid = MutableLiveData(false)
+    private lateinit var ingredientsRv: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        ingredientsRv = binding.rvIngredients
         setSupportActionBar(binding.topAppBarRecipeDetail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
 
-
-//        getToken()
+        getToken()
     }
 
     private fun getToken() {
@@ -63,13 +67,13 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupView(token: String) {
-        viewModel.getProfile(token).observe(this) {
-            if (it is Resource.Success) {
-                val lat = it.data!!.lat
-                val lon = it.data.lon
-                isLocationNull = (lat == 0.0 && lon == 0.0)
-            }
-        }
+//        viewModel.getProfile(token).observe(this) {
+//            if (it is Resource.Success) {
+//                val lat = it.data!!.lat
+//                val lon = it.data.lon
+//                isLocationNull = (lat == 0.0 && lon == 0.0)
+//            }
+//        }
 
         val recipeId = intent.getStringExtra(EXTRA_RECIPE_ID)
         if (recipeId != null) {
@@ -87,15 +91,15 @@ class DetailActivity : AppCompatActivity() {
                         binding.progressBar.isVisible = false
                         val recipe = result.data!!
                         this.recipe = recipe
-                        checkIfRecipeBookmarked(token, recipe.recipeId)
+//                        checkIfRecipeBookmarked(token, recipe.recipeId)
 
-                        supportActionBar?.title = recipe.title
+                        binding.topAppBarRecipeDetail.title = recipe.title
                         binding.tvDescription.text = recipe.description
                         binding.tvServings.text = "${recipe.portion} servings"
 
-                        binding.rvIngredients.apply {
-                            adapter = RecipeDetailIngredientsGridAdapter(recipe.ingredients)
-                            layoutManager = GridLayoutManager(this@DetailActivity, 2)
+                        ingredientsRv.apply {
+                            adapter = RecipeDetailIngredientsListAdapter(recipe!!.ingredients)
+                            layoutManager = LinearLayoutManager(this@DetailActivity)
                         }
 
                         binding.rvInstructions.apply {
@@ -107,6 +111,34 @@ class DetailActivity : AppCompatActivity() {
                             .load(recipe.imageUrl)
                             .into(binding.imgRecipe)
                     }
+                }
+            }
+        }
+
+        binding.btnIconIngredientsView.setOnClickListener {
+            isIngredientsViewGrid.postValue(!isIngredientsViewGrid.value!!)
+        }
+
+        isIngredientsViewGrid.observe(this) {
+            if (recipe != null) {
+                if (it) {
+                    ingredientsRv.apply {
+                        adapter = RecipeDetailIngredientsGridAdapter(recipe!!.ingredients)
+                        layoutManager = GridLayoutManager(this@DetailActivity, 2)
+                    }
+                    binding.btnIconIngredientsView.icon = AppCompatResources.getDrawable(
+                        this,
+                        R.drawable.ic_list_view
+                    )
+                } else {
+                    ingredientsRv.apply {
+                        adapter = RecipeDetailIngredientsListAdapter(recipe!!.ingredients)
+                        layoutManager = LinearLayoutManager(this@DetailActivity)
+                    }
+                    binding.btnIconIngredientsView.icon = AppCompatResources.getDrawable(
+                        this,
+                        R.drawable.ic_grid_view
+                    )
                 }
             }
         }
@@ -165,7 +197,7 @@ class DetailActivity : AppCompatActivity() {
             } else {
                 menu.findItem(R.id.bookmark).icon = AppCompatResources.getDrawable(
                     this,
-                    R.drawable.ic_baseline_bookmark_border_24
+                    R.drawable.ic_favorite
                 )
             }
         }

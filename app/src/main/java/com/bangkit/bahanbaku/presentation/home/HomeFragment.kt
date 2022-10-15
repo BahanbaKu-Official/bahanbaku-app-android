@@ -8,14 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bangkit.bahanbaku.core.adapter.HomeCategoriesAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeCardLargeAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeCardMediumAdapter
+import com.bangkit.bahanbaku.core.adapter.RecipeCardMediumTimeAdapter
 import com.bangkit.bahanbaku.core.data.Resource
+import com.bangkit.bahanbaku.core.utils.categories
+import com.bangkit.bahanbaku.core.utils.imagePlaceholderUrl
 import com.bangkit.bahanbaku.databinding.FragmentHomeBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.bangkit.bahanbaku.presentation.search.SearchActivity
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,6 +77,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupData(viewModel: HomeViewModel) {
+        Glide.with(requireContext())
+            .load(imagePlaceholderUrl)
+            .into(binding.imgBanner)
+
+        binding.rvRecipeCategories.apply {
+            adapter = HomeCategoriesAdapter(categories)
+            layoutManager = GridLayoutManager(requireContext(), 3)
+        }
 
         if (token != null) {
             val token = this.token as String
@@ -95,6 +109,24 @@ class HomeFragment : Fragment() {
 
                         binding.rvRecipeRecommendation1.apply {
                             adapter = RecipeCardMediumAdapter(data)
+                            layoutManager = LinearLayoutManager(
+                                requireContext(),
+                                LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+                        }
+
+                        binding.rvRecipeRecommendation2.apply {
+                            adapter = RecipeCardMediumAdapter(data)
+                            layoutManager = LinearLayoutManager(
+                                requireContext(),
+                                LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+                        }
+
+                        binding.rvMorningRecommendationRecipe.apply {
+                            adapter = RecipeCardMediumTimeAdapter(data)
                             layoutManager = LinearLayoutManager(
                                 requireContext(),
                                 LinearLayoutManager.HORIZONTAL,

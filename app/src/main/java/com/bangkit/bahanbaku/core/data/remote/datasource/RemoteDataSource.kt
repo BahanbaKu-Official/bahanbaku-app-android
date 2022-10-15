@@ -24,8 +24,8 @@ import java.io.File
 class RemoteDataSource private constructor(private val apiService: ApiService) {
 
     //    RECIPES data sources
-    fun getNewRecipes(token: String): Flowable<ApiResponse<List<RecipeItem>>> {
-        val resultData = PublishSubject.create<ApiResponse<List<RecipeItem>>>()
+    fun getNewRecipes(token: String): Flowable<Resource<List<Recipe>>> {
+        val resultData = PublishSubject.create<Resource<List<Recipe>>>()
         val client = apiService.getRecipe(token)
 
         val disposable = client
@@ -34,9 +34,12 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             .take(1)
             .subscribe({ response ->
                 val data = response.results
-                resultData.onNext(if (data.isNotEmpty()) ApiResponse.Success(data) else ApiResponse.Empty)
+                val entity = DataMapper.mapRecipeResponseToRecipeEntity(data)
+                val domain = DataMapper.mapRecipeEntitiesToRecipeDomain(entity)
+                resultData.onNext(if (domain.isNotEmpty()) Resource.Success(domain) else Resource.Error(
+                    ERROR_NULL_VALUE))
             }, { error ->
-                resultData.onNext(ApiResponse.Error(error.message.toString()))
+                resultData.onNext(Resource.Error(error.message.toString()))
                 Log.e(TAG, error.toString())
             })
 

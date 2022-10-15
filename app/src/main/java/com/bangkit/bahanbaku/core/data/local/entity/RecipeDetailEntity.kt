@@ -17,7 +17,7 @@ data class RecipeDetailEntity(
     val portion: Int,
 
     @field:SerializedName("rating")
-    val rating: Int,
+    val rating: Double,
 
     @field:SerializedName("description")
     val description: String,

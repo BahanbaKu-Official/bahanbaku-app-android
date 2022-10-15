@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class RecipeDetail(
     val author: String,
     val portion: Int,
-    val rating: Int,
+    val rating: Double,
     val description: String,
     val title: String,
     val steps: List<Step>,
