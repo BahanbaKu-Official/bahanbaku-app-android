@@ -149,4 +149,10 @@
     <string name="chicken">Chicken</string>
     <string name="recommendation_1">Recommendation 1</string>
     <string name="recommendation_2">Recommendation 2</string>
+    <string name="title_item_search">Bawang Putih</string>
+    <string name="desc_item_search">Baluran roti kenyal khas Surabaya</string>
+    <string name="total_item">3 buah</string>
+    <string name="total_raing_search">4.0</string>
+    <string name="I">I</string>
+    <string name="minutes">15 Menit</string>
 </resources>
