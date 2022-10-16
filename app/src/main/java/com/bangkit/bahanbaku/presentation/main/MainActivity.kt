@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.databinding.ActivityMainBinding
+import com.bangkit.bahanbaku.presentation.camera.CameraActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         navView.menu.getItem(2).isEnabled = false
 
         binding.fabMainCamera.setOnClickListener {
-
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
         }
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)

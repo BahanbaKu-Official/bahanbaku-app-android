@@ -32,7 +32,7 @@ class CookingGuideActivity : AppCompatActivity() {
     private val viewModel: CookingGuideViewModel by viewModels()
 
     var modelPath = "lanjut_lalu_v1.tflite"
-    var probabilityThreshold: Float = 0.9f
+    var probabilityThreshold: Float = 0.96f
     private var token: String? = null
     private lateinit var id: String
     private val step = MutableLiveData(1)
