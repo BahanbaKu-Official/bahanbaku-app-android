@@ -155,4 +155,6 @@
     <string name="total_raing_search">4.0</string>
     <string name="I">I</string>
     <string name="minutes">15 Menit</string>
+    <string name="price">Rp.1.500.000</string>
+    <string name="Upload_gallery">Upload from Gallery</string>
 </resources>

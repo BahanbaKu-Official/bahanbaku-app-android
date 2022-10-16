@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity() {
         navView.background = null
         navView.menu.getItem(2).isEnabled = false
 
+        binding.fabMainCamera.setOnClickListener {
+
+        }
+
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
         val appBarConfiguration = AppBarConfiguration(
