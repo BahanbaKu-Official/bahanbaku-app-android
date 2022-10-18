@@ -38,7 +38,7 @@
 
         <TextView
             android:id="@+id/tv_title_checkout"
-            style="@style/Text.Title.Small"
+            style="@style/TextAppearance.Material3.TitleMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -49,7 +49,7 @@
 
         <TextView
             android:id="@+id/tv_total_checkout"
-            style="@style/Text.Body.Medium"
+            style="@style/TextAppearance.Material3.BodySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/total_item"
@@ -60,7 +60,7 @@
 
         <TextView
             android:id="@+id/tv_total_price_checkout"
-            style="@style/Text.Body.Medium"
+            style="@style/TextAppearance.Material3.LabelMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/price"
