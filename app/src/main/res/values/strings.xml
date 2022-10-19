@@ -169,4 +169,10 @@
     <string name="ongkos_kirim">Ongkos kirim</string>
     <string name="potongan_diskon">Potongan Diskon</string>
     <string name="biaya_penanganan">Biaya Penanganan</string>
+    <string name="succeed">berhasil</string>
+    <string name="tab_1">Proses</string>
+    <string name="tab_2">Dikirim</string>
+    <string name="tab_3">Tiba</string>
+    <string name="tab_4">Batal</string>
+    <string name="title_list_order">Order History</string>
 </resources>

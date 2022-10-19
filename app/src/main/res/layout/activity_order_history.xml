@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/container_top_app_bar"
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="-24dp"
+        android:backgroundTint="@color/pure_white"
+        android:orientation="horizontal"
+        app:cardCornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/card_search"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_search"
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:queryHint="Search a recipe"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_icon_cart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/search_for_recipes" />
+
+    <ImageView
+        android:id="@+id/img_search_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:elevation="2dp"
+        android:src="@drawable/ic_baseline_search_24"
+        app:layout_constraintBottom_toBottomOf="@id/card_search"
+        app:layout_constraintStart_toStartOf="@id/card_search"
+        app:layout_constraintTop_toTopOf="@id/card_search"
+        app:tint="@color/gray_text" />
+
+    <TextView
+        style="@style/Text.Body.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:elevation="2dp"
+        android:text="@string/search_for_recipes"
+        android:textColor="@color/gray_text"
+        app:layout_constraintBottom_toBottomOf="@id/img_search_icon"
+        app:layout_constraintStart_toEndOf="@id/img_search_icon"
+        app:layout_constraintTop_toTopOf="@id/img_search_icon" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_icon_cart"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_shopping_cart"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/card_search"
+        app:layout_constraintEnd_toStartOf="@id/btn_icon_notification"
+        app:layout_constraintTop_toTopOf="@id/card_search" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_icon_notification"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:icon="@drawable/ic_notifications"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/card_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/card_search" />
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_top_app_bar"
+        app:tabMode="fixed">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabs_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/autorenew"
+            android:text="@string/tab_1" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabs_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/local_shipping"
+            android:text="@string/tab_2" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabs_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/check_circle"
+            android:text="@string/tab_3" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabs_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/cancel"
+            android:text="@string/tab_4" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <fragment
+        android:id="@+id/nav_host_fragment_activity_main"
+        android:name="com.bangkit.bahanbaku.presentation.home.HomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs_layout"
+        app:layout_constraintVertical_bias="0.0"
+        app:navGraph="@navigation/order_history" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
