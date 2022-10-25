@@ -181,4 +181,9 @@
     <string name="google">Google</string>
     <string name="Qna_akun">Belum punya akun?</string>
     <string name="daftar_sekarang">Daftar Sekarang</string>
+    <string name="No_telp">Nomor Telepon</string>
+    <string name="Daftar">Daftar</string>
+    <string name="desc_Daftar">Daftar dulu ya, biar bisa dapat benefitnya!</string>
+    <string name="Qna_akun_2">Sudah Punya Akun?</string>
+    <string name="masuk">Masuk</string>
 </resources>
