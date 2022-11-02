@@ -298,7 +298,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/recommendation_1"
+            android:text="Western Foods"
             app:layout_constraintStart_toStartOf="@+id/tv_label_categories"
             app:layout_constraintTop_toBottomOf="@id/rv_recipe_categories" />
 
@@ -330,7 +330,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/recommendation_2"
+            android:text="Our Recommendations"
             app:layout_constraintStart_toStartOf="@+id/tv_label_recommendation_1"
             app:layout_constraintTop_toBottomOf="@id/rv_recipe_recommendation_1" />
 

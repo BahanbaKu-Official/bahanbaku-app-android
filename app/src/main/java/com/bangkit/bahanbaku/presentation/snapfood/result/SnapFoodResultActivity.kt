@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.adapter.SnapFoodResultAdapter
 import com.bangkit.bahanbaku.core.data.Resource
+import com.bangkit.bahanbaku.core.data.remote.response.SnapFoodItem
 import com.bangkit.bahanbaku.core.utils.AppExecutors
 import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.core.utils.reduceFileImage
@@ -96,6 +97,7 @@ class SnapFoodResultActivity : AppCompatActivity() {
                     binding.tvStatus.isVisible = true
                     binding.imgSnapfoodStatus.setImageResource(R.drawable.ic_illustration_thinking)
                 }
+
                 is Resource.Error -> {
                     binding.progressBar.isVisible = false
                     binding.tvStatus.isVisible = false
@@ -105,15 +107,21 @@ class SnapFoodResultActivity : AppCompatActivity() {
                     val error = result.message
                     Toast.makeText(this, error ?: ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT).show()
                 }
+
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
                     binding.tvStatus.isVisible = false
-                    val data = result.data!!.results
+                    val interFood = result.data!!.internationalFood
+                    val tradsFood = result.data.traditionalFood
+
+                    val data = mutableListOf<SnapFoodItem>()
+                    data.addAll(tradsFood)
+                    data.addAll(interFood)
 
                     binding.imgSnapfoodStatus.isVisible = data.isEmpty()
 
                     binding.rvFoods.apply {
-                        adapter = SnapFoodResultAdapter(data)
+                        adapter = SnapFoodResultAdapter(interFood)
                         layoutManager = LinearLayoutManager(this@SnapFoodResultActivity)
                     }
                 }

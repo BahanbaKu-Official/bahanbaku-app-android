@@ -4,8 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class SnapFoodResponse(
 
-	@field:SerializedName("result")
-	val results: List<SnapFoodItem>
+	@field:SerializedName("internationalFood")
+	val internationalFood: List<SnapFoodItem>,
+
+	@field:SerializedName("traditionalFood")
+	val traditionalFood: List<SnapFoodItem>
 )
 
 data class SnapFoodItem(

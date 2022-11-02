@@ -55,7 +55,7 @@ data class IngredientsItem(
 	val unit: String,
 
 	@field:SerializedName("amount")
-	val amount: Int,
+	val amount: Double,
 
 	@field:SerializedName("ingredient")
 	val ingredient: String,

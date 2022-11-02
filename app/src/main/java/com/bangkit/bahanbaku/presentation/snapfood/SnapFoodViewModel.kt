@@ -12,5 +12,7 @@ class SnapFoodViewModel @Inject constructor(
     private val profileUseCase: ProfileUseCase
     ) : ViewModel() {
 
+
+
     fun getToken() = profileUseCase.getToken()
 }

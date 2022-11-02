@@ -45,9 +45,7 @@ class CookingGuideActivity : AppCompatActivity() {
         id = intent.getStringExtra(EXTRA_ID) ?: ""
         getToken()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            modelSetup()
-        }
+        modelSetup()
     }
 
     private fun setupView(token: String) {
@@ -108,7 +106,6 @@ class CookingGuideActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     private fun modelSetup() {
         var COUNTER = 0
         val REQUEST_RECORD_AUDIO = 1337
@@ -127,7 +124,7 @@ class CookingGuideActivity : AppCompatActivity() {
         val record = classifier.createAudioRecord()
         record.startRecording()
 
-        Timer().scheduleAtFixedRate(1, 500) {
+        Timer().scheduleAtFixedRate(1, 1000) {
 
             // TODO 4.1: Classifing audio data
             val numberOfSamples = tensor.load(record)
@@ -138,15 +135,12 @@ class CookingGuideActivity : AppCompatActivity() {
                 it.score > probabilityThreshold && it.label != "background"
             }
 
-            // TODO 4.3: Creating a multiline string with the filtered results
-            val outputStr =
-                filteredModelOutput.sortedBy { -it.score }
-                    .joinToString(separator = "\n") { "${it.label} -> ${it.score} " }
-
             // TODO 4.4: Updating the UI
-            if (outputStr.isNotEmpty()) {
-                if (this@CookingGuideActivity::recipeData.isInitialized) {
-                    step.postValue(step.value?.plus(1) ?: 1)
+            if (filteredModelOutput.isNotEmpty()) {
+                if (filteredModelOutput.sortedBy { it.score }[0].label == "lanjut") {
+                    if (this@CookingGuideActivity::recipeData.isInitialized) {
+                        step.postValue(step.value?.plus(1) ?: 1)
+                    }
                 }
             }
         }
