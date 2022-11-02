@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/container_top_app_bar"
@@ -84,35 +83,58 @@
         app:layout_constraintTop_toTopOf="@id/card_search" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_bookmark"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/container_top_app_bar"
-        android:layout_marginHorizontal="12dp"
-        app:spanCount="2"
-        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/item_bookmark"
-        tools:orientation="vertical" />
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/ProgressBar"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_top_app_bar"
+        app:tabMode="fixed">
 
-    <ImageView
-        android:id="@+id/img_no_bookmark"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabs_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/autorenew"
+            android:text="@string/tab_1" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabs_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/local_shipping"
+            android:text="@string/tab_2" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabs_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/check_circle"
+            android:text="@string/tab_3" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabs_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/cancel"
+            android:text="@string/tab_4" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <fragment
+        android:id="@+id/nav_host_fragment_activity_main"
+        android:name="com.bangkit.bahanbaku.presentation.home.HomeFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/ic_illustration_no_bookmark"
-        />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs_layout"
+        app:layout_constraintVertical_bias="0.0"
+        app:navGraph="@navigation/order_history" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
