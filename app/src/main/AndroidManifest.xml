@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -24,10 +24,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".presentation.checkout.CheckoutActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".presentation.cookingguide.CookingGuideActivity"
             android:exported="false"
-            android:theme="@style/Theme.BahanbaKuDetails"
-            >
+            android:theme="@style/Theme.BahanbaKuDetails">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -114,7 +120,7 @@
             android:label="@string/login" />
         <activity
             android:name=".presentation.main.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

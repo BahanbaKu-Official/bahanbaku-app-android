@@ -40,8 +40,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
+            val email = binding.loginEmail.text.toString()
+            val password = binding.loginName.text.toString()
 
             viewModel.saveToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJEMUxzVDRFalN0NVE4STYyIiwidXNlcm5hbWUiOiJoZWl6b3UiLCJyb2xlIjoidXNlciIsImlhdCI6MTY2NTc2NzI5MX0.umyJT-AxJ38q-w7OE4FqBdGNGgvS0dP7e6zOKLqrV6c")
             val intent = Intent(this@LoginActivity, MainActivity::class.java)

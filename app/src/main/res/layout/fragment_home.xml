@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_constraint_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -53,6 +54,7 @@
             app:tint="@color/gray_text" />
 
         <TextView
+            android:id="@+id/text_search"
             style="@style/Text.Body.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -260,6 +262,30 @@
             tools:listitem="@layout/item_card_recipe_medium_time"
             tools:orientation="horizontal" />
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_morning_recommendation_recipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_label_morning_recommendation"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <TextView
             android:id="@+id/tv_label_categories"
             android:layout_width="wrap_content"
@@ -267,7 +293,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/categories"
             app:layout_constraintStart_toStartOf="@id/tv_label_morning_recommendation"
-            app:layout_constraintTop_toBottomOf="@id/rv_morning_recommendation_recipe" />
+            app:layout_constraintTop_toBottomOf="@id/shimmer_morning_recommendation_recipe" />
 
         <TextView
             android:id="@+id/btn_tv_see_all_categories"
@@ -325,6 +351,30 @@
             tools:listitem="@layout/item_card_recipe_medium"
             tools:orientation="horizontal" />
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_recipe_recommendation_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_label_recommendation_1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <TextView
             android:id="@+id/tv_label_recommendation_2"
             android:layout_width="wrap_content"
@@ -332,7 +382,7 @@
             android:layout_marginTop="16dp"
             android:text="Our Recommendations"
             app:layout_constraintStart_toStartOf="@+id/tv_label_recommendation_1"
-            app:layout_constraintTop_toBottomOf="@id/rv_recipe_recommendation_1" />
+            app:layout_constraintTop_toBottomOf="@id/shimmer_recipe_recommendation_1" />
 
         <TextView
             android:id="@+id/btn_tv_see_all_recommendation_2"
@@ -357,6 +407,30 @@
             tools:listitem="@layout/item_card_recipe_medium"
             tools:orientation="horizontal" />
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_recipe_recommendation_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_label_recommendation_2"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+                <include layout="@layout/placeholder_item_recipe_home"/>
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <TextView
             android:id="@+id/tv_label_others"
             android:layout_width="wrap_content"
@@ -364,7 +438,7 @@
             android:layout_marginTop="32dp"
             android:text="@string/discover_more"
             app:layout_constraintStart_toStartOf="@id/tv_home_greetings"
-            app:layout_constraintTop_toBottomOf="@id/rv_recipe_recommendation_2" />
+            app:layout_constraintTop_toBottomOf="@id/shimmer_recipe_recommendation_2" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_more_recipes"

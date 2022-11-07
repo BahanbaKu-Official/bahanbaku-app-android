@@ -106,19 +106,19 @@
             android:icon="@drawable/local_shipping"
             android:text="@string/tab_2" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabs_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/check_circle"
-            android:text="@string/tab_3" />
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tabs_3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:icon="@drawable/check_circle"-->
+<!--            android:text="@string/tab_3" />-->
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabs_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/cancel"
-            android:text="@string/tab_4" />
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tabs_4"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:icon="@drawable/cancel"-->
+<!--            android:text="@string/tab_4" />-->
     </com.google.android.material.tabs.TabLayout>
 
     <fragment

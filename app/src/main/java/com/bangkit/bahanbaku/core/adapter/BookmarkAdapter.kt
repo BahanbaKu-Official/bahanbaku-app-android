@@ -24,26 +24,26 @@ class BookmarkAdapter :
         val recipe = getItem(position)
         holder.bind(recipe)
 
-        holder.binding.cardBookmark.setOnClickListener {
-            val intent = Intent(holder.itemView.context, DetailActivity::class.java)
-            intent.putExtra(DetailActivity.EXTRA_RECIPE_ID, recipe.recipeId)
-            holder.itemView.context.startActivity(intent)
-        }
+//        holder.binding.cardBookmark.setOnClickListener {
+//            val intent = Intent(holder.itemView.context, DetailActivity::class.java)
+//            intent.putExtra(DetailActivity.EXTRA_RECIPE_ID, recipe.recipeId)
+//            holder.itemView.context.startActivity(intent)
+//        }
     }
 
     inner class ViewHolder(val binding: ItemBookmarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: RecipeItem) {
-            binding.tvRecipe.text = recipe.title
-            binding.tvRecipeDescription.text = recipe.description
-            binding.tvServings.text =
-                itemView.context.getString(R.string.serving).format(recipe.portion)
-
-            binding.rating.tvRating.text = recipe.rating.toString()
-
-            Glide.with(itemView.context)
-                .load(recipe.imageUrl)
-                .into(binding.imgRecipe)
+//            binding.tvRecipe.text = recipe.title
+//            binding.tvRecipeDescription.text = recipe.description
+//            binding.tvServings.text =
+//                itemView.context.getString(R.string.serving).format(recipe.portion)
+//
+//            binding.rating.tvRating.text = recipe.rating.toString()
+//
+//            Glide.with(itemView.context)
+//                .load(recipe.imageUrl)
+//                .into(binding.imgRecipe)
         }
     }
 

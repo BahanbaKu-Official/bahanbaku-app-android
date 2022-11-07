@@ -6,11 +6,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.isVisible
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.adapter.HomeCategoriesAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeCardLargeAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeCardMediumAdapter
@@ -92,13 +96,49 @@ class HomeFragment : Fragment() {
             viewModel.getRecipes(token).observe(requireActivity()) { result ->
                 when (result) {
                     is Resource.Loading -> {
-
+                        binding.shimmerMorningRecommendationRecipe.startShimmer()
+                        binding.shimmerRecipeRecommendation1.startShimmer()
+                        binding.shimmerRecipeRecommendation2.startShimmer()
                     }
 
                     is Resource.Error -> {
+
                     }
 
                     is Resource.Success -> {
+                        val constraintLayout = binding.layoutConstraintHome
+                        val constraintSet = ConstraintSet()
+                        constraintSet.clone(constraintLayout)
+                        constraintSet.connect(
+                            R.id.tv_label_categories,
+                            ConstraintSet.TOP,
+                            R.id.rv_morning_recommendation_recipe,
+                            ConstraintSet.BOTTOM,
+                            16
+                        )
+
+                        constraintSet.connect(
+                            R.id.tv_label_recommendation_2,
+                            ConstraintSet.TOP,
+                            R.id.rv_recipe_recommendation_1,
+                            ConstraintSet.BOTTOM,
+                            16
+                        )
+
+                        constraintSet.connect(
+                            R.id.tv_label_others,
+                            ConstraintSet.TOP,
+                            R.id.rv_recipe_recommendation_2,
+                            ConstraintSet.BOTTOM,
+                            16
+                        )
+
+                        constraintSet.applyTo(constraintLayout)
+
+                        binding.shimmerMorningRecommendationRecipe.isVisible = false
+                        binding.shimmerRecipeRecommendation1.isVisible = false
+                        binding.shimmerRecipeRecommendation2.isVisible = false
+
                         val data = result.data!!
                         binding.rvMoreRecipes.apply {
                             adapter = RecipeCardLargeAdapter(data)
