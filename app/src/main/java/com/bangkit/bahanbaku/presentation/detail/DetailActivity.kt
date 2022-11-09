@@ -1,6 +1,7 @@
 package com.bangkit.bahanbaku.presentation.detail
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -81,15 +82,18 @@ class DetailActivity : AppCompatActivity() {
             viewModel.getRecipe(token, recipeId).observe(this) { result ->
                 when (result) {
                     is Resource.Loading -> {
-                        binding.progressBar.isVisible = true
+                        binding.layoutDetail.isVisible = false
+                        binding.shimmerDetailLayout.isVisible = true
+                        binding.shimmerDetailLayout.startShimmer()
                     }
                     is Resource.Error -> {
-                        binding.progressBar.isVisible = false
                         val error = result.message
                         Log.d(TAG, error ?: ERROR_DEFAULT_MESSAGE)
                     }
                     is Resource.Success -> {
-                        binding.progressBar.isVisible = false
+                        binding.layoutDetail.isVisible = true
+                        binding.shimmerDetailLayout.isVisible = false
+                        binding.shimmerDetailLayout.stopShimmer()
                         val recipe = result.data!!
                         this.recipe = recipe
 
@@ -130,9 +134,16 @@ class DetailActivity : AppCompatActivity() {
         isIngredientsViewGrid.observe(this) {
             if (recipe != null) {
                 if (it) {
+                    var spanCount = 2
+
+                    when (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) {
+                        Configuration.SCREENLAYOUT_SIZE_LARGE -> spanCount = 3
+                        Configuration.SCREENLAYOUT_SIZE_XLARGE -> spanCount = 4
+                    }
+
                     ingredientsRv.apply {
                         adapter = RecipeDetailIngredientsGridAdapter(recipe!!.ingredients)
-                        layoutManager = GridLayoutManager(this@DetailActivity, 2)
+                        layoutManager = GridLayoutManager(this@DetailActivity, spanCount)
                     }
                     binding.btnIconIngredientsView.icon = AppCompatResources.getDrawable(
                         this,

@@ -2,7 +2,8 @@ package com.bangkit.bahanbaku.core.data.remote.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
+
 
 @Parcelize
 data class RecipeTagsResponse(
@@ -12,7 +13,7 @@ data class RecipeTagsResponse(
 ) : Parcelable
 
 @Parcelize
-data class RecipeTags(
+data class Tags(
 
 	@field:SerializedName("tagId")
 	val tagId: String,
@@ -34,7 +35,7 @@ data class TagsItem(
 	val tag: String,
 
 	@field:SerializedName("recipe_tags")
-	val recipeTags: RecipeTags,
+	val recipeTags: Tags,
 
 	@field:SerializedName("updatedAt")
 	val updatedAt: String

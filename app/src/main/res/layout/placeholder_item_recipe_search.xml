@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_recipe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="8dp"
+    android:backgroundTint="@color/pure_white"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="16dp"
+    app:strokeColor="#E0E0E0"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="9dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="0dp">
+
+            <ImageView
+                android:id="@+id/img_recipe"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@color/placeholder_gray" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/tv_recipe"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_margin="8dp"
+            android:background="@color/placeholder_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/card_img"
+            app:layout_constraintTop_toTopOf="@+id/card_img" />
+
+        <View
+            android:id="@+id/tv_recipe_description"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:background="@color/placeholder_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_recipe"
+            app:layout_constraintTop_toBottomOf="@id/tv_recipe" />
+
+        <View
+            android:id="@+id/tv_servings"
+            android:layout_width="64dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/placeholder_gray"
+            app:layout_constraintStart_toStartOf="@id/tv_recipe"
+            app:layout_constraintTop_toBottomOf="@id/tv_recipe_description" />
+
+        <ImageView
+            android:id="@+id/ic_star_outline"
+            android:layout_width="16dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="8dp"
+            android:src="@color/placeholder_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_servings" />
+
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="32dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:background="@color/placeholder_gray"
+            app:layout_constraintBottom_toBottomOf="@id/ic_star_outline"
+            app:layout_constraintStart_toEndOf="@+id/ic_star_outline"
+            app:layout_constraintTop_toTopOf="@id/ic_star_outline" />
+
+        <ImageView
+            android:id="@+id/ic_time_outline"
+            android:layout_width="16dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:src="@color/placeholder_gray"
+            app:layout_constraintBottom_toBottomOf="@id/ic_star_outline"
+            app:layout_constraintStart_toEndOf="@+id/tv_rating"
+            app:layout_constraintTop_toTopOf="@id/ic_star_outline" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="64dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:background="@color/placeholder_gray"
+            app:layout_constraintBottom_toBottomOf="@id/ic_time_outline"
+            app:layout_constraintStart_toEndOf="@+id/ic_time_outline"
+            app:layout_constraintTop_toTopOf="@id/ic_time_outline" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

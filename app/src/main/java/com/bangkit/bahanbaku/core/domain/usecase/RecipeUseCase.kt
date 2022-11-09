@@ -9,4 +9,5 @@ interface RecipeUseCase {
     fun getNewRecipes(token: String): Flowable<Resource<List<Recipe>>>
     fun searchRecipe(token: String, query: String): Flowable<Resource<List<Recipe>>>
     fun getRecipeById(token: String, id: String): Flowable<Resource<RecipeDetailItem>>
+    fun getRecipesByTag(token: String, tag: String): Flowable<Resource<List<Recipe>>>
 }

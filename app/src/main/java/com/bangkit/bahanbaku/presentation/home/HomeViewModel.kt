@@ -15,6 +15,9 @@ class HomeViewModel @Inject constructor(
     fun getRecipes(token: String) =
         LiveDataReactiveStreams.fromPublisher(recipeUseCase.getNewRecipes(token))
 
+    fun getRecipesByTag(token: String, tag: String) =
+        LiveDataReactiveStreams.fromPublisher(recipeUseCase.getRecipesByTag(token, tag))
+
 //    fun getFeaturedRecipe(token: String) = recipeRepository.getFeaturedRecipe(token)
 
     fun getToken() = profileUseCase.getToken()

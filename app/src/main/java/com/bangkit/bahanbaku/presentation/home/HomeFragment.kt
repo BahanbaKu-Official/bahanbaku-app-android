@@ -1,6 +1,7 @@
 package com.bangkit.bahanbaku.presentation.home
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -81,13 +82,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupData(viewModel: HomeViewModel) {
-        Glide.with(requireContext())
-            .load(imagePlaceholderUrl)
-            .into(binding.imgBanner)
+        var categoriesSpanCount = 3
+
+        when (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) {
+            Configuration.SCREENLAYOUT_SIZE_LARGE -> categoriesSpanCount = 3
+            Configuration.SCREENLAYOUT_SIZE_XLARGE -> categoriesSpanCount = 6
+        }
 
         binding.rvRecipeCategories.apply {
             adapter = HomeCategoriesAdapter(categories)
-            layoutManager = GridLayoutManager(requireContext(), 3)
+            layoutManager = GridLayoutManager(requireContext(), categoriesSpanCount)
         }
 
         if (token != null) {
@@ -139,11 +143,18 @@ class HomeFragment : Fragment() {
                         binding.shimmerRecipeRecommendation1.isVisible = false
                         binding.shimmerRecipeRecommendation2.isVisible = false
 
+                        var spanCount = 2
+
+                        when (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) {
+                            Configuration.SCREENLAYOUT_SIZE_LARGE -> spanCount = 3
+                            Configuration.SCREENLAYOUT_SIZE_XLARGE -> spanCount = 4
+                        }
+
                         val data = result.data!!
                         binding.rvMoreRecipes.apply {
                             adapter = RecipeCardLargeAdapter(data)
                             layoutManager = StaggeredGridLayoutManager(
-                                2, LinearLayoutManager.VERTICAL
+                                spanCount, LinearLayoutManager.VERTICAL
                             )
                         }
 

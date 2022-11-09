@@ -26,4 +26,7 @@ class RecipeRepository (
 
     override fun getRecipeById(token: String, id: String): Flowable<Resource<RecipeDetailItem>> =
         remoteDataSource.getRecipeById(token, id)
+
+    override fun getRecipeByTag(token: String, tag: String): Flowable<Resource<List<Recipe>>> =
+        remoteDataSource.getRecipesByTag(token, tag)
 }

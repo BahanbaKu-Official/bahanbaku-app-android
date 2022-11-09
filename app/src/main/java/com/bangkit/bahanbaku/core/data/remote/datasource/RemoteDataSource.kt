@@ -6,7 +6,6 @@ import com.bangkit.bahanbaku.core.data.remote.ApiResponse
 import com.bangkit.bahanbaku.core.data.remote.response.*
 import com.bangkit.bahanbaku.core.data.remote.retrofit.ApiService
 import com.bangkit.bahanbaku.core.domain.model.Recipe
-import com.bangkit.bahanbaku.core.domain.model.RecipeDetail
 import com.bangkit.bahanbaku.core.utils.DataMapper
 import com.bangkit.bahanbaku.core.utils.ERROR_NULL_VALUE
 import io.reactivex.BackpressureStrategy
@@ -36,8 +35,38 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
                 val data = response.results
                 val entity = DataMapper.mapRecipeResponseToRecipeEntity(data)
                 val domain = DataMapper.mapRecipeEntitiesToRecipeDomain(entity)
-                resultData.onNext(if (domain.isNotEmpty()) Resource.Success(domain) else Resource.Error(
-                    ERROR_NULL_VALUE))
+                resultData.onNext(
+                    if (domain.isNotEmpty()) Resource.Success(domain) else Resource.Error(
+                        ERROR_NULL_VALUE
+                    )
+                )
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun getRecipesByTag(token: String, tag: String): Flowable<Resource<List<Recipe>>> {
+        val resultData = PublishSubject.create<Resource<List<Recipe>>>()
+        val client = apiService.getRecipeByTag(token, tag)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                val data = response.results
+                val entity = DataMapper.mapRecipeResponseToRecipeEntity(data.recipes)
+                val domain = DataMapper.mapRecipeEntitiesToRecipeDomain(entity)
+                resultData.onNext(
+                    if (domain.isNotEmpty()) Resource.Success(domain) else Resource.Error(
+                        ERROR_NULL_VALUE
+                    )
+                )
             }, { error ->
                 resultData.onNext(Resource.Error(error.message.toString()))
                 Log.e(TAG, error.toString())

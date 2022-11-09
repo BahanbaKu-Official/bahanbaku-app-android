@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -92,15 +93,16 @@ class SearchActivity : AppCompatActivity() {
         viewModel.searchRecipe(token, query).observe(this@SearchActivity) { result ->
             when (result) {
                 is Resource.Loading -> {
-                    binding.progressBar.isVisible = true
+                    binding.shimmerSearchList.startShimmer()
+                    binding.shimmerSearchList.isVisible = true
                 }
                 is Resource.Error -> {
                     val error = result.message
                     Toast.makeText(this@SearchActivity, error ?: ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT).show()
-                    binding.progressBar.isVisible = false
                 }
                 is Resource.Success -> {
-                    binding.progressBar.isVisible = false
+                    binding.shimmerSearchList.stopShimmer()
+                    binding.shimmerSearchList.isVisible = false
                     val data = result.data!!
 
                     if (data.isEmpty()) {

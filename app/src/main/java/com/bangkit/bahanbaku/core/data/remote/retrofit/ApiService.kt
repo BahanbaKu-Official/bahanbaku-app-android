@@ -64,9 +64,7 @@ interface ApiService {
     @GET("/recipes")
     fun getRecipe(
         @Header("Authorization") token: String,
-        @Query("name") name: String? = null,
-        @Query("newest") featured: Int? = null,
-        @Query("new") new: Int? = null
+        @Query("name") name: String? = null
     ): Flowable<GetAllRecipesResponse>
 
     @GET("/recipes/{id}")
@@ -75,26 +73,9 @@ interface ApiService {
         @Path("id") id: String
     ): Flowable<GetRecipeByIdResponse>
 
-    @GET("/ingredients")
-    fun getIngredient(
+    @GET("/tags/search")
+    fun getRecipeByTag(
         @Header("Authorization") token: String,
-        @Query("search") search: String
-    ): Flowable<IngredientResponse>
-
-    @GET("/supplier")
-    fun getSupplier(
-        @Header("Authorization") token: String
-    ): Flowable<SupplierResponse>
-
-    @GET("/supplier/{id}")
-    fun getSupplierById(
-        @Header("Authorization") token: String,
-        @Path("id") id: String
-    ): Flowable<SupplierByIdResponse>
-
-    @GET("/user/nearby-resto")
-    fun getNearbyResto(
-        @Header("Authorization") token: String,
-        @Query("keyword") query: String
-    ): Flowable<NearbyRestoResponse>
+        @Query("tag") tag: String = ""
+    ): Flowable<GetRecipesByTagResponse>
 }

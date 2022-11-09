@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.domain.model.Recipe
-import com.bangkit.bahanbaku.databinding.ItemRecipeSearchBinding
+import com.bangkit.bahanbaku.databinding.ItemRecipeSearchListBinding
 import com.bangkit.bahanbaku.presentation.detail.DetailActivity
 import com.bumptech.glide.Glide
 
@@ -14,7 +14,7 @@ class SearchRecipeAdapter(private val recipes: List<Recipe>) :
     RecyclerView.Adapter<SearchRecipeAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ItemRecipeSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemRecipeSearchListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -31,7 +31,7 @@ class SearchRecipeAdapter(private val recipes: List<Recipe>) :
 
     override fun getItemCount() = recipes.size
 
-    inner class ViewHolder(val binding: ItemRecipeSearchBinding) :
+    inner class ViewHolder(val binding: ItemRecipeSearchListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: Recipe) {
             binding.tvRecipe.text = recipe.title
@@ -39,7 +39,7 @@ class SearchRecipeAdapter(private val recipes: List<Recipe>) :
             binding.tvServings.text =
                 itemView.context.getString(R.string.serving).format(recipe.portion)
 
-            binding.rating.tvRating.text = recipe.rating.toString()
+            binding.tvRating.text = recipe.rating.toString()
 
             Glide.with(itemView)
                 .load(recipe.imageUrl)
