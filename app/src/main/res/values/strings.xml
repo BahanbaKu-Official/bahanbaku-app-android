@@ -186,4 +186,10 @@
     <string name="desc_Daftar">Daftar dulu ya, biar bisa dapat benefitnya!</string>
     <string name="Qna_akun_2">Sudah Punya Akun?</string>
     <string name="masuk">Masuk</string>
+    <string name="menu_cepat">Menu Cepat</string>
+    <string name="notification_profile">Notifikasi</string>
+    <string name="pengaturan">Pengaturan</string>
+    <string name="language">Bahasa</string>
+    <string name="helpdesk">Bantuan</string>
+    <string name="komplain">Komplain</string>
 </resources>

@@ -83,7 +83,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/card_search" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_bookmark"
         android:layout_width="match_parent"
