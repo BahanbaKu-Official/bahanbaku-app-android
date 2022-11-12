@@ -192,4 +192,18 @@
     <string name="language">Bahasa</string>
     <string name="helpdesk">Bantuan</string>
     <string name="komplain">Komplain</string>
+    <string name="search_for_helpdesk">search for helpdesk</string>
+    <string name="desc_card_helpdesk">Selamat Pagi, John!</string>
+    <string name="qna_problem">Ada Masalah?</string>
+    <string name="Pembayaran">Pembayaran</string>
+    <string name="Pengiriman">Pengiriman</string>
+    <string name="Resep">Resep</string>
+    <string name="Voucher">Voucher</string>
+    <string name="tampilan">Tampilan</string>
+    <string name="komentar">Komentar</string>
+    <string name="faqs">FAQs</string>
+    <string name="kontak_kami">Kontak Kami</string>
+    <string name="Email">Email</string>
+    <string name="customer_service">Hubungi Customer Service</string>
+    <string name="keluhan">Keluhan</string>
 </resources>
