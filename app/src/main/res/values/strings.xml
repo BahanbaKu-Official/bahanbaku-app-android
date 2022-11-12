@@ -206,4 +206,9 @@
     <string name="Email">Email</string>
     <string name="customer_service">Hubungi Customer Service</string>
     <string name="keluhan">Keluhan</string>
+    <string name="yakin_mau_keluar">Yakin mau keluar?</string>
+    <string name="batal">Batal</string>
+    <string name="desc_qna_logout">Yakin mau keluar?</string>
+    <string name="desc_logout">Masih banyak resep makanan yang belum kamu explore loh :(</string>
+    <string name="keluar">Keluar</string>
 </resources>
