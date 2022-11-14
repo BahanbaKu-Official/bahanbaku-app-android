@@ -178,12 +178,13 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
     }
 
     fun register(
-        username: String,
+        firstName: String,
+        lastName: String,
         email: String,
         password: String
-    ): Flowable<Resource<RegisterResponse>> {
-        val resultData = PublishSubject.create<Resource<RegisterResponse>>()
-        val client = apiService.register(username, email, password)
+    ): Flowable<Resource<PostRegisterResponse>> {
+        val resultData = PublishSubject.create<Resource<PostRegisterResponse>>()
+        val client = apiService.register(firstName, lastName, email, password)
         resultData.onNext(Resource.Loading(null))
 
         val disposable = client

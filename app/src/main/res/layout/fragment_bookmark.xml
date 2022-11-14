@@ -24,14 +24,14 @@
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:queryHint="Search a recipe"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_icon_cart"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:queryHint="@string/search_for_recipes" />
@@ -59,29 +59,6 @@
         app:layout_constraintBottom_toBottomOf="@id/img_search_icon"
         app:layout_constraintStart_toEndOf="@id/img_search_icon"
         app:layout_constraintTop_toTopOf="@id/img_search_icon" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_icon_cart"
-        style="@style/Widget.Material3.Button.IconButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:icon="@drawable/ic_shopping_cart"
-        app:iconTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/card_search"
-        app:layout_constraintEnd_toStartOf="@id/btn_icon_notification"
-        app:layout_constraintTop_toTopOf="@id/card_search" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_icon_notification"
-        style="@style/Widget.Material3.Button.IconButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:icon="@drawable/ic_notifications"
-        app:iconTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/card_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/card_search" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_bookmark"

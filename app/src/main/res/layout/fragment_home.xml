@@ -74,16 +74,16 @@
             app:icon="@drawable/ic_shopping_cart"
             app:iconTint="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/card_search"
-            app:layout_constraintEnd_toStartOf="@id/btn_icon_notification"
+            app:layout_constraintEnd_toStartOf="@id/btn_icon_profile"
             app:layout_constraintTop_toTopOf="@id/card_search" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_icon_notification"
+            android:id="@+id/btn_icon_profile"
             style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            app:icon="@drawable/ic_notifications"
+            app:icon="@drawable/ic_account_circle"
             app:iconTint="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/card_search"
             app:layout_constraintEnd_toEndOf="parent"

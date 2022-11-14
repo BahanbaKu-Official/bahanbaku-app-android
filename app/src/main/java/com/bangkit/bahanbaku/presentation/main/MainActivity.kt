@@ -12,6 +12,7 @@ import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.databinding.ActivityMainBinding
 import com.bangkit.bahanbaku.presentation.camera.CameraActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
+import com.bangkit.bahanbaku.presentation.profile.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,9 +45,13 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_bookmark, R.id.navigation_orders
+                R.id.navigation_home,
+                R.id.navigation_bookmark,
+                R.id.navigation_orders,
+                R.id.navigation_notification
             )
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

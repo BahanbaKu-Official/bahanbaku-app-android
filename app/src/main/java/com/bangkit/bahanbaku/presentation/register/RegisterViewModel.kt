@@ -7,7 +7,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val profileUseCase: ProfileUseCase) : ViewModel() {
-    fun register(username: String, email: String, password: String) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.register(username, email, password))
+class RegisterViewModel @Inject constructor(private val profileUseCase: ProfileUseCase) :
+    ViewModel() {
+    fun register(firstName: String, lastName: String, email: String, password: String) =
+        LiveDataReactiveStreams.fromPublisher(
+            profileUseCase.register(
+                firstName,
+                lastName,
+                email,
+                password
+            )
+        )
 }

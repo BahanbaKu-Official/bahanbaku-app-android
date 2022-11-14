@@ -1,6 +1,9 @@
 package com.bangkit.bahanbaku.core.domain.usecase
 
+import com.bangkit.bahanbaku.core.data.Resource
+import com.bangkit.bahanbaku.core.data.remote.response.PostRegisterResponse
 import com.bangkit.bahanbaku.core.domain.repository.IProfileRepository
+import io.reactivex.Flowable
 import java.io.File
 
 class ProfileInteractor(private val profileRepository: IProfileRepository) : ProfileUseCase {
@@ -15,10 +18,12 @@ class ProfileInteractor(private val profileRepository: IProfileRepository) : Pro
     override fun login(email: String, password: String) = profileRepository.login(email, password)
 
     override fun register(
-        username: String,
+        firstName: String,
+        lastName: String,
         email: String,
         password: String
-    ) = profileRepository.register(username, email, password)
+    ): Flowable<Resource<PostRegisterResponse>> =
+        profileRepository.register(firstName, lastName, email, password)
 
     override fun updateUser(
         token: String,

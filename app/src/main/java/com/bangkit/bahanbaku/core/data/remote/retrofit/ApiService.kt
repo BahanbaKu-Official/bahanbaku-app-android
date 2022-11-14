@@ -10,15 +10,16 @@ interface ApiService {
     @FormUrlEncoded
     @POST("user/register")
     fun register(
-        @Field("username") username: String,
+        @Field("firstName") firstName: String,
+        @Field("lastName") lastName: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ): Flowable<RegisterResponse>
+    ): Flowable<PostRegisterResponse>
 
     @FormUrlEncoded
     @POST("login")
     fun login(
-        @Field("username") email: String,
+        @Field("email") email: String,
         @Field("password") password: String
     ): Flowable<LoginResponse>
 

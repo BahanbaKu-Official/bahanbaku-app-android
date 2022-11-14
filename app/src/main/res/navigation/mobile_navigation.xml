@@ -3,22 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.bangkit.bahanbaku.presentation.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_bookmark"
+            app:destination="@id/navigation_bookmark" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_orders"
+            app:destination="@id/navigation_orders" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_activity_profile"
+            app:destination="@id/navigation_activity_profile" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_bookmark"
         android:name="com.bangkit.bahanbaku.presentation.bookmark.BookmarkFragment"
         android:label="@string/bookmark"
-        tools:layout="@layout/fragment_bookmark"/>
+        tools:layout="@layout/fragment_bookmark">
+        <action
+            android:id="@+id/action_navigation_bookmark_to_navigation_activity_profile"
+            app:destination="@id/navigation_activity_profile" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_orders"
-        android:name="com.bangkit.bahanbaku.presentation.snapfood.SnapFoodFragment"
-        android:label="@string/snapfood"
-        tools:layout="@layout/fragment_snap_food"/>
+        android:name="com.bangkit.bahanbaku.presentation.orderhistory.OrderHistoryFragment"
+        android:label="@string/snapfood">
+        <action
+            android:id="@+id/action_navigation_orders_to_navigation_activity_profile"
+            app:destination="@id/navigation_activity_profile" />
+    </fragment>
+    <activity
+        android:id="@+id/navigation_activity_profile"
+        android:name="com.bangkit.bahanbaku.presentation.profile.ProfileActivity"
+        android:label="activity_profile"
+        tools:layout="@layout/activity_profile" />
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="com.bangkit.bahanbaku.presentation.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
 
 </navigation>

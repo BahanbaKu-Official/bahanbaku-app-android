@@ -49,8 +49,8 @@ class ProfileActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        supportFragmentManager.beginTransaction().add(R.id.fragment_settings, PreferenceFragment())
-            .commit()
+//        supportFragmentManager.beginTransaction().add(R.id.fragment_settings, PreferenceFragment())
+//            .commit()
 
     }
 
@@ -74,7 +74,7 @@ class ProfileActivity : AppCompatActivity() {
             startGallery()
         }
 
-        binding.btnLogout.setOnClickListener {
+        binding.tvChooseLogout.setOnClickListener {
             viewModel.deleteToken()
         }
 
@@ -157,26 +157,26 @@ class ProfileActivity : AppCompatActivity() {
                         binding.progressBar.isVisible = true
                     }
                     is Resource.Success -> {
-                        binding.progressBar.isVisible = false
-                        val data = result.data as Profile
-
-                        binding.tvEmailProfile.text = data.email
-                        binding.tvNameProfile.text = data.username
-
-                        Glide.with(this)
-                            .load(data.picture + "?rand=${Random(2000000)}")
-                            .apply(
-                                RequestOptions().signature(
-                                    ObjectKey(
-                                        System.currentTimeMillis().toString()
-                                    )
-                                )
-                            )
-                            .into(binding.imgProfile)
-
-                        Glide.with(this)
-                            .load(data.picture + "?rand=${Random(2000000)}")
-                            .into(binding.imgProfileBackground)
+//                        binding.progressBar.isVisible = false
+//                        val data = result.data as Profile
+//
+//                        binding.tvEmailProfile.text = data.email
+//                        binding.tvNameProfile.text = data.username
+//
+//                        Glide.with(this)
+//                            .load(data.picture + "?rand=${Random(2000000)}")
+//                            .apply(
+//                                RequestOptions().signature(
+//                                    ObjectKey(
+//                                        System.currentTimeMillis().toString()
+//                                    )
+//                                )
+//                            )
+//                            .into(binding.imgProfile)
+//
+//                        Glide.with(this)
+//                            .load(data.picture + "?rand=${Random(2000000)}")
+//                            .into(binding.imgProfileBackground)
                     }
                 }
             }

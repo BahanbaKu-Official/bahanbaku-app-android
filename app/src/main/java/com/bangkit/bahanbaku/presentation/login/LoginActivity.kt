@@ -3,10 +3,10 @@ package com.bangkit.bahanbaku.presentation.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.bahanbaku.databinding.ActivityLoginBinding
-import com.bangkit.bahanbaku.presentation.landing.LandingPageActivity
 import com.bangkit.bahanbaku.presentation.main.MainActivity
 import com.bangkit.bahanbaku.presentation.register.RegisterActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,14 +30,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        viewModel.isFirstTime().observe(this) {
-            if (it) {
-                val intent = Intent(this, LandingPageActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
-            }
-        }
+
+        Toast.makeText(this, "For this testing, press LOGIN directly!", Toast.LENGTH_LONG).show()
 
         binding.btnLogin.setOnClickListener {
             val email = binding.loginEmail.text.toString()

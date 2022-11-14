@@ -216,4 +216,10 @@
     <string name="desc_privacy">BahanbaKu is a free app that lets users buy ingredients for recipes. This page is used to inform visitors of our policies regarding the collection, use, and disclosure of personal information should anyone decide to use our services. If you decide to use our service, you consent to the collection and use of information related to this policy. The personal information we collect is used to provide the features and improve the Service we offer. We do not use or share your information with third parties except as described in this Privacy Policy. Terms used in this Privacy Policy have the same meaning as in the Terms of Service accessible at BahanbaKu, unless otherwise defined in this Privacy Policy.</string>
     <string name="desc_information">For a better experience, while using our services, your approximate location, precise location, name, email address, postal address, phone number, app interactions, in-app search history, etc. user-generated content, other actions, crash logs, and diagnostics. Information we request will be stored by us and used as described in this Privacy Policy.</string>
     <string name="information_collection_and_use">Information Collection and Use</string>
+    <string name="hello_welcome_back">Hello, welcome back!</string>
+    <string name="sign_up_first_so_that">Sign up first so that you can get our full benefit!</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="notification">Notification</string>
+    <string name="coming_soon">This feature will be coming soon!</string>
 </resources>

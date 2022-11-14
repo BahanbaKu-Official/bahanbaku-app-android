@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
 import androidx.core.view.marginTop
@@ -25,6 +26,7 @@ import com.bangkit.bahanbaku.core.utils.categories
 import com.bangkit.bahanbaku.core.utils.imagePlaceholderUrl
 import com.bangkit.bahanbaku.databinding.FragmentHomeBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
+import com.bangkit.bahanbaku.presentation.profile.ProfileActivity
 import com.bangkit.bahanbaku.presentation.search.SearchActivity
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -78,6 +80,25 @@ class HomeFragment : Fragment() {
         binding.cardSearch.setOnClickListener {
             val intent = Intent(requireContext(), SearchActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.btnIconCart.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "This feature will be available soon",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        binding.btnIconProfile.setOnClickListener {
+//            val intent = Intent(requireContext(), ProfileActivity::class.java)
+//            startActivity(intent)
+
+            Toast.makeText(
+                requireContext(),
+                "This feature will be available soon",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

@@ -14,10 +14,11 @@ interface IProfileRepository {
     fun getProfile(token: String): Flowable<Resource<Profile>>
     fun login(email: String, password: String): Flowable<Resource<LoginResponse>>
     fun register(
-        username: String,
+        firstName: String,
+        lastName: String,
         email: String,
         password: String
-    ): Flowable<Resource<RegisterResponse>>
+    ): Flowable<Resource<PostRegisterResponse>>
 
     fun updateUser(
         token: String,

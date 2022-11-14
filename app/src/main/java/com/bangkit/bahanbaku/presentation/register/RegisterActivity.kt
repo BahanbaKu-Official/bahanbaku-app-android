@@ -35,11 +35,12 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupView() {
         binding.btnRegister.setOnClickListener {
-            val username = binding.etName.text.toString()
+            val firstName = binding.etFirstName.text.toString()
+            val lastName = binding.etLastName.text.toString()
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
 
-            viewModel.register(username, email, password).observe(this) { result ->
+            viewModel.register(firstName, lastName, email, password).observe(this) { result ->
                 when (result) {
                     is Resource.Error -> {
                         val error = result.message
@@ -63,7 +64,7 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnLogin.setOnClickListener {
+        binding.loginGoogle.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)

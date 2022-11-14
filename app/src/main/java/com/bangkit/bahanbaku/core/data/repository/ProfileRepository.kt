@@ -64,10 +64,11 @@ class ProfileRepository (
         remoteDataSource.login(email, password)
 
     override fun register(
-        username: String,
+        firstName: String,
+        lastName: String,
         email: String,
         password: String
-    ): Flowable<Resource<RegisterResponse>> = remoteDataSource.register(username, email, password)
+    ): Flowable<Resource<PostRegisterResponse>> = remoteDataSource.register(firstName, lastName, email, password)
 
     override fun updateUser(
         token: String,

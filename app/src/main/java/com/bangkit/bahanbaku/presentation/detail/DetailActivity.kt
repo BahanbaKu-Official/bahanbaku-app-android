@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
@@ -98,9 +99,14 @@ class DetailActivity : AppCompatActivity() {
                         this.recipe = recipe
 
                         binding.fabCookGuide.setOnClickListener {
-                            val intent = Intent(this, CookingGuideActivity::class.java)
-                            intent.putExtra(CookingGuideActivity.EXTRA_ID, recipe.recipeId)
-                            startActivity(intent)
+                            Toast.makeText(
+                                this@DetailActivity,
+                                "This feature will be coming very soon!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+//                            val intent = Intent(this, CookingGuideActivity::class.java)
+//                            intent.putExtra(CookingGuideActivity.EXTRA_ID, recipe.recipeId)
+//                            startActivity(intent)
                         }
 
 //                        checkIfRecipeBookmarked(token, recipe.recipeId)
