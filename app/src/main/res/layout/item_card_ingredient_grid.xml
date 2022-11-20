@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_item_ingredient_grid"
+    style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="4dp"
-    app:cardCornerRadius="24dp"
-    style="@style/Widget.Material3.CardView.Elevated"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="#ECECEC">
-    
+    app:cardBackgroundColor="#ECECEC"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="2dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,66 +23,64 @@
             android:id="@+id/container_card_ingredient_add"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tv_card_ingredient_price"
+            android:layout_marginBottom="-8dp"
             android:background="@drawable/dr_container_rect_rounded_16_white"
-            android:layout_marginBottom="-8dp"/>
+            app:layout_constraintBottom_toBottomOf="@id/tv_card_ingredient_price"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/img_card_ingredient"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="H,1:1"
             android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tv_card_ingredient_title"
+            style="@style/Text.Title.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_card_ingredient"
-            android:layout_marginTop="4dp"
             android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="4dp"
             android:text="@string/ingredients"
-            style="@style/Text.Title.Medium"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_card_ingredient" />
 
         <TextView
             android:id="@+id/tv_card_ingredient_measurement"
+            style="@style/Text.Body.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/tv_card_ingredient_title"
-            app:layout_constraintEnd_toEndOf="@id/tv_card_ingredient_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_card_ingredient_title"
             android:text="@string/placeholder_measurement"
-            style="@style/Text.Body.Medium"
-            />
+            app:layout_constraintEnd_toEndOf="@id/tv_card_ingredient_title"
+            app:layout_constraintStart_toStartOf="@id/tv_card_ingredient_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_card_ingredient_title" />
 
         <TextView
             android:id="@+id/tv_card_ingredient_price"
+            style="@style/Text.Title.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/tv_card_ingredient_measurement"
-            app:layout_constraintEnd_toEndOf="@id/tv_card_ingredient_measurement"
-            app:layout_constraintTop_toBottomOf="@+id/tv_card_ingredient_measurement"
             android:layout_marginTop="2dp"
             android:text="@string/placeholder_price"
-            style="@style/Text.Title.Medium"
-            />
-        
+            app:layout_constraintEnd_toEndOf="@id/tv_card_ingredient_measurement"
+            app:layout_constraintStart_toStartOf="@id/tv_card_ingredient_measurement"
+            app:layout_constraintTop_toBottomOf="@+id/tv_card_ingredient_measurement" />
+
         <Button
+            android:id="@+id/btn_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/container_card_ingredient_add"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/black"
             android:text="@string/add"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:backgroundTint="@color/black"/>
+            app:layout_constraintTop_toBottomOf="@+id/container_card_ingredient_add" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

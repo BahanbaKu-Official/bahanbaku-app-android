@@ -13,6 +13,7 @@ import com.bangkit.bahanbaku.databinding.ActivityMainBinding
 import com.bangkit.bahanbaku.presentation.camera.CameraActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.bangkit.bahanbaku.presentation.profile.ProfileActivity
+import com.bangkit.bahanbaku.presentation.snapfood.SnapFoodActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,14 +31,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-//        validateToken() TODO: remove when done
+        validateToken()
 
         val navView: BottomNavigationView = binding.navView
         navView.background = null
         navView.menu.getItem(2).isEnabled = false
 
         binding.fabMainCamera.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
+            val intent = Intent(this, SnapFoodActivity::class.java)
             startActivity(intent)
         }
 

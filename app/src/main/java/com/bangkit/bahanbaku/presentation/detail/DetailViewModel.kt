@@ -15,14 +15,14 @@ class DetailViewModel @Inject constructor(
     fun getRecipe(token: String, id: String) =
         LiveDataReactiveStreams.fromPublisher(recipeUseCase.getRecipeById(token, id))
 
-//    fun checkIfRecipeBookmarked(token: String, id: String) =
-//        LiveDataReactiveStreams.fromPublisher(profileUseCase.checkIfRecipeBookmarked(token, id))
-//
-//    fun addBookmark(token: String, id: String) =
-//        LiveDataReactiveStreams.fromPublisher(profileUseCase.addBookmark(token, id))
-//
-//    fun deleteBookmark(token: String, id: String) =
-//        LiveDataReactiveStreams.fromPublisher(profileUseCase.deleteBookmark(token, id))
+    fun checkIfRecipeBookmarked(token: String, id: String) =
+        LiveDataReactiveStreams.fromPublisher(recipeUseCase.checkIfRecipeBookmarked(token, id))
+
+    fun addBookmark(token: String, id: String) =
+        LiveDataReactiveStreams.fromPublisher(recipeUseCase.addFavorites(token, id))
+
+    fun deleteBookmark(token: String, id: String) =
+        LiveDataReactiveStreams.fromPublisher(recipeUseCase.deleteFavorites(token, id))
 
     fun getToken() = profileUseCase.getToken()
 

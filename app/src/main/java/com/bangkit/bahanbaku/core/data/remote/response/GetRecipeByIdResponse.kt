@@ -73,7 +73,10 @@ data class IngredientsItem(
 	val updatedAt: String,
 
 	@field:SerializedName("products")
-	val products: Products
+	val products: Products,
+
+	@field:SerializedName("isSelected")
+	var isSelected: Boolean = false
 ) : Parcelable
 
 @Parcelize

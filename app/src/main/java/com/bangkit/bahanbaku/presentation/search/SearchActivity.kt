@@ -6,13 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.adapter.SearchRecipeAdapter
 import com.bangkit.bahanbaku.core.data.Resource
@@ -98,7 +98,11 @@ class SearchActivity : AppCompatActivity() {
                 }
                 is Resource.Error -> {
                     val error = result.message
-                    Toast.makeText(this@SearchActivity, error ?: ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@SearchActivity,
+                        error ?: ERROR_DEFAULT_MESSAGE,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 is Resource.Success -> {
                     binding.shimmerSearchList.stopShimmer()
@@ -111,7 +115,7 @@ class SearchActivity : AppCompatActivity() {
 
                     binding.rvRecipes.apply {
                         adapter = SearchRecipeAdapter(data)
-                        layoutManager = LinearLayoutManager(this@SearchActivity)
+                        layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
                     }
                 }
             }

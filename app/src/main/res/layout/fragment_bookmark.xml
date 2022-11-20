@@ -22,9 +22,9 @@
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -65,21 +65,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/container_top_app_bar"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="8dp"
         app:spanCount="2"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_bookmark"
         tools:orientation="vertical" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_favorites_list"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/ProgressBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/container_top_app_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <ImageView
         android:id="@+id/img_no_bookmark"

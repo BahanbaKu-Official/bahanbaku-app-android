@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.domain.model.Recipe
+import com.bangkit.bahanbaku.databinding.ItemCardRecipeLargeBinding
 import com.bangkit.bahanbaku.databinding.ItemRecipeSearchListBinding
 import com.bangkit.bahanbaku.presentation.detail.DetailActivity
 import com.bumptech.glide.Glide
@@ -14,7 +15,7 @@ class SearchRecipeAdapter(private val recipes: List<Recipe>) :
     RecyclerView.Adapter<SearchRecipeAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ItemRecipeSearchListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemCardRecipeLargeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -31,13 +32,13 @@ class SearchRecipeAdapter(private val recipes: List<Recipe>) :
 
     override fun getItemCount() = recipes.size
 
-    inner class ViewHolder(val binding: ItemRecipeSearchListBinding) :
+    inner class ViewHolder(val binding: ItemCardRecipeLargeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: Recipe) {
-            binding.tvRecipe.text = recipe.title
+            binding.tvRecipeName.text = recipe.title
             binding.tvRecipeDescription.text = recipe.description
-            binding.tvServings.text =
-                itemView.context.getString(R.string.serving).format(recipe.portion)
+            binding.tvTime.text =
+                itemView.context.getString(R.string.format_time_minute).format(recipe.time)
 
             binding.tvRating.text = recipe.rating.toString()
 

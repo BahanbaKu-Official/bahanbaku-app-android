@@ -10,7 +10,9 @@
         android:id="@+id/rv_recipes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_recipe_search_list" />
+        app:spanCount="2"
+        tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        tools:listitem="@layout/item_card_recipe_large" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -45,16 +47,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/placeholder_item_recipe_search"/>
-            <include layout="@layout/placeholder_item_recipe_search"/>
-            <include layout="@layout/placeholder_item_recipe_search"/>
-            <include layout="@layout/placeholder_item_recipe_search"/>
-            <include layout="@layout/placeholder_item_recipe_search"/>
-            <include layout="@layout/placeholder_item_recipe_search"/>
-            <include layout="@layout/placeholder_item_recipe_search"/>
-            <include layout="@layout/placeholder_item_recipe_search"/>
-            <include layout="@layout/placeholder_item_recipe_search"/>
-            <include layout="@layout/placeholder_item_recipe_search"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
+            <include layout="@layout/placeholder_list_recipe_grid_large"/>
         </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>

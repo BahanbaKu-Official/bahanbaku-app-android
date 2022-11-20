@@ -21,8 +21,11 @@ import com.bangkit.bahanbaku.core.adapter.RecipeDetailIngredientsListAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeDetailStepsListAdapter
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.data.remote.response.RecipeDetailItem
+import com.bangkit.bahanbaku.core.domain.model.Checkout
+import com.bangkit.bahanbaku.core.domain.model.CheckoutDataClass
 import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.databinding.ActivityDetailBinding
+import com.bangkit.bahanbaku.presentation.checkout.CheckoutActivity
 import com.bangkit.bahanbaku.presentation.cookingguide.CookingGuideActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.bumptech.glide.Glide
@@ -98,6 +101,40 @@ class DetailActivity : AppCompatActivity() {
                         val recipe = result.data!!
                         this.recipe = recipe
 
+                        binding.btnCheckIngredients.setOnClickListener {
+                            val intent = Intent(this, CheckoutActivity::class.java)
+
+                            val ingredients = arrayListOf<Checkout>()
+                            this.recipe!!.ingredients.forEach {
+                                if (it.isSelected) {
+                                    ingredients.add(
+                                        Checkout(
+                                            ingredientsName = it.ingredient,
+                                            ingredientsQuantity = 1,
+                                            ingredientsPrice = 20000,
+                                            image = it.imageUrl
+                                        )
+                                    )
+                                }
+                            }
+
+                            if (ingredients.isNotEmpty()) {
+                                intent.putExtra(
+                                    CheckoutActivity.EXTRA_RECIPE,
+                                    CheckoutDataClass(ingredients)
+                                )
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "Pick at least one ingredient",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                isIngredientsViewGrid.postValue(true)
+                            }
+
+                        }
+
                         binding.fabCookGuide.setOnClickListener {
                             Toast.makeText(
                                 this@DetailActivity,
@@ -109,7 +146,7 @@ class DetailActivity : AppCompatActivity() {
 //                            startActivity(intent)
                         }
 
-//                        checkIfRecipeBookmarked(token, recipe.recipeId)
+                        checkIfRecipeBookmarked(token, recipe.recipeId)
 
                         binding.topAppBarRecipeDetail.title = recipe.title
                         binding.tvDescription.text = recipe.description
@@ -176,39 +213,41 @@ class DetailActivity : AppCompatActivity() {
 //                ingredientsDialog.show(supportFragmentManager, INGREDIENTS_DIALOG)
 //            }
 //        }
+
+
     }
 
-    internal fun cleanseIngredients(list: List<String>): ArrayList<String> {
-        val arrayList = arrayListOf<String>()
-        list.forEach { s ->
-            arrayList.add(s)
-        }
-
-        val outputList = arrayListOf<String>()
-
-
-        for (data in arrayList) {
-            val re = Regex("^[0-9].*")
-            var ingredient = data.split(',')[0]
-            if (re.matches(ingredient)) {
-                val arrayIngredient = ingredient.split(' ')
-                ingredient = ""
-                for (i in 2 until arrayIngredient.size) {
-                    ingredient += arrayIngredient[i] + " "
-                }
-                ingredient = ingredient.split('(')[0]
-            }
-            ingredient = ingredient.trim()
-            outputList.add(ingredient)
-        }
-
-        return outputList
-    }
+//    internal fun cleanseIngredients(list: List<String>): ArrayList<String> {
+//        val arrayList = arrayListOf<String>()
+//        list.forEach { s ->
+//            arrayList.add(s)
+//        }
+//
+//        val outputList = arrayListOf<String>()
+//
+//
+//        for (data in arrayList) {
+//            val re = Regex("^[0-9].*")
+//            var ingredient = data.split(',')[0]
+//            if (re.matches(ingredient)) {
+//                val arrayIngredient = ingredient.split(' ')
+//                ingredient = ""
+//                for (i in 2 until arrayIngredient.size) {
+//                    ingredient += arrayIngredient[i] + " "
+//                }
+//                ingredient = ingredient.split('(')[0]
+//            }
+//            ingredient = ingredient.trim()
+//            outputList.add(ingredient)
+//        }
+//
+//        return outputList
+//    }
 
     private fun checkIfRecipeBookmarked(token: String, id: String) {
-//        viewModel.checkIfRecipeBookmarked(token, id).observe(this) {
-//            isRecipeBookmarked.postValue(it)
-//        }
+        viewModel.checkIfRecipeBookmarked(token, id).observe(this) {
+            isRecipeBookmarked.postValue(it)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -248,58 +287,58 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-//        isRecipeBookmarked.observe(this) { bookmarked ->
-//            if (isBookmarkChanged) {
-//                if (bookmarked) {
-//                    addBookmark()
-//                } else {
-//                    deleteBookmark()
-//                }
-//
-//                isBookmarkChanged = false
-//            }
-//        }
+        isRecipeBookmarked.observe(this) { bookmarked ->
+            if (isBookmarkChanged) {
+                if (bookmarked) {
+                    addBookmark()
+                } else {
+                    deleteBookmark()
+                }
+
+                isBookmarkChanged = false
+            }
+        }
     }
 
-//    private fun deleteBookmark() {
-//        viewModel.deleteBookmark(token as String, (recipe as Recipe).id)
-//            .observe(this) { result ->
-//                when (result) {
-//                    is Resource.Loading -> {
-//                        binding.progressBar.isVisible = true
-//                    }
-//                    is Resource.Error -> {
-//                        binding.progressBar.isVisible = false
-////                        val error = result.error
-////                        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
-//                    }
-//                    is Resource.Success -> {
-//                        binding.progressBar.isVisible = false
-//                        isRecipeBookmarked.postValue(false)
-//                    }
-//                }
-//            }
-//    }
-//
-//    private fun addBookmark() {
-//        viewModel.addBookmark(token as String, (recipe as Recipe).id)
-//            .observe(this) { result ->
-//                when (result) {
-//                    is Resource.Loading -> {
-//                        binding.progressBar.isVisible = true
-//                    }
-//                    is Resource.Error -> {
-//                        binding.progressBar.isVisible = false
-////                        val error = result.error
-////                        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
-//                    }
-//                    is Resource.Success -> {
-//                        binding.progressBar.isVisible = false
-//                        isRecipeBookmarked.postValue(true)
-//                    }
-//                }
-//            }
-//    }
+    private fun deleteBookmark() {
+        viewModel.deleteBookmark(token as String, (recipe as RecipeDetailItem).recipeId)
+            .observe(this) { result ->
+                when (result) {
+                    is Resource.Loading -> {
+                        binding.progressBar.isVisible = true
+                    }
+                    is Resource.Error -> {
+                        binding.progressBar.isVisible = false
+//                        val error = result.error
+//                        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+                    }
+                    is Resource.Success -> {
+                        binding.progressBar.isVisible = false
+                        isRecipeBookmarked.postValue(false)
+                    }
+                }
+            }
+    }
+
+    private fun addBookmark() {
+        viewModel.addBookmark(token as String, (recipe as RecipeDetailItem).recipeId)
+            .observe(this) { result ->
+                when (result) {
+                    is Resource.Loading -> {
+                        binding.progressBar.isVisible = true
+                    }
+                    is Resource.Error -> {
+                        binding.progressBar.isVisible = false
+//                        val error = result.error
+//                        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+                    }
+                    is Resource.Success -> {
+                        binding.progressBar.isVisible = false
+                        isRecipeBookmarked.postValue(true)
+                    }
+                }
+            }
+    }
 
     companion object {
         private const val TAG = "DetailActivity.log"

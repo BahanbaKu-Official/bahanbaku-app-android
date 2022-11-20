@@ -79,6 +79,7 @@
 
     <string name="probability">Accuracy: %d\%%</string>
     <string name="serving">%d servings</string>
+    <string name="format_time_minute">%d minutes</string>
     <string name="search">Search</string>
     <string name="location">Location</string>
     <string name="title_activity_maps2">MapsActivity2</string>
@@ -222,4 +223,5 @@
     <string name="last_name">Last Name</string>
     <string name="notification">Notification</string>
     <string name="coming_soon">This feature will be coming soon!</string>
+    <string name="placeholder_price_small">Rp20.000</string>
 </resources>

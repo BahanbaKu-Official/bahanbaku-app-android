@@ -33,6 +33,7 @@
                 android:id="@+id/img_checkout"
                 android:layout_width="57dp"
                 android:layout_height="57dp"
+                android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/avatars" />
         </androidx.cardview.widget.CardView>
 
@@ -63,9 +64,9 @@
             style="@style/TextAppearance.Material3.LabelMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/price"
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
+            android:text="@string/placeholder_price_small"
             app:layout_constraintStart_toEndOf="@+id/cv_checkout_image"
             app:layout_constraintTop_toBottomOf="@+id/tv_total_checkout" />
 

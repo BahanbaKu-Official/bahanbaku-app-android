@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface ApiService {
     @FormUrlEncoded
-    @POST("user/register")
+    @POST("register")
     fun register(
         @Field("firstName") firstName: String,
         @Field("lastName") lastName: String,
@@ -23,7 +23,7 @@ interface ApiService {
         @Field("password") password: String
     ): Flowable<LoginResponse>
 
-    @GET("user/profile")
+    @GET("profile")
     fun getProfile(
         @Header("Authorization") token: String
     ): Flowable<ProfileResponse>
@@ -50,17 +50,22 @@ interface ApiService {
         @Part file: MultipartBody.Part
     ): Flowable<UploadPictureResponse>
 
-    @POST("user/bookmarks/{id}")
-    fun addBookmark(
+    @GET("favorites")
+    fun getFavorites(
         @Header("Authorization") token: String,
-        @Path("id") id: String
-    ): Flowable<AddBookmarkResponse>
+    ): Flowable<GetFavoriteResponse>
 
-    @DELETE("user/bookmarks/{id}")
-    fun deleteBookmark(
+    @POST("favorites/{id}")
+    fun addFavorites(
         @Header("Authorization") token: String,
         @Path("id") id: String
-    ): Flowable<DeleteBookmarkResponse>
+    ): Flowable<PostAddFavoriteResponse>
+
+    @DELETE("favorites/{id}")
+    fun deleteFavorites(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Flowable<DeleteFavoriteResponse>
 
     @GET("/recipes")
     fun getRecipe(

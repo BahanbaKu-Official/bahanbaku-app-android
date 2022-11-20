@@ -292,83 +292,120 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         return resultData.toFlowable(BackpressureStrategy.BUFFER)
     }
 
-//    //    Feel like it's not perfect yet
-//    fun getBookmarks(token: String): LiveData<ApiResponse<List<RecipeItem>>> {
-//        val resultData = PublishSubject.create<ApiResponse<List<RecipeItem>>>()
-//        val client = apiService.getProfile(token)
-//
-//        val disposable = client
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .take(1)
-//            .subscribe({ response ->
-//                val data = response.results.bookmarks.map {
-//                    getRecipeById(token, it)
-//                }
-//                resultData.onNext(ApiResponse.Success(data))
-//            }, { error ->
-//
-//            })
-//        try {
-//            val profile = apiService.getProfile(token).results
-//            val recipeList = mutableListOf<Recipe>()
-//            for (id in profile.bookmarks) {
-//                val entity = DataMapper.mapRecipeResponseToRecipeEntity(
-//                    apiService.getRecipeById(
-//                        token,
-//                        id
-//                    ).results
-//                )
-//                val domain = DataMapper.mapRecipeEntitiesToRecipeDomain(entity)
-//                recipeList.add(domain)
-//            }
-//            emit(ApiResponse.Success(recipeList))
-//        } catch (e: Exception) {
-//            emit(ApiResponse.Error(e.message.toString()))
-//        }
-//    }
-//
-//    fun addBookmark(token: String, id: String): LiveData<ApiResponse<AddBookmarkResponse>> =
-//        liveData {
-//            try {
-//                val response = apiService.addBookmark(token, id)
-//                emit(ApiResponse.Success(response))
-//            } catch (e: Exception) {
-//                emit(ApiResponse.Error(e.message.toString()))
-//            }
-//        }
-//
-//    fun deleteBookmarkByPosition(
-//        token: String,
-//        position: Int
-//    ): LiveData<ApiResponse<DeleteBookmarkResponse>> = liveData {
-//        try {
-//            val bookmarkId = apiService.getProfile(token).results.bookmarks[position]
-//            val result = apiService.deleteBookmark(token, bookmarkId)
-//            emit(ApiResponse.Success(result))
-//        } catch (e: Exception) {
-//            emit(ApiResponse.Error(e.message.toString()))
-//        }
-//    }
-//
-//    fun deleteBookmark(token: String, id: String): LiveData<ApiResponse<DeleteBookmarkResponse>> =
-//        liveData {
-//            try {
-//                val response = apiService.deleteBookmark(token, id)
-//                emit(ApiResponse.Success(response))
-//            } catch (e: Exception) {
-//                emit(ApiResponse.Error(e.message.toString()))
-//            }
-//        }
-//
-//    fun checkIfRecipeBookmarked(token: String, id: String): LiveData<Boolean> = liveData {
-//        val bookmarks = apiService.getProfile(token).results.bookmarks
-//        var isBookmarked = false
-//        if (!bookmarks.isNullOrEmpty()) {
-//            isBookmarked = (id in bookmarks)
-//        }
-//        emit(isBookmarked)
-//    }
+    fun getFavorites(token: String): Flowable<Resource<List<FavoriteItem>>> {
+        val resultData = PublishSubject.create<Resource<List<FavoriteItem>>>()
+        val client = apiService.getFavorites(token)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                val data = response.results.favorite
+                resultData.onNext(Resource.Success(data))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun addFavorites(token: String, id: String): Flowable<Resource<PostAddFavoriteResponse>> {
+        val resultData = PublishSubject.create<Resource<PostAddFavoriteResponse>>()
+        val client = apiService.addFavorites(token, id)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                resultData.onNext(Resource.Success(response))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun deleteBookmarkByPosition(
+        token: String,
+        position: Int
+    ): Flowable<Resource<DeleteFavoriteResponse>> {
+        val resultData = PublishSubject.create<Resource<DeleteFavoriteResponse>>()
+        val favoriteId = apiService.getFavorites(token)
+
+        val disposable = favoriteId
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                val a =
+                    deleteFavorites(token, response.results.favorite[position].recipeId).doOnNext {
+                        resultData.onNext(it)
+                    }
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+
+    fun deleteFavorites(token: String, id: String): Flowable<Resource<DeleteFavoriteResponse>> {
+        val resultData = PublishSubject.create<Resource<DeleteFavoriteResponse>>()
+        val client = apiService.deleteFavorites(token, id)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                resultData.onNext(Resource.Success(response))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun checkIfRecipeBookmarked(token: String, id: String): Flowable<Boolean> {
+        val resultData = PublishSubject.create<Boolean>()
+        val client = apiService.getFavorites(token)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                var isAvailable = false
+                response.results.favorite.forEach {
+                    if (it.recipeId == id) {
+                        isAvailable = true
+                    }
+                }
+
+                resultData.onNext(isAvailable)
+            }, { error ->
+                resultData.onNext(false)
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
 
     companion object {
         private const val TAG = "REMOTE_DATA_SOURCE"
