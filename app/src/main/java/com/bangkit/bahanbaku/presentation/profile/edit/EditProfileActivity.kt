@@ -63,9 +63,6 @@ class EditProfileActivity : AppCompatActivity() {
                 }
                 is Resource.Success -> {
                     val data = result.data as Profile
-
-                    binding.etName.setText(data.username)
-                    binding.etEmail.setText(data.email)
                 }
             }
         }

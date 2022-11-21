@@ -224,4 +224,6 @@
     <string name="notification">Notification</string>
     <string name="coming_soon">This feature will be coming soon!</string>
     <string name="placeholder_price_small">Rp20.000</string>
+    <string name="format_greetings">Good %s, %s!</string>
+    <string name="next">Next</string>
 </resources>

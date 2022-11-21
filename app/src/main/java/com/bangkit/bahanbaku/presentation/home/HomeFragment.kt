@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,14 +21,13 @@ import com.bangkit.bahanbaku.core.adapter.RecipeCardLargeAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeCardMediumAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeCardMediumTimeAdapter
 import com.bangkit.bahanbaku.core.data.Resource
+import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.core.utils.categories
-import com.bangkit.bahanbaku.core.utils.imagePlaceholderUrl
 import com.bangkit.bahanbaku.databinding.FragmentHomeBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
-import com.bangkit.bahanbaku.presentation.profile.ProfileActivity
 import com.bangkit.bahanbaku.presentation.search.SearchActivity
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -115,6 +113,48 @@ class HomeFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), categoriesSpanCount)
         }
 
+        val calendar = Calendar.getInstance()
+        var time = when (calendar.get(Calendar.HOUR_OF_DAY)) {
+            in 2.until(11) -> "Morning"
+            in 11.until(14) -> "Day"
+            in 14.until(16) -> "Afternoon"
+            in 16.until(19) -> "Evening"
+            else -> "Night"
+        }
+
+        loadGreetings(viewModel, time)
+        loadData(viewModel)
+
+    }
+
+    private fun loadGreetings(viewModel: HomeViewModel, time: String) {
+        if (token != null) {
+            val token = this.token as String
+
+            viewModel.getProfile(token).observe(requireActivity()) { result ->
+                when (result) {
+                    is Resource.Loading -> {
+                        binding.tvHomeGreetings.isVisible = false
+                    }
+
+                    is Resource.Error -> {
+                        binding.tvHomeGreetings.visibility = View.GONE
+                    }
+
+                    is Resource.Success -> {
+                        val data = result.data as Profile
+                        binding.tvHomeGreetings.isVisible = true
+                        binding.tvHomeGreetings.text =
+                            getString(R.string.format_greetings).format(time, data.firstName)
+
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun loadData(viewModel: HomeViewModel) {
         if (token != null) {
             val token = this.token as String
 
@@ -139,7 +179,7 @@ class HomeFragment : Fragment() {
                             ConstraintSet.TOP,
                             R.id.rv_morning_recommendation_recipe,
                             ConstraintSet.BOTTOM,
-                            16
+                            32
                         )
 
                         constraintSet.connect(
@@ -147,7 +187,7 @@ class HomeFragment : Fragment() {
                             ConstraintSet.TOP,
                             R.id.rv_recipe_recommendation_1,
                             ConstraintSet.BOTTOM,
-                            16
+                            32
                         )
 
                         constraintSet.connect(
@@ -155,7 +195,7 @@ class HomeFragment : Fragment() {
                             ConstraintSet.TOP,
                             R.id.rv_recipe_recommendation_2,
                             ConstraintSet.BOTTOM,
-                            16
+                            32
                         )
 
                         constraintSet.applyTo(constraintLayout)

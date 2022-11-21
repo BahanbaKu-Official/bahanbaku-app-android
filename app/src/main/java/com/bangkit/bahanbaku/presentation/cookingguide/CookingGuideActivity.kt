@@ -2,17 +2,18 @@ package com.bangkit.bahanbaku.presentation.cookingguide
 
 import android.Manifest
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.bahanbaku.core.adapter.CookingGuideStepsListAdapter
-import com.bangkit.bahanbaku.core.adapter.RecipeDetailStepsListAdapter
-import com.bangkit.bahanbaku.core.adapter.StepIngredientGridListAdapter
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bangkit.bahanbaku.R
+import com.bangkit.bahanbaku.core.adapter.CookingGuideIngredientsGridAdapter
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.data.remote.response.RecipeDetailItem
 import com.bangkit.bahanbaku.databinding.ActivityCookingGuideBinding
@@ -37,11 +38,16 @@ class CookingGuideActivity : AppCompatActivity() {
     private lateinit var id: String
     private val step = MutableLiveData(1)
     private lateinit var recipeData: RecipeDetailItem
+    private val recipe = MutableLiveData<RecipeDetailItem>()
+    private val isMicOn = MutableLiveData(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.topAppBarCookingGuide)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
         id = intent.getStringExtra(EXTRA_ID) ?: ""
         getToken()
 
@@ -60,34 +66,42 @@ class CookingGuideActivity : AppCompatActivity() {
                 }
 
                 is Resource.Success -> {
-                    val data = result.data
-                    recipeData = data as RecipeDetailItem
+                    val data = result.data as RecipeDetailItem
+                    recipeData = data
+                    recipe.postValue(data)
+                    supportActionBar?.title = data.title
                 }
             }
         }
 
-        step.observe(this) {
-            if (this::recipeData.isInitialized) {
-                if (it <= recipeData.steps.size) {
-                    val data = recipeData.steps[it - 1]
-                    binding.tvNumber.text = it.toString()
-                    binding.tvStep.text = data.step
+        recipe.observe(this) {
+            step.observe(this) {
+                if (this::recipeData.isInitialized) {
+                    if (it <= recipeData.steps.size) {
+                        val data = recipeData.steps[it - 1]
+                        binding.layoutCookingGuideStep.apply {
+                            tvNumber.text = it.toString()
+                            tvStep.text = data.step
+                        }
 
-                    binding.rvStepIngredients.apply {
-                        adapter = StepIngredientGridListAdapter(data.ingredients)
-                        layoutManager = GridLayoutManager(this@CookingGuideActivity, 3)
-                    }
-
-                    binding.rvInstructions.apply {
-                        adapter = CookingGuideStepsListAdapter(
-                            recipeData.steps.subList(
-                                it - 1,
-                                recipeData.steps.size - (it - 1)
-                            ), it
-                        )
-                        layoutManager = LinearLayoutManager(this@CookingGuideActivity)
+                        binding.rvCookingGuideIngredients.apply {
+                            adapter = CookingGuideIngredientsGridAdapter(data.ingredients)
+                            layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+                        }
                     }
                 }
+            }
+        }
+
+        binding.fabNext.setOnClickListener {
+            if (this::recipeData.isInitialized && step.value!! < recipeData.steps.size) {
+                step.postValue(step.value?.plus(1))
+            }
+        }
+
+        binding.fabPrevious.setOnClickListener {
+            if (this::recipeData.isInitialized && step.value!! > 1) {
+                step.postValue(step.value?.minus(1))
             }
         }
     }
@@ -139,11 +153,50 @@ class CookingGuideActivity : AppCompatActivity() {
             if (filteredModelOutput.isNotEmpty()) {
                 if (filteredModelOutput.sortedBy { it.score }[0].label == "lanjut") {
                     if (this@CookingGuideActivity::recipeData.isInitialized) {
-                        step.postValue(step.value?.plus(1) ?: 1)
+//                        step.postValue(step.value?.plus(1) ?: 1)
                     }
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_toogla_mic, menu)
+        isMicOn.observe(this) { micOn ->
+            if (micOn) {
+                menu.findItem(R.id.mic).icon = AppCompatResources.getDrawable(
+                    this,
+                    R.drawable.ic_baseline_mic_24
+                )
+            } else {
+                menu.findItem(R.id.mic).icon = AppCompatResources.getDrawable(
+                    this,
+                    R.drawable.ic_baseline_mic_off_24
+                )
+            }
+        }
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.mic -> {
+//                isMicOn.postValue(!(isMicOn.value as Boolean))
+                Toast.makeText(
+                    this,
+                    "Voice command feature will be coming very soon!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

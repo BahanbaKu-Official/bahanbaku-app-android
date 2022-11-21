@@ -23,13 +23,13 @@ interface ApiService {
         @Field("password") password: String
     ): Flowable<LoginResponse>
 
-    @GET("profile")
+    @GET("users/profile")
     fun getProfile(
         @Header("Authorization") token: String
-    ): Flowable<ProfileResponse>
+    ): Flowable<GetProfileResponse>
 
     @FormUrlEncoded
-    @PUT("user/update")
+    @PUT("users/update/profile")
     fun updateProfile(
         @Header("Authorization") token: String,
         @Field("username") username: String,

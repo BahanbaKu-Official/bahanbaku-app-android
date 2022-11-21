@@ -136,14 +136,14 @@ class DetailActivity : AppCompatActivity() {
                         }
 
                         binding.fabCookGuide.setOnClickListener {
-                            Toast.makeText(
-                                this@DetailActivity,
-                                "This feature will be coming very soon!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-//                            val intent = Intent(this, CookingGuideActivity::class.java)
-//                            intent.putExtra(CookingGuideActivity.EXTRA_ID, recipe.recipeId)
-//                            startActivity(intent)
+//                            Toast.makeText(
+//                                this@DetailActivity,
+//                                "This feature will be coming very soon!",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+                            val intent = Intent(this, CookingGuideActivity::class.java)
+                            intent.putExtra(CookingGuideActivity.EXTRA_ID, recipe.recipeId)
+                            startActivity(intent)
                         }
 
                         checkIfRecipeBookmarked(token, recipe.recipeId)
@@ -256,7 +256,7 @@ class DetailActivity : AppCompatActivity() {
             if (bookmarked) {
                 menu.findItem(R.id.bookmark).icon = AppCompatResources.getDrawable(
                     this,
-                    R.drawable.ic_baseline_bookmark_24
+                    R.drawable.ic_outline_favorite_24
                 )
             } else {
                 menu.findItem(R.id.bookmark).icon = AppCompatResources.getDrawable(

@@ -1,14 +1,11 @@
 package com.bangkit.bahanbaku.core.utils
 
 import com.bangkit.bahanbaku.core.data.local.entity.ProfileEntity
-import com.bangkit.bahanbaku.core.data.local.entity.RecipeDetailEntity
 import com.bangkit.bahanbaku.core.data.local.entity.RecipeEntity
-import com.bangkit.bahanbaku.core.data.remote.response.ProfileItem
-import com.bangkit.bahanbaku.core.data.remote.response.RecipeDetailItem
+import com.bangkit.bahanbaku.core.data.remote.response.ProfileResult
 import com.bangkit.bahanbaku.core.data.remote.response.RecipeItem
 import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.core.domain.model.Recipe
-import com.bangkit.bahanbaku.core.domain.model.RecipeDetail
 
 object DataMapper {
 
@@ -177,33 +174,36 @@ object DataMapper {
     * */
 
     //    PROFILE data mapper
-    fun mapProfileResponseToProfileEntity(input: ProfileItem) = ProfileEntity(
-        bookmarks = input.bookmarks,
-        lat = input.lat,
-        lon = input.lon,
-        id = input.id,
+    fun mapProfileResponseToProfileEntity(input: ProfileResult) = ProfileEntity(
+        firstName = input.firstName,
+        lastName = input.lastName,
+        createdAt = input.createdAt,
+        isVerified = input.isVerified,
+        profileImage = input.profileImage,
+        userId = input.userId,
         email = input.email,
-        picture = input.picture,
-        username = input.username
+        updatedAt = input.updatedAt
     )
 
     fun mapProfileEntityToProfileDomain(input: ProfileEntity) = Profile(
-        bookmarks = input.bookmarks,
-        lat = input.lat,
-        lon = input.lon,
-        id = input.id,
+        firstName = input.firstName,
+        lastName = input.lastName,
+        createdAt = input.createdAt,
+        isVerified = input.isVerified,
+        profileImage = input.profileImage,
+        userId = input.userId,
         email = input.email,
-        picture = input.picture,
-        username = input.username
+        updatedAt = input.updatedAt
     )
 
     fun mapProfileDomainToProfileEntity(input: Profile) = ProfileEntity(
-        bookmarks = input.bookmarks,
-        lat = input.lat,
-        lon = input.lon,
-        id = input.id,
+        firstName = input.firstName,
+        lastName = input.lastName,
+        createdAt = input.createdAt,
+        isVerified = input.isVerified,
+        profileImage = input.profileImage,
+        userId = input.userId,
         email = input.email,
-        picture = input.picture,
-        username = input.username
+        updatedAt = input.updatedAt
     )
 }

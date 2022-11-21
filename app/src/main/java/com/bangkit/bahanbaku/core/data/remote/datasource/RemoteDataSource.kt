@@ -2,11 +2,12 @@ package com.bangkit.bahanbaku.core.data.remote.datasource
 
 import android.util.Log
 import com.bangkit.bahanbaku.core.data.Resource
-import com.bangkit.bahanbaku.core.data.remote.ApiResponse
 import com.bangkit.bahanbaku.core.data.remote.response.*
 import com.bangkit.bahanbaku.core.data.remote.retrofit.ApiService
+import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.core.domain.model.Recipe
 import com.bangkit.bahanbaku.core.utils.DataMapper
+import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.core.utils.ERROR_NULL_VALUE
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -131,8 +132,8 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
     }
 
     //    PROFILE data sources
-    fun getProfile(token: String): Flowable<ApiResponse<ProfileItem>> {
-        val resultData = PublishSubject.create<ApiResponse<ProfileItem>>()
+    fun getProfile(token: String): Flowable<Resource<Profile>> {
+        val resultData = PublishSubject.create<Resource<Profile>>()
         val client = apiService.getProfile(token)
 
         val disposable = client
@@ -141,9 +142,15 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             .take(1)
             .subscribe({ response ->
                 val data = response.results
-                resultData.onNext(if (data.username.isNotEmpty()) ApiResponse.Success(data) else ApiResponse.Empty)
+                val entity = DataMapper.mapProfileResponseToProfileEntity(data)
+                val domain = DataMapper.mapProfileEntityToProfileDomain(entity)
+                resultData.onNext(
+                    if (domain.email.isNotEmpty()) Resource.Success(domain) else Resource.Error(
+                        ERROR_DEFAULT_MESSAGE
+                    )
+                )
             }, { error ->
-                resultData.onNext(ApiResponse.Error(error.message.toString()))
+                resultData.onNext(Resource.Error(error.message.toString()))
                 Log.e(TAG, error.toString())
             })
 

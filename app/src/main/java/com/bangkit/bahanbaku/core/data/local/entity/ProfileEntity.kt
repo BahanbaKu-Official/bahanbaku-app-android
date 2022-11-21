@@ -7,25 +7,28 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "profile")
 data class ProfileEntity(
 
-    @field:SerializedName("bookmark")
-    val bookmarks: List<String>,
+    @field:SerializedName("firstName")
+    val firstName: String,
 
-    @field:SerializedName("lat")
-    val lat: Double,
+    @field:SerializedName("lastName")
+    val lastName: String,
 
-    @field:SerializedName("lon")
-    val lon: Double,
+    @field:SerializedName("createdAt")
+    val createdAt: String,
+
+    @field:SerializedName("isVerified")
+    val isVerified: Boolean,
+
+    @field:SerializedName("profileImage")
+    val profileImage: String,
 
     @PrimaryKey
-    @field:SerializedName("id")
-    val id: String,
+    @field:SerializedName("userId")
+    val userId: String,
 
     @field:SerializedName("email")
     val email: String,
 
-    @field:SerializedName("picture")
-    val picture: String,
-
-    @field:SerializedName("username")
-    val username: String
+    @field:SerializedName("updatedAt")
+    val updatedAt: String
 )
