@@ -80,7 +80,7 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
 
     fun searchRecipe(token: String, query: String): Flowable<Resource<List<Recipe>>> {
         val resultData = PublishSubject.create<Resource<List<Recipe>>>()
-        val client = apiService.getRecipe(token, query)
+        val client = apiService.searchRecipe(token, query)
         resultData.onNext(Resource.Loading(null))
 
         val disposable = client

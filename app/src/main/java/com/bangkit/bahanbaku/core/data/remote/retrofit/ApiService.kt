@@ -69,8 +69,13 @@ interface ApiService {
 
     @GET("/recipes")
     fun getRecipe(
+        @Header("Authorization") token: String
+    ): Flowable<GetAllRecipesResponse>
+
+    @GET("recipes/search")
+    fun searchRecipe(
         @Header("Authorization") token: String,
-        @Query("name") name: String? = null
+        @Query("title") name: String? = ""
     ): Flowable<GetAllRecipesResponse>
 
     @GET("/recipes/{id}")

@@ -15,6 +15,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.adapter.RecipeDetailIngredientsGridAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeDetailIngredientsListAdapter
@@ -186,7 +187,7 @@ class DetailActivity : AppCompatActivity() {
 
                     ingredientsRv.apply {
                         adapter = RecipeDetailIngredientsGridAdapter(recipe!!.ingredients)
-                        layoutManager = GridLayoutManager(this@DetailActivity, spanCount)
+                        layoutManager = StaggeredGridLayoutManager(spanCount, LinearLayoutManager.VERTICAL)
                     }
                     binding.btnIconIngredientsView.icon = AppCompatResources.getDrawable(
                         this,
