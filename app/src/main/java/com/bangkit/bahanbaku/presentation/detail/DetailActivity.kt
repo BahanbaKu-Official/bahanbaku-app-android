@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -22,8 +21,8 @@ import com.bangkit.bahanbaku.core.adapter.RecipeDetailIngredientsListAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeDetailStepsListAdapter
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.data.remote.response.RecipeDetailItem
-import com.bangkit.bahanbaku.core.domain.model.Checkout
 import com.bangkit.bahanbaku.core.domain.model.CheckoutDataClass
+import com.bangkit.bahanbaku.core.domain.model.Product
 import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.databinding.ActivityDetailBinding
 import com.bangkit.bahanbaku.presentation.checkout.CheckoutActivity
@@ -105,24 +104,34 @@ class DetailActivity : AppCompatActivity() {
                         binding.btnCheckIngredients.setOnClickListener {
                             val intent = Intent(this, CheckoutActivity::class.java)
 
-                            val ingredients = arrayListOf<Checkout>()
+                            val products = arrayListOf<Product>()
                             this.recipe!!.ingredients.forEach {
                                 if (it.isSelected) {
-                                    ingredients.add(
-                                        Checkout(
-                                            ingredientsName = it.ingredient,
-                                            ingredientsQuantity = 1,
-                                            ingredientsPrice = 20000,
-                                            image = it.imageUrl
+                                    val product = it.products
+                                    products.add(
+                                        Product(
+                                            createdAt = "",
+                                            deletedAt = "",
+                                            productId = product.productId,
+                                            price = product.price,
+                                            name = product.name,
+                                            stock = product.stock,
+                                            updatedAt = product.updatedAt,
+                                            productImage = "",
+                                            quantity = 1
                                         )
                                     )
                                 }
                             }
 
-                            if (ingredients.isNotEmpty()) {
+                            if (products.isNotEmpty()) {
                                 intent.putExtra(
                                     CheckoutActivity.EXTRA_RECIPE,
-                                    CheckoutDataClass(ingredients)
+                                    CheckoutDataClass(products)
+                                )
+                                intent.putExtra(
+                                    CheckoutActivity.EXTRA_FOOD_NAME,
+                                    recipe.title
                                 )
                                 startActivity(intent)
                             } else {

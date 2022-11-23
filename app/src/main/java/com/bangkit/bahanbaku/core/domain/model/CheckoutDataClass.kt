@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CheckoutDataClass(
-    val list: List<Checkout>
+    val list: List<Product>
 ) : Parcelable

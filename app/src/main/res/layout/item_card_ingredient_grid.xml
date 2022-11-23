@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_item_ingredient_grid"
-    style="@style/Widget.Material3.CardView.Elevated"
+    style="@style/Widget.Material3.CardView.Outlined"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:clickable="true"
     android:focusable="true"
+    app:strokeColor="@color/placeholder_gray"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="#ECECEC"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="2dp">
+    app:cardCornerRadius="24dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             app:layout_constraintStart_toStartOf="@id/tv_card_ingredient_measurement"
             app:layout_constraintTop_toBottomOf="@+id/tv_card_ingredient_measurement" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

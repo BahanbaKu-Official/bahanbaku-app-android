@@ -10,13 +10,20 @@
             android:singleLine="true"
             android:title="@string/edit_profile_information" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Appearance">
+    <PreferenceCategory android:title="Preferences">
 
         <SwitchPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_baseline_day_night"
             android:key="key_dark_mode"
             android:title="@string/dark_mode" />
+
+        <Preference
+            android:icon="@drawable/translate"
+            android:key="key_language"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/language" />
     </PreferenceCategory>
 
 </PreferenceScreen>

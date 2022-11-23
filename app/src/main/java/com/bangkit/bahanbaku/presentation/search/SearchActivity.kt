@@ -95,18 +95,27 @@ class SearchActivity : AppCompatActivity() {
                 is Resource.Loading -> {
                     binding.shimmerSearchList.startShimmer()
                     binding.shimmerSearchList.isVisible = true
+                    binding.imgNotFound.isVisible = false
                 }
                 is Resource.Error -> {
+                    binding.shimmerSearchList.stopShimmer()
+                    binding.shimmerSearchList.isVisible = false
+
                     val error = result.message
                     Toast.makeText(
                         this@SearchActivity,
                         error ?: ERROR_DEFAULT_MESSAGE,
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    binding.imgNotFound.isVisible = true
+                    binding.rvRecipes.isVisible = false
                 }
                 is Resource.Success -> {
                     binding.shimmerSearchList.stopShimmer()
                     binding.shimmerSearchList.isVisible = false
+                    binding.imgNotFound.isVisible = false
+                    binding.rvRecipes.isVisible = true
                     val data = result.data!!
 
                     if (data.isEmpty()) {

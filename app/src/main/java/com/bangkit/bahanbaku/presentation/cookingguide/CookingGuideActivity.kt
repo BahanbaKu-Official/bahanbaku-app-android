@@ -40,6 +40,7 @@ class CookingGuideActivity : AppCompatActivity() {
     private lateinit var recipeData: RecipeDetailItem
     private val recipe = MutableLiveData<RecipeDetailItem>()
     private val isMicOn = MutableLiveData(false)
+    private var firstTimeTurningOnMic = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +51,6 @@ class CookingGuideActivity : AppCompatActivity() {
         supportActionBar?.title = ""
         id = intent.getStringExtra(EXTRA_ID) ?: ""
         getToken()
-
-        modelSetup()
     }
 
     private fun setupView(token: String) {
@@ -188,6 +187,11 @@ class CookingGuideActivity : AppCompatActivity() {
                     "Voice command feature will be coming very soon!",
                     Toast.LENGTH_SHORT
                 ).show()
+
+//                if (firstTimeTurningOnMic) {
+//                    modelSetup()
+//                    firstTimeTurningOnMic = false
+//                }
             }
 
             android.R.id.home -> {

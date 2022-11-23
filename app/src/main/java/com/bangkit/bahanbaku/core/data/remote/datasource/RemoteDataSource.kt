@@ -212,12 +212,11 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
 
     fun updateUser(
         token: String,
-        username: String,
-        email: String,
-        password: String
+        firstName: String,
+        lastName: String
     ): Flowable<Resource<UpdateProfileResponse>> {
         val resultData = PublishSubject.create<Resource<UpdateProfileResponse>>()
-        val client = apiService.updateProfile(token, username, email, password)
+        val client = apiService.updateProfile(token, firstName, lastName)
         resultData.onNext(Resource.Loading(null))
 
         val disposable = client

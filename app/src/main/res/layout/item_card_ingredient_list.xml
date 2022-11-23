@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.Material3.CardView.Elevated"
+    style="@style/Widget.Material3.CardView.Filled"
     android:id="@+id/card_view"
     android:clickable="true"
     android:focusable="true"
@@ -12,8 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="#FFFFFF"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="2dp">
+    app:cardCornerRadius="24dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,8 +30,8 @@
 
             <ImageView
                 android:id="@+id/img_card_ingredient"
-                android:layout_width="81dp"
-                android:layout_height="81dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/avatars" />
 
@@ -68,12 +67,11 @@
             android:id="@+id/tv_card_ingredient_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/tv_card_ingredient_measurement"
-            app:layout_constraintEnd_toEndOf="@id/tv_card_ingredient_measurement"
-            app:layout_constraintBottom_toBottomOf="@id/card_ingredient_picture"
-            android:layout_marginBottom="4dp"
             android:text="@string/placeholder_price"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv_card_ingredient_measurement"
+            app:layout_constraintStart_toStartOf="@id/tv_card_ingredient_measurement"
+            app:layout_constraintTop_toBottomOf="@+id/tv_card_ingredient_measurement" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

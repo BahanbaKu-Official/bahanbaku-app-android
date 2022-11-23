@@ -101,7 +101,10 @@ data class Products(
 	val stock: Int,
 
 	@field:SerializedName("updatedAt")
-	val updatedAt: String
+	val updatedAt: String,
+
+	@field:SerializedName("productImage")
+	val productImage: String
 ) : Parcelable
 
 @Parcelize

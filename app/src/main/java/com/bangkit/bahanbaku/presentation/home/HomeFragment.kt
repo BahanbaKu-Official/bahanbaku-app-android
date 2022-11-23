@@ -25,6 +25,7 @@ import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.core.utils.categories
 import com.bangkit.bahanbaku.databinding.FragmentHomeBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
+import com.bangkit.bahanbaku.presentation.profile.ProfileActivity
 import com.bangkit.bahanbaku.presentation.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -89,14 +90,14 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnIconProfile.setOnClickListener {
-//            val intent = Intent(requireContext(), ProfileActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+            startActivity(intent)
 
-            Toast.makeText(
-                requireContext(),
-                "This feature will be available soon",
-                Toast.LENGTH_SHORT
-            ).show()
+//            Toast.makeText(
+//                requireContext(),
+//                "This feature will be available soon",
+//                Toast.LENGTH_SHORT
+//            ).show()
         }
     }
 

@@ -2,15 +2,16 @@ package com.bangkit.bahanbaku.core.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.bahanbaku.R
-import com.bangkit.bahanbaku.core.data.remote.response.IngredientsItem
-import com.bangkit.bahanbaku.core.domain.model.Checkout
-import com.bangkit.bahanbaku.databinding.ItemCardIngredientGridBinding
+import com.bangkit.bahanbaku.core.domain.model.Product
+import com.bangkit.bahanbaku.core.utils.capitalize
 import com.bangkit.bahanbaku.databinding.ItemCheckoutBinding
 import com.bumptech.glide.Glide
+import java.text.DecimalFormat
 
-class CheckoutAdapter(private val list: List<Checkout>) :
+class CheckoutAdapter(private val list: List<Product>, val onItemClicked: () -> Unit) :
     RecyclerView.Adapter<CheckoutAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -24,20 +25,44 @@ class CheckoutAdapter(private val list: List<Checkout>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val recipe = list[position]
-        holder.bind(recipe)
+        holder.bind(recipe, position)
     }
 
     override fun getItemCount() = list.size
 
     inner class ViewHolder(val binding: ItemCheckoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(ingredient: Checkout?) {
-            binding.tvTitleCheckout.text = ingredient?.ingredientsName
-            binding.tvTotalCheckout.text = "1"
-            binding.tvTotalPriceCheckout.text = "Rp20.000"
+        fun bind(product: Product?, position: Int) {
+            binding.tvTitleCheckout.text = capitalize(product?.name ?: "")
+
+            val formatter = DecimalFormat("#,###")
+            val price: Int = product?.price ?: 0
+            val formattedNumber = formatter.format(price)
+
+            binding.tvTotalPriceCheckout.text =
+                itemView.context.getString(R.string.format_currency_rupiah).format(formattedNumber)
+            binding.tvTotalCheckout.text = product?.quantity.toString()
+
+            binding.btnCardPlus.setOnClickListener {
+                if (product?.stock!! > product.quantity) {
+                    product.quantity++
+                    binding.tvTotalCheckout.text = product.quantity.toString()
+                    onItemClicked.invoke()
+                } else {
+                    Toast.makeText(itemView.context, "Quantity cannot exceed product stock", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            binding.btnCardMinus.setOnClickListener {
+                if (product?.quantity!! > 0) {
+                    product.quantity--
+                    onItemClicked.invoke()
+                    binding.tvTotalCheckout.text = product.quantity.toString()
+                }
+            }
 
             Glide.with(itemView.context)
-                .load(ingredient?.image)
+                .load(product?.productImage)
                 .into(binding.imgCheckout)
         }
     }

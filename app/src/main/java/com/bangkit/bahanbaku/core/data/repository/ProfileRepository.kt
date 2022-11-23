@@ -74,11 +74,10 @@ class ProfileRepository(
 
     override fun updateUser(
         token: String,
-        username: String,
-        email: String,
-        password: String
+        firstName: String,
+        lastName: String
     ): Flowable<Resource<UpdateProfileResponse>> =
-        remoteDataSource.updateUser(token, username, email, password)
+        remoteDataSource.updateUser(token, firstName, lastName)
 
     override fun uploadPicture(
         token: String,

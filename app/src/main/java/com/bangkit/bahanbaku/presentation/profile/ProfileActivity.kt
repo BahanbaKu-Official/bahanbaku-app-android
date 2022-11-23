@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -49,8 +50,8 @@ class ProfileActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-//        supportFragmentManager.beginTransaction().add(R.id.fragment_settings, PreferenceFragment())
-//            .commit()
+        supportFragmentManager.beginTransaction().add(R.id.layout_preferences, PreferenceFragment())
+            .commit()
 
     }
 
@@ -74,7 +75,7 @@ class ProfileActivity : AppCompatActivity() {
             startGallery()
         }
 
-        binding.tvChooseLogout.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             viewModel.deleteToken()
         }
 
@@ -146,7 +147,12 @@ class ProfileActivity : AppCompatActivity() {
             viewModel.getProfile(token as String).observe(this) { result ->
                 when (result) {
                     is Resource.Error -> {
-                        binding.progressBar.isVisible = false
+                        binding.layoutPreferences.isVisible = true
+                        binding.btnLogout.isVisible = true
+
+                        binding.shimmerProfile.visibility = View.GONE
+                        binding.shimmerProfile.stopShimmer()
+                        binding.shimmerProfile.showShimmer(false)
                         Toast.makeText(
                             this,
                             getString(R.string.error_loading_profile),
@@ -154,29 +160,36 @@ class ProfileActivity : AppCompatActivity() {
                         ).show()
                     }
                     is Resource.Loading -> {
-                        binding.progressBar.isVisible = true
+                        binding.shimmerProfile.visibility = View.VISIBLE
+                        binding.shimmerProfile.startShimmer()
+                        binding.shimmerProfile.showShimmer(true)
                     }
                     is Resource.Success -> {
-//                        binding.progressBar.isVisible = false
-//                        val data = result.data as Profile
-//
-//                        binding.tvEmailProfile.text = data.email
-//                        binding.tvNameProfile.text = data.username
-//
-//                        Glide.with(this)
-//                            .load(data.picture + "?rand=${Random(2000000)}")
-//                            .apply(
-//                                RequestOptions().signature(
-//                                    ObjectKey(
-//                                        System.currentTimeMillis().toString()
-//                                    )
-//                                )
-//                            )
-//                            .into(binding.imgProfile)
-//
-//                        Glide.with(this)
-//                            .load(data.picture + "?rand=${Random(2000000)}")
-//                            .into(binding.imgProfileBackground)
+                        binding.layoutPreferences.isVisible = true
+                        binding.btnLogout.isVisible = true
+
+                        binding.shimmerProfile.visibility = View.GONE
+                        binding.shimmerProfile.stopShimmer()
+                        binding.shimmerProfile.showShimmer(false)
+                        val data = result.data as Profile
+
+                        binding.tvNameProfile.text =
+                            getString(R.string.format_name).format(data.firstName, data.lastName)
+
+                        Glide.with(this)
+                            .load(data.profileImage + "?rand=${Random(2000000)}")
+                            .apply(
+                                RequestOptions().signature(
+                                    ObjectKey(
+                                        System.currentTimeMillis().toString()
+                                    )
+                                )
+                            )
+                            .into(binding.imgProfile)
+
+                        Glide.with(this)
+                            .load(data.profileImage + "?rand=${Random(2000000)}")
+                            .into(binding.imgProfile)
                     }
                 }
             }

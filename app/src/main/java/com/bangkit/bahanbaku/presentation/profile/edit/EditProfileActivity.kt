@@ -31,6 +31,7 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
 
         getToken()
     }
@@ -68,11 +69,10 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.btnProceed.setOnClickListener {
-            val name = binding.etName.text.toString()
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
+            val firstName = binding.etFirstName.text.toString()
+            val lastName = binding.etLastName.text.toString()
 
-            viewModel.updateProfile(token, name, email, password).observe(this) { result ->
+            viewModel.updateProfile(token, firstName, lastName).observe(this) { result ->
                 when (result) {
                     is Resource.Loading -> {
                         binding.progressBar.isVisible = true

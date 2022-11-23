@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.bahanbaku.core.data.remote.response.IngredientsItem
 import com.bangkit.bahanbaku.databinding.ItemCardIngredientCookingGuideGridBinding
+import com.bumptech.glide.Glide
 
 class CookingGuideIngredientsGridAdapter(private val data: List<IngredientsItem>) :
     RecyclerView.Adapter<CookingGuideIngredientsGridAdapter.ViewHolder>() {
@@ -32,6 +33,10 @@ class CookingGuideIngredientsGridAdapter(private val data: List<IngredientsItem>
             binding.let {
                 binding.tvCardIngredientTitle.text = ingredient?.ingredient
                 binding.tvCardIngredientMeasurement.text = ingredient?.amount.toString()
+
+                Glide.with(itemView.context)
+                    .load(ingredient?.imageUrl)
+                    .into(binding.imgCardIngredient)
             }
         }
     }

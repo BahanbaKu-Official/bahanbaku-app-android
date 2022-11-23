@@ -27,10 +27,9 @@ class ProfileInteractor(private val profileRepository: IProfileRepository) : Pro
 
     override fun updateUser(
         token: String,
-        username: String,
-        email: String,
-        password: String
-    ) = profileRepository.updateUser(token, username, email, password)
+        firstName: String,
+        lastName: String
+    ) = profileRepository.updateUser(token, firstName, lastName)
 
     override fun uploadPicture(
         token: String,

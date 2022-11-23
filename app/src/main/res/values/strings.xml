@@ -87,7 +87,7 @@
     <string name="title_activity_update_location">UpdateLocationActivity</string>
     <string name="nearby_rating">%f - Rated by %d users</string>
     <string name="update_location">Update Location</string>
-    <string name="logout">Log out</string>
+    <string name="logout">Log Out</string>
     <string name="gallery">Gallery</string>
     <string name="or">Or</string>
     <string name="import_picture">Import a picture</string>
@@ -190,8 +190,8 @@
     <string name="menu_cepat">Menu Cepat</string>
     <string name="notification_profile">Notifikasi</string>
     <string name="pengaturan">Pengaturan</string>
-    <string name="language">Bahasa</string>
-    <string name="helpdesk">Bantuan</string>
+    <string name="language">Language</string>
+    <string name="helpdesk">Helpdesk</string>
     <string name="komplain">Komplain</string>
     <string name="search_for_helpdesk">search for helpdesk</string>
     <string name="desc_card_helpdesk">Selamat Pagi, John!</string>
@@ -226,4 +226,13 @@
     <string name="placeholder_price_small">Rp20.000</string>
     <string name="format_greetings">Good %s, %s!</string>
     <string name="next">Next</string>
+    <string name="format_name">%s %s</string>
+    <string name="edit_your_profile_information">Edit your profile information</string>
+    <string name="format_measurement">%d %s</string>
+    <string name="format_currency_rupiah">Rp%s</string>
+    <string name="plus">+</string>
+    <string name="placeholder_quantity">25</string>
+    <string name="placeholder_price_zero">Rp0</string>
+    <string name="checkout">Checkout</string>
+    <string name="unavailable">Unavailable</string>
 </resources>

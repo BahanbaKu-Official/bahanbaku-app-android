@@ -29,12 +29,11 @@ interface ApiService {
     ): Flowable<GetProfileResponse>
 
     @FormUrlEncoded
-    @PUT("users/update/profile")
+    @POST("users/update/profile")
     fun updateProfile(
         @Header("Authorization") token: String,
-        @Field("username") username: String,
-        @Field("email") email: String,
-        @Field("password") password: String
+        @Field("firstName") firstName: String,
+        @Field("lastName") lastName: String
     ): Flowable<UpdateProfileResponse>
 
     @PUT("user/update-location")

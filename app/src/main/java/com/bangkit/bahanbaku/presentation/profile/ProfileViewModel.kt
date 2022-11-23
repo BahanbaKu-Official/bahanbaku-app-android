@@ -14,13 +14,12 @@ class ProfileViewModel @Inject constructor(
     fun getProfile(token: String) =
         LiveDataReactiveStreams.fromPublisher(profileUseCase.getProfile(token))
 
-    fun updateProfile(token: String, username: String, email: String, password: String) =
+    fun updateProfile(token: String, firstName: String, lastName: String) =
         LiveDataReactiveStreams.fromPublisher(
             profileUseCase.updateUser(
                 token,
-                username,
-                email,
-                password
+                firstName,
+                lastName
             )
         )
 

@@ -22,9 +22,8 @@ interface IProfileRepository {
 
     fun updateUser(
         token: String,
-        username: String,
-        email: String,
-        password: String
+        firstName: String,
+        lastName: String
     ): Flowable<Resource<UpdateProfileResponse>>
 
     fun uploadPicture(token: String, file: File): Flowable<Resource<UploadPictureResponse>>
