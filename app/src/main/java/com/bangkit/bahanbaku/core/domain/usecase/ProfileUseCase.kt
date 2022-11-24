@@ -33,6 +33,19 @@ interface ProfileUseCase {
         lat: Double
     ): Flowable<Resource<UpdateLocationResponse>>
 
+    fun getAddress(
+        token: String
+    ): Flowable<Resource<GetAddressByUser>>
+    fun addAddress(
+        token: String,
+        street: String,
+        district: String,
+        city: String,
+        province: String,
+        zipCode: Int,
+        label: String
+    ): Flowable<Resource<PostAddUserAddress>>
+
 //    fun getBookmarks(token: String): Flowable<Resource<List<RecipeItem>>>
 //    fun addBookmark(token: String, id: String): Flowable<Resource<AddBookmarkResponse>>
 //    fun deleteBookmarkByPosition(

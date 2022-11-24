@@ -413,6 +413,55 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         return resultData.toFlowable(BackpressureStrategy.BUFFER)
     }
 
+    fun getAddress(token: String): Flowable<Resource<GetAddressByUser>> {
+        val resultData = PublishSubject.create<Resource<GetAddressByUser>>()
+        val client = apiService.getUserAddress(token)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                resultData.onNext(Resource.Success(response))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun addAddress(
+        token: String,
+        street: String,
+        district: String,
+        city: String,
+        province: String,
+        zipCode: Int,
+        label: String,
+    ): Flowable<Resource<PostAddUserAddress>> {
+        val resultData = PublishSubject.create<Resource<PostAddUserAddress>>()
+        val client =
+            apiService.addUserAddress(token, street, district, city, province, zipCode, label)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                resultData.onNext(Resource.Success(response))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
     companion object {
         private const val TAG = "REMOTE_DATA_SOURCE"
 

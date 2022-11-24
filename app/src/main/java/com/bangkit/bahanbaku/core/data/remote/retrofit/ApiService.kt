@@ -5,7 +5,6 @@ import io.reactivex.Flowable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
-
 interface ApiService {
     @FormUrlEncoded
     @POST("register")
@@ -88,4 +87,22 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("tag") tag: String = ""
     ): Flowable<GetRecipesByTagResponse>
+
+    @GET("users/address")
+    fun getUserAddress(
+        @Header("Authorization") token: String
+    ): Flowable<GetAddressByUser>
+
+    @FormUrlEncoded
+    @POST("users/address")
+    fun addUserAddress(
+        @Header("Authorization") token: String,
+        @Field("street") street: String,
+        @Field("district") district: String,
+        @Field("city") city: String,
+        @Field("province") province: String,
+        @Field("zipCode") zipCode: Int,
+        @Field("label") label: String,
+    ): Flowable<PostAddUserAddress>
 }
+

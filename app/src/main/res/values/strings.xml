@@ -235,4 +235,14 @@
     <string name="placeholder_price_zero">Rp0</string>
     <string name="checkout">Checkout</string>
     <string name="unavailable">Unavailable</string>
+    <string name="title_activity_address">AddressActivity</string>
+    <string name="street">Street</string>
+    <string name="district">District</string>
+    <string name="city">City</string>
+    <string name="province">Province</string>
+    <string name="zip_code">ZIP Code</string>
+    <string name="save_address">Save Address</string>
+    <string name="add_address">Add Address</string>
+    <string name="enter_address_city_or_province">Enter address, city, or province</string>
+    <string name="label">Label</string>
 </resources>

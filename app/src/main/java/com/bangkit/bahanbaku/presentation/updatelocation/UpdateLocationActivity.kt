@@ -82,7 +82,11 @@ class UpdateLocationActivity : AppCompatActivity(), OnMapReadyCallback {
                             }
                             is Resource.Error -> {
                                 binding.progressBar.isVisible = false
-                                Toast.makeText(this, result.message ?: ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    this,
+                                    result.message ?: ERROR_DEFAULT_MESSAGE,
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                             is Resource.Success -> {
                                 binding.progressBar.isVisible = false
@@ -147,7 +151,8 @@ class UpdateLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
     private fun getLastLocation() {
-        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) && checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
+            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 this.location = location
                 showCurrentLocation(location)

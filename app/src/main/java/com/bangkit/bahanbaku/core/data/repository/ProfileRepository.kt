@@ -90,30 +90,6 @@ class ProfileRepository(
         lat: Double
     ): Flowable<Resource<UpdateLocationResponse>> = remoteDataSource.updateLocation(token, lon, lat)
 
-//    override fun getBookmarks(token: String): Flowable<Resource<List<RecipeItem>>> = liveData {
-////        TODO: IMPLEMENT NetworkBoundResource
-//    }
-//
-//    override fun addBookmark(token: String, id: String): Flowable<Resource<AddBookmarkResponse>> = liveData {
-////        TODO: IMPLEMENT NetworkBoundResource
-//    }
-//
-//    override fun deleteBookmarkByPosition(
-//        token: String,
-//        position: Int
-//    ): Flowable<Resource<DeleteBookmarkResponse>> = liveData {
-////        TODO: IMPLEMENT NetworkBoundResource
-//    }
-//
-//    override fun deleteBookmark(token: String, id: String): Flowable<Resource<DeleteBookmarkResponse>> =
-//        liveData {
-////        TODO: IMPLEMENT NetworkBoundResource
-//        }
-//
-//    override fun checkIfRecipeBookmarked(token: String, id: String): Flowable<Boolean> = liveData {
-////        TODO: IMPLEMENT NetworkBoundResource
-//    }
-
     override fun isFirstTime() = userPreferences.isFirstTime().asLiveData(coroutineContext)
 
     override fun setFirstTime(firstTime: Boolean) {
@@ -121,6 +97,20 @@ class ProfileRepository(
             userPreferences.setFirstTime(firstTime)
         }
     }
+
+    override fun getAddress(token: String): Flowable<Resource<GetAddressByUser>> =
+        remoteDataSource.getAddress(token)
+
+    override fun addAddress(
+        token: String,
+        street: String,
+        district: String,
+        city: String,
+        province: String,
+        zipCode: Int,
+        label: String,
+    ): Flowable<Resource<PostAddUserAddress>> =
+        remoteDataSource.addAddress(token, street, district, city, province, zipCode, label)
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO

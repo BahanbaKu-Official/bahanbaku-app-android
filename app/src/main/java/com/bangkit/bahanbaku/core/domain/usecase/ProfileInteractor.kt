@@ -1,6 +1,8 @@
 package com.bangkit.bahanbaku.core.domain.usecase
 
 import com.bangkit.bahanbaku.core.data.Resource
+import com.bangkit.bahanbaku.core.data.remote.response.GetAddressByUser
+import com.bangkit.bahanbaku.core.data.remote.response.PostAddUserAddress
 import com.bangkit.bahanbaku.core.data.remote.response.PostRegisterResponse
 import com.bangkit.bahanbaku.core.domain.repository.IProfileRepository
 import io.reactivex.Flowable
@@ -41,6 +43,20 @@ class ProfileInteractor(private val profileRepository: IProfileRepository) : Pro
         lon: Double,
         lat: Double
     ) = profileRepository.updateLocation(token, lon, lat)
+
+    override fun getAddress(token: String): Flowable<Resource<GetAddressByUser>> =
+        profileRepository.getAddress(token)
+
+    override fun addAddress(
+        token: String,
+        street: String,
+        district: String,
+        city: String,
+        province: String,
+        zipCode: Int,
+        label: String
+    ): Flowable<Resource<PostAddUserAddress>> =
+        profileRepository.addAddress(token, street, district, city, province, zipCode, label)
 
 //    override fun getBookmarks(token: String) = profileRepository.getBookmarks(token)
 //

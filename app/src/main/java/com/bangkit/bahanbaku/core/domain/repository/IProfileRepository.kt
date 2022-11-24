@@ -44,4 +44,14 @@ interface IProfileRepository {
 //    fun checkIfRecipeBookmarked(token: String, id: String): Flowable<Boolean>
     fun isFirstTime(): LiveData<Boolean>
     fun setFirstTime(firstTime: Boolean)
+    fun getAddress(token: String): Flowable<Resource<GetAddressByUser>>
+    fun addAddress(
+        token: String,
+        street: String,
+        district: String,
+        city: String,
+        province: String,
+        zipCode: Int,
+        label: String
+    ): Flowable<Resource<PostAddUserAddress>>
 }

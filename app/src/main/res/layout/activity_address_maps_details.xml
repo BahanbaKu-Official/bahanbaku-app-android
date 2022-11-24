@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.addressmapsdetails.AddressMapsDetailsActivity">
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/tf_street"
+      style="@style/TextField"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="24dp"
+      android:hint="@string/street"
+      app:boxBackgroundColor="@color/pure_white"
+      app:boxStrokeWidth="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:startIconDrawable="@drawable/badge">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_street"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLines="1" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/tf_district"
+      style="@style/TextField"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="12dp"
+      android:hint="@string/district"
+      app:boxBackgroundColor="@color/pure_white"
+      app:boxStrokeWidth="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tf_street"
+      app:startIconDrawable="@drawable/badge">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_district"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLines="1" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/tf_city"
+      style="@style/TextField"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="12dp"
+      android:hint="@string/city"
+      app:boxBackgroundColor="@color/pure_white"
+      app:boxStrokeWidth="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tf_district"
+      app:startIconDrawable="@drawable/mail">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/tf_province"
+      style="@style/TextField"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="12dp"
+      android:hint="@string/province"
+      app:boxBackgroundColor="@color/pure_white"
+      app:boxStrokeWidth="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tf_city"
+      app:startIconDrawable="@drawable/password">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_province"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/tf_zip_code"
+      style="@style/TextField"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="12dp"
+      android:hint="@string/zip_code"
+      app:boxBackgroundColor="@color/pure_white"
+      app:boxStrokeWidth="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tf_province"
+      app:startIconDrawable="@drawable/password">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_zip_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/tf_label"
+      style="@style/TextField"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="12dp"
+      android:hint="@string/label"
+      app:boxBackgroundColor="@color/pure_white"
+      app:boxStrokeWidth="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tf_zip_code"
+      app:startIconDrawable="@drawable/password">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <Button
+      android:id="@+id/btn_save_address"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@id/tf_label"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="32dp"
+      android:text="@string/save_address"/>
+  </androidx.constraintlayout.widget.ConstraintLayout>

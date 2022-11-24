@@ -10,5 +10,5 @@ data class Supplier(
     val origin: Origin,
     val name: String,
     val id: String,
-    val addressObj: Address
+    val addressObj: AddressInput
 ) : Parcelable
