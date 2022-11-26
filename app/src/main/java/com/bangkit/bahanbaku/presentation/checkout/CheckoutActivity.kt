@@ -71,6 +71,7 @@ class CheckoutActivity : AppCompatActivity() {
 
             binding.cvCheckoutAddress.layoutAddress.setOnClickListener {
                 val intent = Intent(this, AddressActivity::class.java)
+                intent.putExtra(EXTRA_RECIPE, recipe.value)
                 startActivity(intent)
             }
         }

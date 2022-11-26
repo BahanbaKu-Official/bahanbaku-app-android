@@ -4,11 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.bahanbaku.core.adapter.AddressListAdapter
 import com.bangkit.bahanbaku.core.data.Resource
+import com.bangkit.bahanbaku.core.domain.model.CheckoutDataClass
 import com.bangkit.bahanbaku.databinding.ActivityAddressBinding
 import com.bangkit.bahanbaku.presentation.addressmaps.AddressMapsActivity
+import com.bangkit.bahanbaku.presentation.checkout.CheckoutActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,10 +23,13 @@ class AddressActivity : AppCompatActivity() {
     }
 
     private val viewModel: AddressViewModel by viewModels()
+    private val recipe = MutableLiveData<CheckoutDataClass>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        recipe.postValue(intent.getParcelableExtra(CheckoutActivity.EXTRA_RECIPE))
 
         getToken()
     }
@@ -45,6 +51,7 @@ class AddressActivity : AppCompatActivity() {
     private fun setupView(token: String) {
         binding.fabCookGuide.setOnClickListener {
             val intent = Intent(this, AddressMapsActivity::class.java)
+            intent.putExtra(CheckoutActivity.EXTRA_RECIPE, recipe.value)
             startActivity(intent)
         }
 
