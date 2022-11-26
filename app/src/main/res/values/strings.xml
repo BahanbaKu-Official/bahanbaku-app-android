@@ -249,4 +249,6 @@
     <string name="message_no_address">No address found.\nPlease add an address first.</string>
     <string name="receiver_name">Receiver Name</string>
     <string name="receiver_number">Receiver Number</string>
+    <string name="title_payment_method">Bank Transfer</string>
+    <string name="choose_payment">Gopay</string>
 </resources>
