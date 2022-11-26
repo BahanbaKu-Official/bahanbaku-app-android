@@ -251,4 +251,8 @@
     <string name="receiver_number">Receiver Number</string>
     <string name="title_payment_method">Bank Transfer</string>
     <string name="choose_payment">Gopay</string>
+    <string name="desc_food_recipe_totality">description food recipe totality</string>
+    <string name="watch_recipe">Lihat Resep</string>
+    <string name="desc_snapshot">Tingkat akurasi makanan ini adalah 15%, terdapat 75% kemungkinan salah.</string>
+    <string name="value_percentage">50%</string>
 </resources>

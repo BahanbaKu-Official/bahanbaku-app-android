@@ -10,28 +10,30 @@
         android:id="@+id/container_snapfood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:strokeWidth="0dp"
-        app:strokeColor="#E0E0E0"
-        app:cardCornerRadius="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/pure_white"
-        android:layout_marginTop="8dp"
         android:layout_marginHorizontal="8dp"
-        android:layout_marginBottom="-8dp">
+        android:layout_marginTop="8dp"
+        style="@style/Widget.Material3.CardView.Elevated"
+        android:backgroundTint="@color/pure_white"
+        app:cardCornerRadius="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#E0E0E0"
+        app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="403dp"
+            android:layout_height="152dp"
             android:padding="8dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/container_snap_food"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:cardCornerRadius="16dp"
-                app:strokeWidth="0dp"
-                android:layout_height="wrap_content">
+                app:strokeWidth="0dp">
 
                 <ImageView
                     android:id="@+id/img_snap_food"
@@ -41,7 +43,7 @@
                     android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="@id/container_snapfood"
                     app:layout_constraintTop_toTopOf="@id/container_snapfood"
-                    tools:srcCompat="@tools:sample/avatars"/>
+                    tools:srcCompat="@tools:sample/avatars" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -60,26 +62,29 @@
                 android:id="@+id/tv_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/tv_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                android:elevation="2dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/snapfood_description_before"/>
+                android:layout_marginEnd="8dp"
+                android:elevation="2dp"
+                android:text="@string/snapfood_description_before"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
             <Button
                 android:id="@+id/btn_snap"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                style="@style/Widget.Material3.Button.ElevatedButton"
-                android:backgroundTint="@color/primary"
-                android:textColor="@color/black"
-                android:text="@string/snap_a_food"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description"
-                android:elevation="5dp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/black"
+                android:elevation="5dp"
+                android:text="@string/snap_a_food"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_description"
+                app:layout_constraintStart_toStartOf="@+id/tv_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -88,19 +93,24 @@
         android:id="@+id/rv_foods"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/container_snapfood"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_food"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/container_snapfood"
+        tools:listitem="@layout/item_food" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
+        style="@style/ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/ProgressBar"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_snapfood_status"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/tv_status"
@@ -114,16 +124,4 @@
         android:layout_marginHorizontal="32dp"
         />
 
-    <ImageView
-        android:id="@+id/img_snapfood_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:visibility="visible"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/ic_illustration_thinking"
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>
