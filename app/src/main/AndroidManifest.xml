@@ -62,6 +62,20 @@
             android:value="AIzaSyDEwx4-wMU6vpJNdUElRDKUKrT6DYLORhM" />
 
         <activity
+            android:name=".RecipeDetailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PaymentMethodActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".presentation.snapfood.SnapFoodActivity"
             android:exported="false" >
             <meta-data
