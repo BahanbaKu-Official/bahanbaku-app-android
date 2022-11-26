@@ -42,5 +42,8 @@ data class ProfileResult(
 	val email: String,
 
 	@field:SerializedName("updatedAt")
-	val updatedAt: String
+	val updatedAt: String,
+
+	@field:SerializedName("phoneNumber")
+	val phoneNumber: String,
 ) : Parcelable

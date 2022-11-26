@@ -18,9 +18,11 @@ class AddressMapsDetailsViewModel @Inject constructor(private val profileUseCase
         province: String,
         zipCode: Int,
         label: String,
+        receiverName: String,
+        receiverNumber: String,
     ) = LiveDataReactiveStreams.fromPublisher(
         profileUseCase.addAddress(
-            token, street, district, city, province, zipCode, label
+            token, street, district, city, province, zipCode, label, receiverName, receiverNumber
         )
     )
 

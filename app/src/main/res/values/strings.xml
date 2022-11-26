@@ -245,4 +245,8 @@
     <string name="add_address">Add Address</string>
     <string name="enter_address_city_or_province">Enter address, city, or province</string>
     <string name="label">Label</string>
+    <string name="content_desc_detect_food_image">Detect food image</string>
+    <string name="message_no_address">No address found.\nPlease add an address first.</string>
+    <string name="receiver_name">Receiver Name</string>
+    <string name="receiver_number">Receiver Number</string>
 </resources>

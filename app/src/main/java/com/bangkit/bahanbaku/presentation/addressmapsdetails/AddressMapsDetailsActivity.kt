@@ -45,17 +45,21 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
             binding.tfCity.editText?.setText(address.city)
             binding.tfProvince.editText?.setText(address.province)
             binding.tfZipCode.editText?.setText(address.zipCode.toString())
+            binding.tfReceiverName.editText?.setText(address.receiverName)
+            binding.tfReceiverNumber.editText?.setText(address.receiverPhoneNumber)
         }
 
         binding.btnSaveAddress.setOnClickListener {
             val label = binding.etLabel.text.toString()
+            val receiverName = binding.etReceiverName.text.toString()
+            val receiverPhoneNumber = binding.etReceiverNumber.text.toString()
 
             if (label.isEmpty()) {
                 Toast.makeText(this, "Label cannot be empty", Toast.LENGTH_SHORT).show()
             } else {
                 address?.apply {
                     viewModel.addAddress(
-                        token, street, district, city, province, zipCode, label
+                        token, street, district, city, province, zipCode, label, receiverName, receiverPhoneNumber
                     ).observe(this@AddressMapsDetailsActivity) { result ->
                         when (result) {
                             is Resource.Loading -> {

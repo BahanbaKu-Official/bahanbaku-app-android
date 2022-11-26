@@ -12,7 +12,8 @@ interface ApiService {
         @Field("firstName") firstName: String,
         @Field("lastName") lastName: String,
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("phoneNumber") phoneNumber: String,
     ): Flowable<PostRegisterResponse>
 
     @FormUrlEncoded
@@ -103,6 +104,8 @@ interface ApiService {
         @Field("province") province: String,
         @Field("zipCode") zipCode: Int,
         @Field("label") label: String,
+        @Field("receiverName") receiverName: String,
+        @Field("receiverPhoneNumber") receiverNumber: String,
     ): Flowable<PostAddUserAddress>
 }
 

@@ -54,5 +54,11 @@ data class AddressResultItem(
 	val longitude: Double,
 
 	@field:SerializedName("updatedAt")
-	val updatedAt: String
+	val updatedAt: String,
+
+	@field:SerializedName("receiverName")
+	val receiverName: String,
+
+	@field:SerializedName("receiverPhoneNumber")
+	val receiverPhoneNumber: String
 ) : Parcelable

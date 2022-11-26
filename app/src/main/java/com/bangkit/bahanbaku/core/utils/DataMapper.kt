@@ -182,7 +182,8 @@ object DataMapper {
         profileImage = input.profileImage,
         userId = input.userId,
         email = input.email,
-        updatedAt = input.updatedAt
+        updatedAt = input.updatedAt,
+        phoneNumber = input.phoneNumber
     )
 
     fun mapProfileEntityToProfileDomain(input: ProfileEntity) = Profile(
@@ -193,7 +194,8 @@ object DataMapper {
         profileImage = input.profileImage,
         userId = input.userId,
         email = input.email,
-        updatedAt = input.updatedAt
+        updatedAt = input.updatedAt,
+        phoneNumber = input.phoneNumber
     )
 
     fun mapProfileDomainToProfileEntity(input: Profile) = ProfileEntity(
@@ -204,6 +206,7 @@ object DataMapper {
         profileImage = input.profileImage,
         userId = input.userId,
         email = input.email,
-        updatedAt = input.updatedAt
+        updatedAt = input.updatedAt,
+        phoneNumber = input.phoneNumber
     )
 }

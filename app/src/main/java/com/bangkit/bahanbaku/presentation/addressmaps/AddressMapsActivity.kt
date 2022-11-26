@@ -11,13 +11,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.bangkit.bahanbaku.R
+import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.domain.model.AddressInput
+import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.core.utils.addressObjectToString
 import com.bangkit.bahanbaku.databinding.ActivityAddressMapsBinding
 import com.bangkit.bahanbaku.presentation.addressmapsdetails.AddressMapsDetailsActivity
@@ -47,6 +50,7 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var location: Location? = null
     private val addressLiveData = MutableLiveData<AddressInput>()
+    private var profile: Profile? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,7 +113,10 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 latitude = address.latitude,
                 district = address.locality,
                 label = "",
-                longitude = address.longitude
+                longitude = address.longitude,
+                receiverName = if (profile != null) this.getString(R.string.format_name)
+                    .format(profile!!.firstName, profile!!.lastName) else "",
+                receiverPhoneNumber = if (profile != null) profile!!.phoneNumber else ""
             )
 
             addressLiveData.postValue(addressData)
@@ -171,18 +178,23 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             geocoder.getFromLocation(loc.latitude, loc.longitude, 1) { addressList ->
-                val data = addressList[0]
-                val addressData = AddressInput(
-                    zipCode = (data.postalCode ?: "").toInt(),
-                    province = data.adminArea ?: "",
-                    city = data.subAdminArea ?: "",
-                    street = "${data.thoroughfare ?: ""} ${data.featureName ?: ""}",
-                    latitude = data.latitude,
-                    district = data.locality,
-                    label = "",
-                    longitude = data.longitude
-                )
-                addressLiveData.postValue(addressData)
+                if (profile == null) {
+                    val data = addressList[0]
+                    val addressData = AddressInput(
+                        zipCode = (data.postalCode ?: "").toInt(),
+                        province = data.adminArea ?: "",
+                        city = data.subAdminArea ?: "",
+                        street = "${data.thoroughfare ?: ""} ${data.featureName ?: ""}",
+                        latitude = data.latitude,
+                        district = data.locality,
+                        label = "",
+                        longitude = data.longitude,
+                        receiverName = if (profile != null) this.getString(R.string.format_name)
+                            .format(profile!!.firstName, profile!!.lastName) else "",
+                        receiverPhoneNumber = if (profile != null) profile!!.phoneNumber else ""
+                    )
+                    addressLiveData.postValue(addressData)
+                }
             }
         } else {
             val address = geocoder.getFromLocation(loc.latitude, loc.longitude, 1)
@@ -196,7 +208,9 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     latitude = data.latitude,
                     district = data.locality,
                     label = "",
-                    longitude = data.longitude
+                    longitude = data.longitude,
+                    receiverName = "",
+                    receiverPhoneNumber = ""
                 )
                 addressLiveData.postValue(addressData)
             }
@@ -225,6 +239,25 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
     private fun setupView(token: String) {
+        viewModel.getProfile(token).observe(this) { result ->
+            when (result) {
+                is Resource.Error -> {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.error_loading_profile),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    val data = result.data
+                    profile = data
+                }
+            }
+        }
+
         getLastLocation()
 
         addressLiveData.observe(this) { address ->

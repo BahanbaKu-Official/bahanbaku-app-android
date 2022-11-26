@@ -188,10 +188,11 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         firstName: String,
         lastName: String,
         email: String,
-        password: String
+        password: String,
+        phoneNumber: String,
     ): Flowable<Resource<PostRegisterResponse>> {
         val resultData = PublishSubject.create<Resource<PostRegisterResponse>>()
-        val client = apiService.register(firstName, lastName, email, password)
+        val client = apiService.register(firstName, lastName, email, password, phoneNumber)
         resultData.onNext(Resource.Loading(null))
 
         val disposable = client
@@ -441,10 +442,12 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         province: String,
         zipCode: Int,
         label: String,
+        receiverName: String,
+        receiverNumber: String,
     ): Flowable<Resource<PostAddUserAddress>> {
         val resultData = PublishSubject.create<Resource<PostAddUserAddress>>()
         val client =
-            apiService.addUserAddress(token, street, district, city, province, zipCode, label)
+            apiService.addUserAddress(token, street, district, city, province, zipCode, label, receiverName, receiverNumber)
 
         val disposable = client
             .subscribeOn(Schedulers.io())

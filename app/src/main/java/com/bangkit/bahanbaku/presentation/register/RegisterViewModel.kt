@@ -9,13 +9,20 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(private val profileUseCase: ProfileUseCase) :
     ViewModel() {
-    fun register(firstName: String, lastName: String, email: String, password: String) =
+    fun register(
+        firstName: String,
+        lastName: String,
+        email: String,
+        password: String,
+        phoneNumber: String
+    ) =
         LiveDataReactiveStreams.fromPublisher(
             profileUseCase.register(
                 firstName,
                 lastName,
                 email,
-                password
+                password,
+                phoneNumber
             )
         )
 }

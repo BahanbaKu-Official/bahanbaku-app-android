@@ -1,6 +1,7 @@
 package com.bangkit.bahanbaku.core.domain.model
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -12,5 +13,7 @@ data class AddressInput(
     val latitude: Double,
     val district: String,
     val label: String,
-    val longitude: Double
+    val longitude: Double,
+    val receiverName: String,
+    val receiverPhoneNumber: String
 ) : Parcelable

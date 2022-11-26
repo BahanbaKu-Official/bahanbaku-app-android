@@ -17,7 +17,8 @@ interface ProfileUseCase {
         firstName: String,
         lastName: String,
         email: String,
-        password: String
+        password: String,
+        phoneNumber: String
     ): Flowable<Resource<PostRegisterResponse>>
 
     fun updateUser(
@@ -43,7 +44,9 @@ interface ProfileUseCase {
         city: String,
         province: String,
         zipCode: Int,
-        label: String
+        label: String,
+        receiverName: String,
+        receiverNumber: String,
     ): Flowable<Resource<PostAddUserAddress>>
 
 //    fun getBookmarks(token: String): Flowable<Resource<List<RecipeItem>>>

@@ -1,5 +1,6 @@
 package com.bangkit.bahanbaku.presentation.addressmaps
 
+import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,4 +12,7 @@ class AddressMapsViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getToken() = profileUseCase.getToken()
+
+    fun getProfile(token: String) =
+        LiveDataReactiveStreams.fromPublisher(profileUseCase.getProfile(token))
 }

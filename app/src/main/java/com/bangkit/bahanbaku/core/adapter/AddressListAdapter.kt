@@ -34,8 +34,8 @@ class AddressListAdapter(private val list: List<AddressResultItem>, private val 
         fun bind(address: AddressResultItem?) {
             if (address != null) {
                 binding.tvAddressLabel.text = address.label
-                binding.tvNameUser.text = itemView.context.getString(R.string.format_name)
-                    .format(profile.firstName, profile.lastName)
+                binding.tvNameUser.text = address.receiverName
+                binding.tvNoContact.text = address.receiverPhoneNumber
 
                 binding.tvAddress.text = addressObjectToString(address)
             }

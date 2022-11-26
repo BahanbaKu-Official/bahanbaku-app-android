@@ -3,6 +3,7 @@ package com.bangkit.bahanbaku.presentation.checkout
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -85,15 +86,19 @@ class CheckoutActivity : AppCompatActivity() {
                 }
 
                 is Resource.Success -> {
-                    val data = result.data?.results?.get(0)
+                    val data = result.data?.results
 
-                    if (data != null) {
+                    if (!data.isNullOrEmpty()) {
+                        val address = data[0]
                         binding.cvCheckoutAddress.apply {
-                            tvAddressLabel.text = data.label
-                            tvNameUser.text = ""
+                            tvAddressLabel.text = address.label
+                            tvNameUser.text = address.receiverName
+                            tvNoContact.text = address.receiverPhoneNumber
 
                             tvAddress.text = addressObjectToString(result.data.results[0])
                         }
+                    } else {
+                        binding.cvCheckoutAddress.tvNoAddressMessage.visibility = View.VISIBLE
                     }
                 }
 

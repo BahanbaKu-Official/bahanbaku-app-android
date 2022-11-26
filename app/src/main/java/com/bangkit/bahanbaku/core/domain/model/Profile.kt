@@ -13,5 +13,6 @@ data class Profile(
     val profileImage: String,
     val userId: String,
     val email: String,
-    val updatedAt: String
+    val updatedAt: String,
+    val phoneNumber: String,
 ) : Parcelable

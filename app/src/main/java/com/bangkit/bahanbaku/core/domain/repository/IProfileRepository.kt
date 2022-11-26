@@ -17,7 +17,8 @@ interface IProfileRepository {
         firstName: String,
         lastName: String,
         email: String,
-        password: String
+        password: String,
+        phoneNumber: String
     ): Flowable<Resource<PostRegisterResponse>>
 
     fun updateUser(
@@ -52,6 +53,8 @@ interface IProfileRepository {
         city: String,
         province: String,
         zipCode: Int,
-        label: String
+        label: String,
+        receiverName: String,
+        receiverNumber: String,
     ): Flowable<Resource<PostAddUserAddress>>
 }

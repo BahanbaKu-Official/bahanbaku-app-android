@@ -23,9 +23,10 @@ class ProfileInteractor(private val profileRepository: IProfileRepository) : Pro
         firstName: String,
         lastName: String,
         email: String,
-        password: String
+        password: String,
+        phoneNumber: String
     ): Flowable<Resource<PostRegisterResponse>> =
-        profileRepository.register(firstName, lastName, email, password)
+        profileRepository.register(firstName, lastName, email, password, phoneNumber)
 
     override fun updateUser(
         token: String,
@@ -54,9 +55,20 @@ class ProfileInteractor(private val profileRepository: IProfileRepository) : Pro
         city: String,
         province: String,
         zipCode: Int,
-        label: String
+        label: String,
+        receiverName: String,
+        receiverNumber: String,
     ): Flowable<Resource<PostAddUserAddress>> =
-        profileRepository.addAddress(token, street, district, city, province, zipCode, label)
+        profileRepository.addAddress(
+            token,
+            street,
+            district,
+            city,
+            province,
+            zipCode,
+            label,
+            receiverName, receiverNumber
+        )
 
 //    override fun getBookmarks(token: String) = profileRepository.getBookmarks(token)
 //

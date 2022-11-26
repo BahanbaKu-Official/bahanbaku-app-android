@@ -40,8 +40,9 @@ class RegisterActivity : AppCompatActivity() {
             val lastName = binding.etLastName.text.toString()
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
+            val phoneNumber = binding.etNomorTelp.text.toString()
 
-            viewModel.register(firstName, lastName, email, password).observe(this) { result ->
+            viewModel.register(firstName, lastName, email, password, phoneNumber).observe(this) { result ->
                 when (result) {
                     is Resource.Error -> {
                         val error = result.message

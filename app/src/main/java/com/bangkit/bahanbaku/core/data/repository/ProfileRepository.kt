@@ -68,9 +68,10 @@ class ProfileRepository(
         firstName: String,
         lastName: String,
         email: String,
-        password: String
+        password: String,
+        phoneNumber: String
     ): Flowable<Resource<PostRegisterResponse>> =
-        remoteDataSource.register(firstName, lastName, email, password)
+        remoteDataSource.register(firstName, lastName, email, password, phoneNumber)
 
     override fun updateUser(
         token: String,
@@ -109,8 +110,20 @@ class ProfileRepository(
         province: String,
         zipCode: Int,
         label: String,
+        receiverName: String,
+        receiverNumber: String,
     ): Flowable<Resource<PostAddUserAddress>> =
-        remoteDataSource.addAddress(token, street, district, city, province, zipCode, label)
+        remoteDataSource.addAddress(
+            token,
+            street,
+            district,
+            city,
+            province,
+            zipCode,
+            label,
+            receiverName,
+            receiverNumber
+        )
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO

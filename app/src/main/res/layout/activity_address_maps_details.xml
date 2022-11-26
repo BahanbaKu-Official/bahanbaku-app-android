@@ -147,11 +147,57 @@
 
   </com.google.android.material.textfield.TextInputLayout>
 
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/tf_receiver_name"
+      style="@style/TextField"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="12dp"
+      android:hint="@string/receiver_name"
+      app:boxBackgroundColor="@color/pure_white"
+      app:boxStrokeWidth="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tf_label"
+      app:startIconDrawable="@drawable/password">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_receiver_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/tf_receiver_number"
+      style="@style/TextField"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="12dp"
+      android:hint="@string/receiver_number"
+      app:boxBackgroundColor="@color/pure_white"
+      app:boxStrokeWidth="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tf_receiver_name"
+      app:startIconDrawable="@drawable/password">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_receiver_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
   <Button
       android:id="@+id/btn_save_address"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:layout_constraintTop_toBottomOf="@id/tf_label"
+      app:layout_constraintTop_toBottomOf="@id/tf_receiver_number"
       android:layout_marginHorizontal="16dp"
       android:layout_marginTop="32dp"
       android:text="@string/save_address"/>
