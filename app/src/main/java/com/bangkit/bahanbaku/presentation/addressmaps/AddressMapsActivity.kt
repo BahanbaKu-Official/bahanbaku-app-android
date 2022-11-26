@@ -20,10 +20,12 @@ import androidx.lifecycle.MutableLiveData
 import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.domain.model.AddressInput
+import com.bangkit.bahanbaku.core.domain.model.CheckoutDataClass
 import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.core.utils.addressObjectToString
 import com.bangkit.bahanbaku.databinding.ActivityAddressMapsBinding
 import com.bangkit.bahanbaku.presentation.addressmapsdetails.AddressMapsDetailsActivity
+import com.bangkit.bahanbaku.presentation.checkout.CheckoutActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -52,6 +54,8 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val addressLiveData = MutableLiveData<AddressInput>()
     private var profile: Profile? = null
 
+    private val recipe = MutableLiveData<CheckoutDataClass>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -60,6 +64,8 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map_address) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        recipe.postValue(intent.getParcelableExtra(CheckoutActivity.EXTRA_RECIPE))
 
         init()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -94,7 +100,30 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             Log.e(TAG, e.message.toString())
         }
 
-        if (addressList.size > 0) {
+        focusToAddress(addressList)
+    }
+
+    private fun geoLocateFromLatLng(latLng: LatLng) {
+        val geocoder = Geocoder(this)
+        val addressList = ArrayList<Address>()
+
+        try {
+            addressList.addAll(
+                geocoder.getFromLocation(
+                    latLng.latitude,
+                    latLng.longitude,
+                    1
+                ) as Collection<Address>
+            )
+        } catch (e: IOException) {
+            Log.e(TAG, e.message.toString())
+        }
+
+        focusToAddress(addressList)
+    }
+
+    private fun focusToAddress(addressList: List<Address>) {
+        if (addressList.isNotEmpty()) {
             val address = addressList[0]
             val loc = LatLng(address.latitude, address.longitude)
             mMap.clear()
@@ -105,13 +134,14 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
 
             Log.d("TEST_LOCATION", addressList[0].toString())
+            val zipCode = address.postalCode ?: ""
             val addressData = AddressInput(
-                zipCode = (address.postalCode ?: "").toInt(),
+                zipCode = if (zipCode.isEmpty()) 0 else zipCode.toInt(),
                 province = address.adminArea ?: "",
                 city = address.subAdminArea ?: "",
                 street = "${address.thoroughfare ?: ""} ${address.featureName ?: ""}",
                 latitude = address.latitude,
-                district = address.locality,
+                district = address.locality ?: "",
                 label = "",
                 longitude = address.longitude,
                 receiverName = if (profile != null) this.getString(R.string.format_name)
@@ -159,6 +189,7 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             if (addressLiveData.value != null) {
                 val intent = Intent(this, AddressMapsDetailsActivity::class.java)
                 intent.putExtra(AddressMapsDetailsActivity.EXTRA_ADDRESS, addressLiveData.value)
+                intent.putExtra(CheckoutActivity.EXTRA_RECIPE, recipe.value)
                 startActivity(intent)
             }
         }
@@ -180,13 +211,14 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             geocoder.getFromLocation(loc.latitude, loc.longitude, 1) { addressList ->
                 if (profile == null) {
                     val data = addressList[0]
+                    val zipCode = data.postalCode ?: ""
                     val addressData = AddressInput(
-                        zipCode = (data.postalCode ?: "").toInt(),
+                        zipCode = if (zipCode.isEmpty()) 0 else zipCode.toInt(),
                         province = data.adminArea ?: "",
                         city = data.subAdminArea ?: "",
                         street = "${data.thoroughfare ?: ""} ${data.featureName ?: ""}",
                         latitude = data.latitude,
-                        district = data.locality,
+                        district = data.locality ?: "",
                         label = "",
                         longitude = data.longitude,
                         receiverName = if (profile != null) this.getString(R.string.format_name)
@@ -256,6 +288,10 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     profile = data
                 }
             }
+        }
+
+        mMap.setOnMapClickListener { latLng ->
+            geoLocateFromLatLng(latLng)
         }
 
         getLastLocation()

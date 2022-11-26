@@ -62,14 +62,14 @@
             android:value="AIzaSyDEwx4-wMU6vpJNdUElRDKUKrT6DYLORhM" />
 
         <activity
-            android:name=".RecipeDetailActivity"
+            android:name=".presentation.recipedetail.RecipeDetailActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PaymentMethodActivity"
+            android:name=".presentation.paymentmethod.PaymentMethodActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -77,13 +77,6 @@
         </activity>
         <activity
             android:name=".presentation.snapfood.SnapFoodActivity"
-            android:exported="false" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".presentation.metodepembayaran.MetodePembayaran"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
@@ -128,6 +121,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter android:label="@string/forgot_password">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="app"
+                    android:host="bahanbaku.app"
+                    android:pathPrefix="/forgot-password-link"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".presentation.profile.edit.EditProfileActivity"
@@ -149,8 +151,18 @@
             android:name=".presentation.camera.CameraActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.forgotpassword.ForgotPassword"
-            android:exported="false" />
+            android:name=".presentation.forgotpassword.ForgotPasswordActivity"
+            android:exported="true">
+            <intent-filter android:label="@string/forgot_password">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="http"
+                    android:host="bahanbaku.app"
+                    android:pathPrefix="/forgot-password-link"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".presentation.profile.ProfileActivity"
             android:exported="false"

@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.bangkit.bahanbaku.R
+import androidx.lifecycle.MutableLiveData
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.domain.model.AddressInput
+import com.bangkit.bahanbaku.core.domain.model.CheckoutDataClass
 import com.bangkit.bahanbaku.databinding.ActivityAddressMapsDetailsBinding
+import com.bangkit.bahanbaku.presentation.checkout.CheckoutActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,8 +23,8 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
     }
 
     private val viewModel: AddressMapsDetailsViewModel by viewModels()
-
     private var address: AddressInput? = null
+    private val recipe = MutableLiveData<CheckoutDataClass>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,8 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
         } else {
             intent.getParcelableExtra(EXTRA_ADDRESS)
         }
+
+        recipe.postValue(intent.getParcelableExtra(CheckoutActivity.EXTRA_RECIPE))
 
         getToken(address)
     }
@@ -59,7 +63,15 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
             } else {
                 address?.apply {
                     viewModel.addAddress(
-                        token, street, district, city, province, zipCode, label, receiverName, receiverPhoneNumber
+                        token,
+                        street,
+                        district,
+                        city,
+                        province,
+                        zipCode,
+                        label,
+                        receiverName,
+                        receiverPhoneNumber
                     ).observe(this@AddressMapsDetailsActivity) { result ->
                         when (result) {
                             is Resource.Loading -> {
@@ -77,6 +89,15 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 )
                                     .show()
+
+                                if (recipe.value != null) {
+                                    val intent = Intent(
+                                        this@AddressMapsDetailsActivity,
+                                        CheckoutActivity::class.java
+                                    )
+                                    intent.putExtra(CheckoutActivity.EXTRA_RECIPE, recipe.value)
+                                    startActivity(intent)
+                                }
                             }
                         }
                     }
