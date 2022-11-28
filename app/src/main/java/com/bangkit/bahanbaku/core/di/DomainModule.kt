@@ -5,12 +5,11 @@ import com.bangkit.bahanbaku.core.data.local.datastore.UserPreferences
 import com.bangkit.bahanbaku.core.data.remote.datasource.RemoteDataSource
 import com.bangkit.bahanbaku.core.data.repository.ProfileRepository
 import com.bangkit.bahanbaku.core.data.repository.RecipeRepository
+import com.bangkit.bahanbaku.core.data.repository.UtilRepository
 import com.bangkit.bahanbaku.core.domain.repository.IProfileRepository
 import com.bangkit.bahanbaku.core.domain.repository.IRecipeRepository
-import com.bangkit.bahanbaku.core.domain.usecase.ProfileInteractor
-import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
-import com.bangkit.bahanbaku.core.domain.usecase.RecipeInteractor
-import com.bangkit.bahanbaku.core.domain.usecase.RecipeUseCase
+import com.bangkit.bahanbaku.core.domain.repository.IUtilRepository
+import com.bangkit.bahanbaku.core.domain.usecase.*
 import com.bangkit.bahanbaku.core.utils.AppExecutors
 import dagger.Module
 import dagger.Provides
@@ -51,5 +50,18 @@ object DomainModule {
     @Provides
     fun provideProfileUseCase(repository: IProfileRepository): ProfileUseCase {
         return ProfileInteractor(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUtilRepository(
+        remoteDataSource: RemoteDataSource
+    ): IUtilRepository {
+        return UtilRepository(remoteDataSource)
+    }
+
+    @Provides
+    fun provideUtilUseCase(repository: IUtilRepository): UtilUseCase {
+        return UtilInteractor(repository)
     }
 }

@@ -25,6 +25,7 @@
         tools:targetApi="m" >
         <activity
             android:name=".presentation.addressmapsdetails.AddressMapsDetailsActivity"
+            android:label="@string/address_details"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
@@ -33,7 +34,7 @@
         <activity
             android:name=".presentation.address.AddressActivity"
             android:exported="false"
-            android:label="@string/title_activity_address" >
+            android:label="@string/label_address" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -70,6 +71,7 @@
         </activity>
         <activity
             android:name=".presentation.paymentmethod.PaymentMethodActivity"
+            android:label="@string/payment_methods"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

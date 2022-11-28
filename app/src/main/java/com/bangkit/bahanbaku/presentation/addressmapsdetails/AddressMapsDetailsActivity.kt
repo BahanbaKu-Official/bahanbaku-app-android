@@ -25,6 +25,8 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
     private val viewModel: AddressMapsDetailsViewModel by viewModels()
     private var address: AddressInput? = null
     private val recipe = MutableLiveData<CheckoutDataClass>()
+    private val isFirstAddress = MutableLiveData(false)
+    private lateinit var recipeName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +39,34 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
         }
 
         recipe.postValue(intent.getParcelableExtra(CheckoutActivity.EXTRA_RECIPE))
+        recipeName = intent.getStringExtra(CheckoutActivity.EXTRA_FOOD_NAME) ?: ""
 
         getToken(address)
     }
 
     private fun setupView(token: String, address: AddressInput?) {
+        buttonSaveAddressSetup(token, address)
+    }
+
+    private fun checkIfFirstAddress(token: String) {
+        viewModel.getAddress(token).observe(this) { result ->
+            when (result) {
+                is Resource.Success -> {
+                    val addresses = result.data?.results
+
+                    if (addresses.isNullOrEmpty()) {
+                        isFirstAddress.postValue(true)
+                    } else {
+                        isFirstAddress.postValue(false)
+                    }
+                }
+                else -> {}
+            }
+
+        }
+    }
+
+    private fun buttonSaveAddressSetup(token: String, address: AddressInput?) {
         if (address != null) {
             binding.tfLabel.editText?.setText(address.label)
             binding.tfStreet.editText?.setText(address.street)
@@ -90,12 +115,24 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
                                 )
                                     .show()
 
+                                val switchOn = binding.switchMainAddress.isChecked
+
+                                if (isFirstAddress.value == true || switchOn) {
+                                    if (result.data?.results != null) {
+                                        viewModel.setMainAddress(result.data.results.addressId)
+                                    }
+                                }
+
                                 if (recipe.value != null) {
                                     val intent = Intent(
                                         this@AddressMapsDetailsActivity,
                                         CheckoutActivity::class.java
                                     )
                                     intent.putExtra(CheckoutActivity.EXTRA_RECIPE, recipe.value)
+                                    intent.putExtra(
+                                        CheckoutActivity.EXTRA_FOOD_NAME,
+                                        recipeName
+                                    )
                                     startActivity(intent)
                                 }
                             }
@@ -116,6 +153,7 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
             } else {
                 val token = "Bearer $it"
                 setupView(token, address)
+                checkIfFirstAddress(token)
             }
         }
     }

@@ -12,6 +12,11 @@ class CheckoutViewModel @Inject constructor(private val profileUseCase: ProfileU
 
     fun getToken() = profileUseCase.getToken()
 
+    fun getMainAddress() = profileUseCase.getMainAddress()
+
     fun getAddress(token: String) =
         LiveDataReactiveStreams.fromPublisher(profileUseCase.getAddress(token))
+
+    fun getAddressById(token: String, id: String) =
+        LiveDataReactiveStreams.fromPublisher(profileUseCase.getAddressById(token, id))
 }

@@ -107,5 +107,16 @@ interface ApiService {
         @Field("receiverName") receiverName: String,
         @Field("receiverPhoneNumber") receiverNumber: String,
     ): Flowable<PostAddUserAddress>
+
+    @GET("/transaction/payment-method")
+    fun getPaymentMethod(
+        @Header("Authorization") token: String
+    ): Flowable<GetPaymentMethodResponse>
+
+    @GET("users/address/{id}")
+    fun getUserAddressById(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+    ): Flowable<GetAddressByIdResponse>
 }
 

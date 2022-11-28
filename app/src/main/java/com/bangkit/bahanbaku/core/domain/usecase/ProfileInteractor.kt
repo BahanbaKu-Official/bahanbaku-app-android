@@ -1,6 +1,8 @@
 package com.bangkit.bahanbaku.core.domain.usecase
 
+import androidx.lifecycle.LiveData
 import com.bangkit.bahanbaku.core.data.Resource
+import com.bangkit.bahanbaku.core.data.remote.response.GetAddressByIdResponse
 import com.bangkit.bahanbaku.core.data.remote.response.GetAddressByUser
 import com.bangkit.bahanbaku.core.data.remote.response.PostAddUserAddress
 import com.bangkit.bahanbaku.core.data.remote.response.PostRegisterResponse
@@ -70,24 +72,16 @@ class ProfileInteractor(private val profileRepository: IProfileRepository) : Pro
             receiverName, receiverNumber
         )
 
-//    override fun getBookmarks(token: String) = profileRepository.getBookmarks(token)
-//
-//    override fun addBookmark(token: String, id: String) = profileRepository.addBookmark(token, id)
-//
-//    override fun deleteBookmarkByPosition(
-//        token: String,
-//        position: Int
-//    ) = profileRepository.deleteBookmarkByPosition(token, position)
-//
-//    override fun deleteBookmark(
-//        token: String,
-//        id: String
-//    ) = profileRepository.deleteBookmark(token, id)
-//
-//    override fun checkIfRecipeBookmarked(token: String, id: String) =
-//        profileRepository.checkIfRecipeBookmarked(token, id)
-
     override fun isFirstTime() = profileRepository.isFirstTime()
 
     override fun setFirstTime(firstTime: Boolean) = profileRepository.setFirstTime(firstTime)
+
+    override fun setMainAddress(addressId: String) = profileRepository.setMainAddress(addressId)
+
+    override fun getMainAddress(): LiveData<String> = profileRepository.getMainAddress()
+
+    override fun getAddressById(
+        token: String,
+        id: String
+    ): Flowable<Resource<GetAddressByIdResponse>> = profileRepository.getAddressById(token, id)
 }

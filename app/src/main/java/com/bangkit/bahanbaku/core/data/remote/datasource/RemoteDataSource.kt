@@ -434,6 +434,26 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         return resultData.toFlowable(BackpressureStrategy.BUFFER)
     }
 
+    fun getAddressById(token: String, id: String): Flowable<Resource<GetAddressByIdResponse>> {
+        val resultData = PublishSubject.create<Resource<GetAddressByIdResponse>>()
+        val client = apiService.getUserAddressById(token, id)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                resultData.onNext(Resource.Success(response))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
     fun addAddress(
         token: String,
         street: String,
@@ -455,6 +475,28 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             .take(1)
             .subscribe({ response ->
                 resultData.onNext(Resource.Success(response))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun getPaymentMethods(token: String): Flowable<Resource<List<PaymentItem>>> {
+        val resultData = PublishSubject.create<Resource<List<PaymentItem>>>()
+        val client =
+            apiService.getPaymentMethod(token)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                val data = response.results
+                resultData.onNext(Resource.Success(data))
             }, { error ->
                 resultData.onNext(Resource.Error(error.message.toString()))
                 Log.e(TAG, error.toString())

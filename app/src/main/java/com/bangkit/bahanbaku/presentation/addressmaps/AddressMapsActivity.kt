@@ -22,6 +22,7 @@ import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.domain.model.AddressInput
 import com.bangkit.bahanbaku.core.domain.model.CheckoutDataClass
 import com.bangkit.bahanbaku.core.domain.model.Profile
+import com.bangkit.bahanbaku.core.utils.DataMapper
 import com.bangkit.bahanbaku.core.utils.addressObjectToString
 import com.bangkit.bahanbaku.databinding.ActivityAddressMapsBinding
 import com.bangkit.bahanbaku.presentation.addressmapsdetails.AddressMapsDetailsActivity
@@ -53,6 +54,7 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var location: Location? = null
     private val addressLiveData = MutableLiveData<AddressInput>()
     private var profile: Profile? = null
+    private lateinit var recipeName: String
 
     private val recipe = MutableLiveData<CheckoutDataClass>()
 
@@ -66,6 +68,7 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         recipe.postValue(intent.getParcelableExtra(CheckoutActivity.EXTRA_RECIPE))
+        recipeName = intent.getStringExtra(CheckoutActivity.EXTRA_FOOD_NAME) ?: ""
 
         init()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -135,19 +138,7 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             Log.d("TEST_LOCATION", addressList[0].toString())
             val zipCode = address.postalCode ?: ""
-            val addressData = AddressInput(
-                zipCode = if (zipCode.isEmpty()) 0 else zipCode.toInt(),
-                province = address.adminArea ?: "",
-                city = address.subAdminArea ?: "",
-                street = "${address.thoroughfare ?: ""} ${address.featureName ?: ""}",
-                latitude = address.latitude,
-                district = address.locality ?: "",
-                label = "",
-                longitude = address.longitude,
-                receiverName = if (profile != null) this.getString(R.string.format_name)
-                    .format(profile!!.firstName, profile!!.lastName) else "",
-                receiverPhoneNumber = if (profile != null) profile!!.phoneNumber else ""
-            )
+            val addressData = DataMapper.mapAddressToInputAddress(this, address, zipCode, profile)
 
             addressLiveData.postValue(addressData)
 
@@ -190,6 +181,10 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val intent = Intent(this, AddressMapsDetailsActivity::class.java)
                 intent.putExtra(AddressMapsDetailsActivity.EXTRA_ADDRESS, addressLiveData.value)
                 intent.putExtra(CheckoutActivity.EXTRA_RECIPE, recipe.value)
+                intent.putExtra(
+                    CheckoutActivity.EXTRA_FOOD_NAME,
+                    recipeName
+                )
                 startActivity(intent)
             }
         }
@@ -212,19 +207,8 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (profile == null) {
                     val data = addressList[0]
                     val zipCode = data.postalCode ?: ""
-                    val addressData = AddressInput(
-                        zipCode = if (zipCode.isEmpty()) 0 else zipCode.toInt(),
-                        province = data.adminArea ?: "",
-                        city = data.subAdminArea ?: "",
-                        street = "${data.thoroughfare ?: ""} ${data.featureName ?: ""}",
-                        latitude = data.latitude,
-                        district = data.locality ?: "",
-                        label = "",
-                        longitude = data.longitude,
-                        receiverName = if (profile != null) this.getString(R.string.format_name)
-                            .format(profile!!.firstName, profile!!.lastName) else "",
-                        receiverPhoneNumber = if (profile != null) profile!!.phoneNumber else ""
-                    )
+                    val addressData =
+                        DataMapper.mapAddressToInputAddress(this, data, zipCode, profile)
                     addressLiveData.postValue(addressData)
                 }
             }
@@ -232,18 +216,9 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val address = geocoder.getFromLocation(loc.latitude, loc.longitude, 1)
             if (address != null) {
                 val data = address[0]
-                val addressData = AddressInput(
-                    zipCode = (data.postalCode ?: "").toInt(),
-                    province = data.adminArea ?: "",
-                    city = data.subAdminArea ?: "",
-                    street = "${data.thoroughfare ?: ""} ${data.featureName ?: ""}",
-                    latitude = data.latitude,
-                    district = data.locality,
-                    label = "",
-                    longitude = data.longitude,
-                    receiverName = "",
-                    receiverPhoneNumber = ""
-                )
+                val zipCode = data.postalCode ?: ""
+                val addressData =
+                    DataMapper.mapAddressToInputAddress(this, data, zipCode, profile)
                 addressLiveData.postValue(addressData)
             }
         }
