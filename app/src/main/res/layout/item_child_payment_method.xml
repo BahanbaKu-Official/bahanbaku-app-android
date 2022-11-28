@@ -3,14 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_child_payment"
     android:layout_width="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/img_icon_child_payment_method"
+        android:id="@+id/img_icon_payment_method"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="24dp"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="24dp"
         android:src="@drawable/ic_baseline_payments_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,17 +23,18 @@
         style="@style/TextAppearance.Material3.TitleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
         android:text="@string/choose_payment"
-        app:layout_constraintStart_toEndOf="@+id/img_icon_child_payment_method"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/img_icon_payment_method"
+        app:layout_constraintStart_toEndOf="@+id/img_icon_payment_method"
+        app:layout_constraintTop_toTopOf="@+id/img_icon_payment_method" />
 
-    <LinearLayout
+    <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="24dp"
-        android:background="@color/placeholder_gray"
+        android:layout_marginHorizontal="32dp"
+        app:dividerColor="@color/placeholder_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

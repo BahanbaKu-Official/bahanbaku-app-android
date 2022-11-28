@@ -1,9 +1,14 @@
 package com.bangkit.bahanbaku.core.utils
 
+import android.content.Context
+import android.location.Address
+import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.data.local.entity.ProfileEntity
 import com.bangkit.bahanbaku.core.data.local.entity.RecipeEntity
+import com.bangkit.bahanbaku.core.data.remote.response.AddressResultItem
 import com.bangkit.bahanbaku.core.data.remote.response.ProfileResult
 import com.bangkit.bahanbaku.core.data.remote.response.RecipeItem
+import com.bangkit.bahanbaku.core.domain.model.AddressInput
 import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.core.domain.model.Recipe
 
@@ -208,5 +213,19 @@ object DataMapper {
         email = input.email,
         updatedAt = input.updatedAt,
         phoneNumber = input.phoneNumber
+    )
+
+    fun mapAddressToInputAddress(context: Context, address: Address, zipCode: String, profile: Profile?) = AddressInput(
+        zipCode = if (zipCode.isEmpty()) 0 else zipCode.toInt(),
+        province = address.adminArea ?: "",
+        city = address.subAdminArea ?: "",
+        street = "${address.thoroughfare ?: ""} ${address.featureName ?: ""}",
+        latitude = address.latitude,
+        district = address.locality ?: "",
+        label = "",
+        longitude = address.longitude,
+        receiverName = if (profile != null) context.getString(R.string.format_name)
+            .format(profile.firstName, profile.lastName) else "",
+        receiverPhoneNumber = profile?.phoneNumber ?: ""
     )
 }

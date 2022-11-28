@@ -22,6 +22,15 @@ class ProfileRepository(
     private val userPreferences: UserPreferences,
     private val appExecutors: AppExecutors
 ) : IProfileRepository, CoroutineScope {
+
+    override fun setMainAddress(addressId: String) {
+        launch(Dispatchers.IO) {
+            userPreferences.setMainAddress(addressId)
+        }
+    }
+
+    override fun getMainAddress() = userPreferences.getMainAddress().asLiveData(coroutineContext)
+
     override fun saveToken(token: String) {
         launch(Dispatchers.IO) {
             userPreferences.saveToken(token)
@@ -101,6 +110,11 @@ class ProfileRepository(
 
     override fun getAddress(token: String): Flowable<Resource<GetAddressByUser>> =
         remoteDataSource.getAddress(token)
+
+    override fun getAddressById(
+        token: String,
+        id: String
+    ): Flowable<Resource<GetAddressByIdResponse>> = remoteDataSource.getAddressById(token, id)
 
     override fun addAddress(
         token: String,

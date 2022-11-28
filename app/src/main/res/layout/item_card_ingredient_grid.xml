@@ -9,8 +9,8 @@
     android:layout_margin="4dp"
     android:clickable="true"
     android:focusable="true"
-    app:strokeColor="@color/placeholder_gray"
     android:foreground="?android:attr/selectableItemBackground"
+    app:strokeColor="@color/placeholder_gray"
     app:cardBackgroundColor="#ECECEC"
     app:cardCornerRadius="24dp">
 

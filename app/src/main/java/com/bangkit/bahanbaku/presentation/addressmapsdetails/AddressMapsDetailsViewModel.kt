@@ -26,5 +26,10 @@ class AddressMapsDetailsViewModel @Inject constructor(private val profileUseCase
         )
     )
 
+    fun getAddress(token: String) =
+        LiveDataReactiveStreams.fromPublisher(profileUseCase.getAddress(token))
+
+    fun setMainAddress(addressId: String) = profileUseCase.setMainAddress(addressId)
+
     fun getToken() = profileUseCase.getToken()
 }

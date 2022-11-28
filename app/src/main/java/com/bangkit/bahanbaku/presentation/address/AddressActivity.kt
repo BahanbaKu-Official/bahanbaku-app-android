@@ -24,12 +24,14 @@ class AddressActivity : AppCompatActivity() {
 
     private val viewModel: AddressViewModel by viewModels()
     private val recipe = MutableLiveData<CheckoutDataClass>()
+    private lateinit var recipeName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         recipe.postValue(intent.getParcelableExtra(CheckoutActivity.EXTRA_RECIPE))
+        recipeName = intent.getStringExtra(CheckoutActivity.EXTRA_FOOD_NAME) ?: ""
 
         getToken()
     }
@@ -52,6 +54,10 @@ class AddressActivity : AppCompatActivity() {
         binding.fabCookGuide.setOnClickListener {
             val intent = Intent(this, AddressMapsActivity::class.java)
             intent.putExtra(CheckoutActivity.EXTRA_RECIPE, recipe.value)
+            intent.putExtra(
+                CheckoutActivity.EXTRA_FOOD_NAME,
+                recipeName
+            )
             startActivity(intent)
         }
 

@@ -60,4 +60,7 @@ interface ProfileUseCase {
 //    fun checkIfRecipeBookmarked(token: String, id: String): Flowable<Boolean>
     fun isFirstTime(): LiveData<Boolean>
     fun setFirstTime(firstTime: Boolean)
+    fun setMainAddress(addressId: String)
+    fun getMainAddress(): LiveData<String>
+    fun getAddressById(token: String, id: String): Flowable<Resource<GetAddressByIdResponse>>
 }

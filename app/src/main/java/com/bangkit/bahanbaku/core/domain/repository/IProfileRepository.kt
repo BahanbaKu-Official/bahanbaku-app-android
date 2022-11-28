@@ -20,7 +20,6 @@ interface IProfileRepository {
         password: String,
         phoneNumber: String
     ): Flowable<Resource<PostRegisterResponse>>
-
     fun updateUser(
         token: String,
         firstName: String,
@@ -33,16 +32,6 @@ interface IProfileRepository {
         lon: Double,
         lat: Double
     ): Flowable<Resource<UpdateLocationResponse>>
-
-//    fun getBookmarks(token: String): Flowable<Resource<List<RecipeItem>>>
-//    fun addBookmark(token: String, id: String): Flowable<Resource<AddBookmarkResponse>>
-//    fun deleteBookmarkByPosition(
-//        token: String,
-//        position: Int
-//    ): Flowable<Resource<DeleteBookmarkResponse>>
-//
-//    fun deleteBookmark(token: String, id: String): Flowable<Resource<DeleteBookmarkResponse>>
-//    fun checkIfRecipeBookmarked(token: String, id: String): Flowable<Boolean>
     fun isFirstTime(): LiveData<Boolean>
     fun setFirstTime(firstTime: Boolean)
     fun getAddress(token: String): Flowable<Resource<GetAddressByUser>>
@@ -57,4 +46,8 @@ interface IProfileRepository {
         receiverName: String,
         receiverNumber: String,
     ): Flowable<Resource<PostAddUserAddress>>
+
+    fun setMainAddress(addressId: String)
+    fun getMainAddress(): LiveData<String>
+    fun getAddressById(token: String, id: String): Flowable<Resource<GetAddressByIdResponse>>
 }

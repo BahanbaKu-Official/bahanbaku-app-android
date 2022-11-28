@@ -15,6 +15,7 @@ class UserPreferences @Inject constructor(private val dataStore: DataStore<Prefe
 
     private val token = stringPreferencesKey("token")
     private val firstTime = booleanPreferencesKey("first_time")
+    private val mainAddress = stringPreferencesKey("address")
 
     fun getToken(): Flow<String> {
         return dataStore.data.map {
@@ -43,6 +44,18 @@ class UserPreferences @Inject constructor(private val dataStore: DataStore<Prefe
     suspend fun deleteToken() {
         dataStore.edit {
             it[token] = "null"
+        }
+    }
+
+    fun getMainAddress(): Flow<String> {
+        return dataStore.data.map {
+            it[mainAddress] ?: ""
+        }
+    }
+
+    suspend fun setMainAddress(addressId: String) {
+        dataStore.edit {
+            it[this.mainAddress] = addressId
         }
     }
 }

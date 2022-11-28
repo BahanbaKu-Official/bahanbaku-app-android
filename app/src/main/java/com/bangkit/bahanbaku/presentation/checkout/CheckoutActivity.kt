@@ -17,6 +17,7 @@ import com.bangkit.bahanbaku.core.utils.addressObjectToString
 import com.bangkit.bahanbaku.databinding.ActivityCheckoutBinding
 import com.bangkit.bahanbaku.presentation.address.AddressActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
+import com.bangkit.bahanbaku.presentation.paymentmethod.PaymentMethodActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 
@@ -30,6 +31,7 @@ class CheckoutActivity : AppCompatActivity() {
     private val viewModel: CheckoutViewModel by viewModels()
 
     private val recipe = MutableLiveData<CheckoutDataClass>()
+    private lateinit var recipeName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,8 @@ class CheckoutActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         recipe.postValue(intent.getParcelableExtra(EXTRA_RECIPE)!!)
-        binding.tvTitleCheckoutRecipe.text = intent.getStringExtra(EXTRA_FOOD_NAME)
+        recipeName = intent.getStringExtra(EXTRA_FOOD_NAME) ?: ""
+        binding.tvTitleCheckoutRecipe.text = recipeName
 
         getToken()
     }
@@ -67,42 +70,50 @@ class CheckoutActivity : AppCompatActivity() {
             binding.btnPayCheckout.setOnClickListener {
                 Toast.makeText(this, "This feature will be coming very soon!", Toast.LENGTH_SHORT)
                     .show()
+
+                val intent = Intent(this, PaymentMethodActivity::class.java)
+                startActivity(intent)
             }
 
             binding.cvCheckoutAddress.layoutAddress.setOnClickListener {
                 val intent = Intent(this, AddressActivity::class.java)
                 intent.putExtra(EXTRA_RECIPE, recipe.value)
+                intent.putExtra(
+                    EXTRA_FOOD_NAME, recipeName
+                )
                 startActivity(intent)
             }
         }
 
-        viewModel.getAddress(token).observe(this) { result ->
-            when (result) {
-                is Resource.Loading -> {
+        viewModel.getMainAddress().observe(this) {
+            if (it.isNullOrEmpty()) {
+                binding.cvCheckoutAddress.tvNoAddressMessage.visibility = View.VISIBLE
+            } else {
+                viewModel.getAddressById(token, it).observe(this) { result ->
+                    when (result) {
+                        is Resource.Loading -> {
 
-                }
-
-                is Resource.Error -> {
-
-                }
-
-                is Resource.Success -> {
-                    val data = result.data?.results
-
-                    if (!data.isNullOrEmpty()) {
-                        val address = data[0]
-                        binding.cvCheckoutAddress.apply {
-                            tvAddressLabel.text = address.label
-                            tvNameUser.text = address.receiverName
-                            tvNoContact.text = address.receiverPhoneNumber
-
-                            tvAddress.text = addressObjectToString(result.data.results[0])
                         }
-                    } else {
-                        binding.cvCheckoutAddress.tvNoAddressMessage.visibility = View.VISIBLE
+
+                        is Resource.Error -> {
+
+                        }
+
+                        is Resource.Success -> {
+                            val data = result.data?.results
+                            if (data != null) {
+                                binding.cvCheckoutAddress.apply {
+                                    tvAddressLabel.text = data.label
+                                    tvNameUser.text = data.receiverName
+                                    tvNoContact.text = data.receiverPhoneNumber
+
+                                    tvAddress.text = addressObjectToString(result.data.results)
+                                }
+                            }
+                        }
+
                     }
                 }
-
             }
         }
     }
