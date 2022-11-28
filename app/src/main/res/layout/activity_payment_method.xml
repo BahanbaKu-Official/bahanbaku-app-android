@@ -1,69 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.Material3.CardView.Outlined"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/pure_white"
-        app:cardCornerRadius="24dp"
-        app:strokeColor="@color/placeholder_gray">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="@color/pure_white"
+            app:cardCornerRadius="24dp"
+            app:strokeColor="@color/placeholder_gray">
 
-            <TextView
-                android:id="@+id/tv_label_payment_method_direct"
-                style="@style/Text.Title.Medium"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="24dp"
-                android:text="@string/payment_methods"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider_payment_method_direct"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:dividerColor="@color/placeholder_gray"
-                app:layout_constraintTop_toBottomOf="@id/tv_label_payment_method_direct" />
-
-            <include
-                android:id="@+id/layout_payment_method_direct"
-                layout="@layout/item_child_payment_method"/>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.Material3.CardView.Outlined"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/pure_white"
-        app:cardCornerRadius="24dp"
-        app:strokeColor="@color/placeholder_gray">
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_label_payment_method"
+                    android:id="@+id/tv_label_payment_method_direct"
                     style="@style/Text.Title.Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,24 +39,95 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.divider.MaterialDivider
-                    android:id="@+id/divider_payment_method"
+                    android:id="@+id/divider_payment_method_direct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     app:dividerColor="@color/placeholder_gray"
-                    app:layout_constraintTop_toBottomOf="@id/tv_label_payment_method" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_label_payment_method_direct" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_child_expendable_payment_method"
+                <include
+                    android:id="@+id/layout_payment_method_direct"
+                    layout="@layout/item_child_payment_method" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="@color/pure_white"
+            app:cardCornerRadius="24dp"
+            app:strokeColor="@color/placeholder_gray">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider_payment_method"
-                    tools:listitem="@layout/item_child_payment_method" />
+                    android:layout_height="wrap_content">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_label_payment_method"
+                        style="@style/Text.Title.Medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/payment_methods"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider_payment_method"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        app:dividerColor="@color/placeholder_gray"
+                        app:layout_constraintTop_toBottomOf="@id/tv_label_payment_method" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_child_expendable_payment_method"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider_payment_method"
+                        tools:listitem="@layout/item_child_payment_method" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_payment_method"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/placeholder_payment_method" />
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
