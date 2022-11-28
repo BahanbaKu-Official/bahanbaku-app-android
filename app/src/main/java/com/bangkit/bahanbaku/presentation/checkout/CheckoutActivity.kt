@@ -13,6 +13,7 @@ import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.adapter.CheckoutAdapter
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.domain.model.CheckoutDataClass
+import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.core.utils.addressObjectToString
 import com.bangkit.bahanbaku.databinding.ActivityCheckoutBinding
 import com.bangkit.bahanbaku.presentation.address.AddressActivity
@@ -31,6 +32,7 @@ class CheckoutActivity : AppCompatActivity() {
     private val viewModel: CheckoutViewModel by viewModels()
 
     private val recipe = MutableLiveData<CheckoutDataClass>()
+    private val isAddressNotEmpty = MutableLiveData(false)
     private lateinit var recipeName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,11 +70,14 @@ class CheckoutActivity : AppCompatActivity() {
                 this.getString(R.string.format_currency_rupiah).format(formattedNumber)
 
             binding.btnPayCheckout.setOnClickListener {
-                Toast.makeText(this, "This feature will be coming very soon!", Toast.LENGTH_SHORT)
-                    .show()
-
-                val intent = Intent(this, PaymentMethodActivity::class.java)
-                startActivity(intent)
+                if (isAddressNotEmpty.value == true && recipe.value != null) {
+                    val intent = Intent(this, PaymentMethodActivity::class.java)
+                    intent.putExtra(PaymentMethodActivity.EXTRA_PRODUCTS, recipe.value)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, getString(R.string.pick_your_address), Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
 
             binding.cvCheckoutAddress.layoutAddress.setOnClickListener {
@@ -96,12 +101,13 @@ class CheckoutActivity : AppCompatActivity() {
                         }
 
                         is Resource.Error -> {
-
+                            Toast.makeText(this, ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT).show()
                         }
 
                         is Resource.Success -> {
                             val data = result.data?.results
                             if (data != null) {
+                                isAddressNotEmpty.postValue(true)
                                 binding.cvCheckoutAddress.apply {
                                     tvAddressLabel.text = data.label
                                     tvNameUser.text = data.receiverName
@@ -109,6 +115,10 @@ class CheckoutActivity : AppCompatActivity() {
 
                                     tvAddress.text = addressObjectToString(result.data.results)
                                 }
+                            } else {
+                                isAddressNotEmpty.postValue(false)
+                                binding.cvCheckoutAddress.tvNoAddressMessage.visibility =
+                                    View.VISIBLE
                             }
                         }
 

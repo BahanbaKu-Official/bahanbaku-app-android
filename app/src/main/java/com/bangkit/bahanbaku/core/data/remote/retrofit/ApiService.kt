@@ -1,6 +1,7 @@
 package com.bangkit.bahanbaku.core.data.remote.retrofit
 
 import com.bangkit.bahanbaku.core.data.remote.response.*
+import com.bangkit.bahanbaku.core.domain.model.ProductsData
 import io.reactivex.Flowable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -118,5 +119,24 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String,
     ): Flowable<GetAddressByIdResponse>
+
+    @POST("direct-pay/{id}")
+    fun createDirectPayment(
+        @Header("Authorization") token: String,
+        @Body productsData: ProductsData
+    ): Flowable<PostCreateDirectPaymentResponse>
+
+    @Multipart
+    @POST("direct-pay/submit-payment/{id}")
+    fun submitPaymentProof(
+        @Header("Authorization") token: String,
+        @Part file: MultipartBody.Part,
+        @Path("id") id: String
+    ): Flowable<PostSubmitProofResponse>
+
+    @GET("direct-pay/payment-method")
+    fun getDirectPaymentInfo(
+        @Header("Authorization") token: String
+    ): Flowable<GetDirectPaymentInfoResponse>
 }
 

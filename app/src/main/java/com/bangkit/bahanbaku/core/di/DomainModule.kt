@@ -3,9 +3,11 @@ package com.bangkit.bahanbaku.core.di
 import com.bangkit.bahanbaku.core.data.local.datasource.LocalDataSource
 import com.bangkit.bahanbaku.core.data.local.datastore.UserPreferences
 import com.bangkit.bahanbaku.core.data.remote.datasource.RemoteDataSource
+import com.bangkit.bahanbaku.core.data.repository.PaymentRepository
 import com.bangkit.bahanbaku.core.data.repository.ProfileRepository
 import com.bangkit.bahanbaku.core.data.repository.RecipeRepository
 import com.bangkit.bahanbaku.core.data.repository.UtilRepository
+import com.bangkit.bahanbaku.core.domain.repository.IPaymentRepository
 import com.bangkit.bahanbaku.core.domain.repository.IProfileRepository
 import com.bangkit.bahanbaku.core.domain.repository.IRecipeRepository
 import com.bangkit.bahanbaku.core.domain.repository.IUtilRepository
@@ -63,5 +65,18 @@ object DomainModule {
     @Provides
     fun provideUtilUseCase(repository: IUtilRepository): UtilUseCase {
         return UtilInteractor(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun providePaymentRepository(
+        remoteDataSource: RemoteDataSource
+    ): IPaymentRepository {
+        return PaymentRepository(remoteDataSource)
+    }
+
+    @Provides
+    fun providePaymentUseCase(repository: IPaymentRepository): PaymentUseCase {
+        return PaymentInteractor(repository)
     }
 }

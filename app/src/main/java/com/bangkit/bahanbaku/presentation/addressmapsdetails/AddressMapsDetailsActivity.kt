@@ -3,6 +3,7 @@ package com.bangkit.bahanbaku.presentation.addressmapsdetails
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,8 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         address = if (Build.VERSION.SDK_INT >= 33) {
             intent.getParcelableExtra(EXTRA_ADDRESS, AddressInput::class.java)
@@ -156,6 +159,17 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
                 checkIfFirstAddress(token)
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

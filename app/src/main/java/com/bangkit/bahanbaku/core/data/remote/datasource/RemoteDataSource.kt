@@ -4,6 +4,7 @@ import android.util.Log
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.data.remote.response.*
 import com.bangkit.bahanbaku.core.data.remote.retrofit.ApiService
+import com.bangkit.bahanbaku.core.domain.model.ProductsData
 import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.core.domain.model.Recipe
 import com.bangkit.bahanbaku.core.utils.DataMapper
@@ -467,7 +468,17 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
     ): Flowable<Resource<PostAddUserAddress>> {
         val resultData = PublishSubject.create<Resource<PostAddUserAddress>>()
         val client =
-            apiService.addUserAddress(token, street, district, city, province, zipCode, label, receiverName, receiverNumber)
+            apiService.addUserAddress(
+                token,
+                street,
+                district,
+                city,
+                province,
+                zipCode,
+                label,
+                receiverName,
+                receiverNumber
+            )
 
         val disposable = client
             .subscribeOn(Schedulers.io())
@@ -497,6 +508,76 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             .subscribe({ response ->
                 val data = response.results
                 resultData.onNext(Resource.Success(data))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun createDirectPayment(
+        token: String,
+        products: ProductsData
+    ): Flowable<Resource<PostCreateDirectPaymentResponse>> {
+        val resultData = PublishSubject.create<Resource<PostCreateDirectPaymentResponse>>()
+        val client =
+            apiService.createDirectPayment(token, products)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                resultData.onNext(Resource.Success(response))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun submitPaymentProof(token: String, file: File, id: String): Flowable<Resource<PostSubmitProofResponse>> {
+        val mediaType = "image".toMediaTypeOrNull()
+        val multipartBody =
+            MultipartBody.Part.createFormData("image", file.name, file.asRequestBody(mediaType))
+
+        val resultData = PublishSubject.create<Resource<PostSubmitProofResponse>>()
+        val client = apiService.submitPaymentProof(token, multipartBody, id)
+        resultData.onNext(Resource.Loading(null))
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                resultData.onNext(Resource.Success(response))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun getDirectPaymentInfo(token: String): Flowable<Resource<GetDirectPaymentInfoResponse>> {
+        val resultData = PublishSubject.create<Resource<GetDirectPaymentInfoResponse>>()
+        val client =
+            apiService.getDirectPaymentInfo(token)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                resultData.onNext(Resource.Success(response))
             }, { error ->
                 resultData.onNext(Resource.Error(error.message.toString()))
                 Log.e(TAG, error.toString())

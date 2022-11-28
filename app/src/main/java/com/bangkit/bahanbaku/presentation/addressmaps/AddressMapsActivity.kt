@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +24,7 @@ import com.bangkit.bahanbaku.core.domain.model.AddressInput
 import com.bangkit.bahanbaku.core.domain.model.CheckoutDataClass
 import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.core.utils.DataMapper
+import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.core.utils.addressObjectToString
 import com.bangkit.bahanbaku.databinding.ActivityAddressMapsBinding
 import com.bangkit.bahanbaku.presentation.addressmapsdetails.AddressMapsDetailsActivity
@@ -61,6 +63,8 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -213,13 +217,17 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         } else {
-            val address = geocoder.getFromLocation(loc.latitude, loc.longitude, 1)
-            if (address != null) {
-                val data = address[0]
-                val zipCode = data.postalCode ?: ""
-                val addressData =
-                    DataMapper.mapAddressToInputAddress(this, data, zipCode, profile)
-                addressLiveData.postValue(addressData)
+            try {
+                val address = geocoder.getFromLocation(loc.latitude, loc.longitude, 1)
+                if (address != null) {
+                    val data = address[0]
+                    val zipCode = data.postalCode ?: ""
+                    val addressData =
+                        DataMapper.mapAddressToInputAddress(this, data, zipCode, profile)
+                    addressLiveData.postValue(addressData)
+                }
+            } catch (e: IOException) {
+                Toast.makeText(this, ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -288,6 +296,17 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 setupView(token)
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

@@ -2,6 +2,7 @@ package com.bangkit.bahanbaku.presentation.address
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -29,6 +30,8 @@ class AddressActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         recipe.postValue(intent.getParcelableExtra(CheckoutActivity.EXTRA_RECIPE))
         recipeName = intent.getStringExtra(CheckoutActivity.EXTRA_FOOD_NAME) ?: ""
@@ -61,6 +64,10 @@ class AddressActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        getAddress(token)
+    }
+
+    private fun getAddress(token: String) {
         viewModel.getAddress(token).observe(this) { result ->
             when (result) {
                 is Resource.Loading -> {
@@ -102,5 +109,16 @@ class AddressActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

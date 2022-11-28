@@ -259,4 +259,16 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="set_as_main_address">Set as Main Address?</string>
     <string name="label_address">Address</string>
+    <string name="pick_your_address">Please pick your address first</string>
+    <string name="direct_payment">Direct Payment</string>
+    <string name="bank_jago">Bank Jago</string>
+    <string name="amount_to_pay">Amount to pay</string>
+    <string name="pay_with">Pay with</string>
+    <string name="account_number">Account Number</string>
+    <string name="upload">Upload</string>
+    <string name="upload_picture">Upload Picture</string>
+    <string name="upload_here">Upload your payment proof here, we will check on it 1x24 hours</string>
+    <string name="payment_proof">Payment Proof</string>
+    <string name="choose_payment_proof">Choose the payment proof</string>
+    <string name="upload_success">Upload success. Please wait for confirmation.</string>
 </resources>

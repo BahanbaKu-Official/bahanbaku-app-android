@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.bangkit.bahanbaku" >
+    package="com.bangkit.bahanbaku">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -21,12 +21,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BahanbaKu"
-        android:usesCleartextTraffic="true"
-        tools:targetApi="m" >
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".presentation.directpaymentproof.DirectPaymentProofActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".presentation.directpayment.DirectPaymentActivity"
+            android:exported="false"
+            android:label="@string/direct_payment">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".presentation.addressmapsdetails.AddressMapsDetailsActivity"
-            android:label="@string/address_details"
-            android:exported="false" >
+            android:exported="false"
+            android:label="@string/address_details">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -34,7 +48,7 @@
         <activity
             android:name=".presentation.address.AddressActivity"
             android:exported="false"
-            android:label="@string/label_address" >
+            android:label="@string/label_address">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -42,7 +56,7 @@
         <activity
             android:name=".presentation.addressmaps.AddressMapsActivity"
             android:exported="false"
-            android:label="Maps" >
+            android:label="Maps">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -71,29 +85,29 @@
         </activity>
         <activity
             android:name=".presentation.paymentmethod.PaymentMethodActivity"
-            android:label="@string/payment_methods"
-            android:exported="false">
+            android:exported="false"
+            android:label="@string/payment_methods">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".presentation.snapfood.SnapFoodActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".presentation.privacypolicy.privacy_policy"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".presentation.helpdesk.HelpdeskActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -101,7 +115,7 @@
         <activity
             android:name=".presentation.checkout.CheckoutActivity"
             android:exported="false"
-            android:label="@string/checkout" >
+            android:label="@string/checkout">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -109,7 +123,7 @@
         <activity
             android:name=".presentation.cookingguide.CookingGuideActivity"
             android:exported="false"
-            android:theme="@style/Theme.BahanbaKuDetails" >
+            android:theme="@style/Theme.BahanbaKuDetails">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -117,7 +131,7 @@
         <activity
             android:name=".presentation.splashscreen.SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/SplashScreen" >
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -125,18 +139,20 @@
             </intent-filter>
             <intent-filter android:label="@string/forgot_password">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="app"
                     android:host="bahanbaku.app"
-                    android:pathPrefix="/forgot-password-link"/>
+                    android:pathPrefix="/forgot-password-link"
+                    android:scheme="app" />
             </intent-filter>
         </activity>
         <activity
             android:name=".presentation.profile.edit.EditProfileActivity"
             android:exported="false"
-            android:label="@string/edit_profile" >
+            android:label="@string/edit_profile">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.profile.ProfileActivity" />
@@ -157,18 +173,20 @@
             android:exported="true">
             <intent-filter android:label="@string/forgot_password">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="http"
                     android:host="bahanbaku.app"
-                    android:pathPrefix="/forgot-password-link"/>
+                    android:pathPrefix="/forgot-password-link"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity
             android:name=".presentation.profile.ProfileActivity"
             android:exported="false"
-            android:label="@string/profile" >
+            android:label="@string/profile">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.main.MainActivity" />
@@ -179,7 +197,7 @@
         <activity
             android:name=".presentation.search.SearchActivity"
             android:exported="false"
-            android:label="@string/search" >
+            android:label="@string/search">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.main.MainActivity" />
@@ -196,7 +214,7 @@
         <activity
             android:name=".presentation.register.RegisterActivity"
             android:exported="false"
-            android:label="@string/register" >
+            android:label="@string/register">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.login.LoginActivity" />
