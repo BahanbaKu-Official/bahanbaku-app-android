@@ -272,4 +272,6 @@
     <string name="choose_payment_proof">Choose the payment proof</string>
     <string name="upload_success">Upload success. Please wait for confirmation.</string>
     <string name="details">Details</string>
+    <string name="disclaimer_payment">We are unable to fulfill the orders at the moment. For testing purposes please do not do real payment and upload fake payment proof.</string>
+    <string name="coming_soon_string">This feature will be available soon</string>
 </resources>

@@ -18,4 +18,8 @@ class AddressViewModel @Inject constructor(
 
     fun getProfile(token: String) =
         LiveDataReactiveStreams.fromPublisher(profileUseCase.getProfile(token))
+
+    fun setMainAddress(addressId: String) = profileUseCase.setMainAddress(addressId)
+
+    fun getMainAddress() = profileUseCase.getMainAddress()
 }

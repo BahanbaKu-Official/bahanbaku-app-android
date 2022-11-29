@@ -137,6 +137,7 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
                                         recipeName
                                     )
                                     startActivity(intent)
+                                    finish()
                                 }
                             }
                         }

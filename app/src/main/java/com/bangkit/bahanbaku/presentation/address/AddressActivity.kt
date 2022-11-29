@@ -81,6 +81,15 @@ class AddressActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     if (!result.data?.results.isNullOrEmpty()) {
                         val data = result.data?.results
+
+                        viewModel.getMainAddress().observe(this) { addressId ->
+                            if (addressId.isNullOrEmpty()) {
+                                if (!data.isNullOrEmpty()) {
+                                    viewModel.setMainAddress(data[0].addressId)
+                                }
+                            }
+                        }
+
                         if (data != null) {
                             viewModel.getProfile(token).observe(this) { profileResult ->
                                 when (profileResult) {
@@ -94,9 +103,23 @@ class AddressActivity : AppCompatActivity() {
 
                                     is Resource.Success -> {
                                         val profile = profileResult.data
+
                                         if (profile != null) {
                                             binding.rvAddress.apply {
-                                                adapter = AddressListAdapter(data, profile)
+                                                adapter =
+                                                    AddressListAdapter(data, profile) { addressId ->
+                                                        viewModel.setMainAddress(addressId)
+                                                        if (recipe.value != null) {
+                                                            val intent = Intent(
+                                                                this@AddressActivity,
+                                                                CheckoutActivity::class.java
+                                                            )
+                                                            intent.putExtra(CheckoutActivity.EXTRA_RECIPE, recipe.value)
+                                                            intent.putExtra(CheckoutActivity.EXTRA_FOOD_NAME, recipeName)
+                                                            startActivity(intent)
+                                                            finish()
+                                                        }
+                                                    }
                                                 layoutManager =
                                                     LinearLayoutManager(this@AddressActivity)
                                             }

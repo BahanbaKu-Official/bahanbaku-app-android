@@ -138,5 +138,10 @@ interface ApiService {
     fun getDirectPaymentInfo(
         @Header("Authorization") token: String
     ): Flowable<GetDirectPaymentInfoResponse>
+
+    @GET("direct-pay")
+    fun getDirectOrderHistory(
+        @Header("Authorization") token: String
+    ): Flowable<GetOrderHistoryResponse>
 }
 

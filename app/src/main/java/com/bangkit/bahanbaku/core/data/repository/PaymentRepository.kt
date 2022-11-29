@@ -3,6 +3,7 @@ package com.bangkit.bahanbaku.core.data.repository
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.data.remote.datasource.RemoteDataSource
 import com.bangkit.bahanbaku.core.data.remote.response.GetDirectPaymentInfoResponse
+import com.bangkit.bahanbaku.core.data.remote.response.OrderHistoryItem
 import com.bangkit.bahanbaku.core.data.remote.response.PostCreateDirectPaymentResponse
 import com.bangkit.bahanbaku.core.data.remote.response.PostSubmitProofResponse
 import com.bangkit.bahanbaku.core.domain.model.ProductsData
@@ -26,4 +27,8 @@ class PaymentRepository(private val remoteDataSource: RemoteDataSource) : IPayme
         id: String
     ): Flowable<Resource<PostSubmitProofResponse>> =
         remoteDataSource.submitPaymentProof(token, file, id)
+
+    override fun getDirectOrderHistory(
+        token: String
+    ): Flowable<Resource<List<OrderHistoryItem>>> = remoteDataSource.getDirectOrderHistory(token)
 }

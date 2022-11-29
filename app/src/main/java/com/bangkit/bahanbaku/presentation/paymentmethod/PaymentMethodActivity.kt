@@ -2,6 +2,7 @@ package com.bangkit.bahanbaku.presentation.paymentmethod
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -54,14 +55,22 @@ class PaymentMethodActivity : AppCompatActivity() {
         viewModel.getPaymentMethods(token).observe(this) { result ->
             when (result) {
                 is Resource.Loading -> {
-
+                    binding.layoutPaymentMethods.visibility = View.INVISIBLE
+                    binding.shimmerPaymentMethod.startShimmer()
+                    binding.shimmerPaymentMethod.visibility = View.VISIBLE
                 }
 
                 is Resource.Error -> {
-
+                    binding.layoutPaymentMethods.visibility = View.INVISIBLE
+                    binding.shimmerPaymentMethod.startShimmer()
+                    binding.shimmerPaymentMethod.visibility = View.VISIBLE
                 }
 
                 is Resource.Success -> {
+                    binding.layoutPaymentMethods.visibility = View.VISIBLE
+                    binding.shimmerPaymentMethod.stopShimmer()
+                    binding.shimmerPaymentMethod.visibility = View.GONE
+
                     val data = result.data
 
                     if (data != null) {

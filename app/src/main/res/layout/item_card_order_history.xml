@@ -9,7 +9,7 @@
     android:layout_marginBottom="4dp"
     app:cardBackgroundColor="@color/pure_white"
     style="@style/Widget.Material3.CardView.Filled"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_checkout_2"
@@ -29,13 +29,27 @@
         <TextView
             android:id="@+id/tv_Title_checkout_Recipe"
             style="@style/TextAppearance.Material3.TitleMedium"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="@string/Title_recipe_checkout"
+            app:layout_constraintEnd_toStartOf="@id/tv_order_status"
             app:layout_constraintStart_toEndOf="@+id/img_icon_list_checkout"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_order_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="@id/tv_Title_checkout_Recipe"
+            android:text="@string/succeed"
+            app:layout_constraintBottom_toBottomOf="@id/tv_Title_checkout_Recipe"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_checkout"

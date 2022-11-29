@@ -84,7 +84,7 @@ class HomeFragment : Fragment() {
         binding.btnIconCart.setOnClickListener {
             Toast.makeText(
                 requireContext(),
-                "This feature will be available soon",
+                getString(R.string.coming_soon_string),
                 Toast.LENGTH_SHORT
             ).show()
         }

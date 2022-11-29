@@ -39,7 +39,7 @@
 
         <TextView
             android:id="@+id/tv_title_order_history"
-            style="@style/TextAppearance.Material3.TitleMedium"
+            style="@style/Text.Title.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -49,25 +49,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_total_order_history"
-            style="@style/TextAppearance.Material3.BodySmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/total_item"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/cv_order_history_image"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_order_history" />
-
-        <TextView
             android:id="@+id/tv_total_price_order_history"
-            style="@style/TextAppearance.Material3.LabelMedium"
+            style="@style/Text.Body.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/price"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="2dp"
+            android:text="@string/price"
             app:layout_constraintStart_toEndOf="@+id/cv_order_history_image"
-            app:layout_constraintTop_toBottomOf="@+id/tv_total_order_history" />
+            app:layout_constraintBottom_toBottomOf="@id/cv_order_history_image"
+            tools:layout_editor_absoluteY="48dp" />
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"

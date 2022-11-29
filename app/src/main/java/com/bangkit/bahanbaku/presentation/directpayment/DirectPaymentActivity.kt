@@ -2,6 +2,8 @@ package com.bangkit.bahanbaku.presentation.directpayment
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +12,7 @@ import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.domain.model.CheckoutDataClass
 import com.bangkit.bahanbaku.core.domain.model.ProductJSONFormat
 import com.bangkit.bahanbaku.core.domain.model.ProductsData
+import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.databinding.ActivityDirectPaymentBinding
 import com.bangkit.bahanbaku.presentation.directpaymentproof.DirectPaymentProofActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
@@ -68,10 +71,22 @@ class DirectPaymentActivity : AppCompatActivity() {
         viewModel.getDirectPaymentInfo(token).observe(this) { result ->
             when (result) {
                 is Resource.Error -> {
+                    binding.layoutDirectPayment.visibility = View.INVISIBLE
+                    binding.shimmerDirectPayment.startShimmer()
+                    binding.shimmerDirectPayment.visibility = View.VISIBLE
+
+                    Toast.makeText(this, ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Loading -> {
+                    binding.layoutDirectPayment.visibility = View.INVISIBLE
+                    binding.shimmerDirectPayment.startShimmer()
+                    binding.shimmerDirectPayment.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    binding.layoutDirectPayment.visibility = View.VISIBLE
+                    binding.shimmerDirectPayment.stopShimmer()
+                    binding.shimmerDirectPayment.visibility = View.GONE
+
                     val data = result.data?.results
                     if (data != null) {
                         binding.tvAccountNumber.text = data.bankAccount

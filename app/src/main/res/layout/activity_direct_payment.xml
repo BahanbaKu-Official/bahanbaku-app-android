@@ -9,9 +9,10 @@
     tools:context=".presentation.directpayment.DirectPaymentActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/layout_direct_payment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="invisible"
         android:baselineAligned="false"
         android:orientation="vertical">
 
