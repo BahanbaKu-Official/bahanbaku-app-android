@@ -1,5 +1,8 @@
 package com.bangkit.bahanbaku.presentation.directpayment
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -18,6 +21,7 @@ import com.bangkit.bahanbaku.presentation.directpaymentproof.DirectPaymentProofA
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
+
 
 @AndroidEntryPoint
 class DirectPaymentActivity : AppCompatActivity() {
@@ -54,6 +58,18 @@ class DirectPaymentActivity : AppCompatActivity() {
     }
 
     private fun setupView(token: String) {
+        binding.btnImgPaymentMethod.setOnClickListener {
+            val clipboard: ClipboardManager =
+                getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText(
+                getString(R.string.label_account_number),
+                binding.tvAccountNumber.text.toString()
+            )
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(this, getString(R.string.account_number_copied), Toast.LENGTH_SHORT)
+                .show()
+        }
+
         products.observe(this) {
             val products = it.list
             var totalPrice = 0

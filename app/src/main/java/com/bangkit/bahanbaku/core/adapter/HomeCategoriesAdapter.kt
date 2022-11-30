@@ -2,7 +2,9 @@ package com.bangkit.bahanbaku.core.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.utils.DummyCategories
 import com.bangkit.bahanbaku.databinding.ItemCardCategorySmallBinding
 import com.bumptech.glide.Glide
@@ -16,10 +18,6 @@ class HomeCategoriesAdapter(private val list: List<DummyCategories>) : RecyclerV
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val recipe = list[position]
         holder.bind(recipe)
-
-        holder.binding.cardView.setOnClickListener {
-
-        }
     }
 
     override fun getItemCount() = list.size
@@ -32,6 +30,14 @@ class HomeCategoriesAdapter(private val list: List<DummyCategories>) : RecyclerV
                 Glide.with(itemView.context)
                     .load(category?.img)
                     .into(binding.imgRecipeCategory)
+
+                binding.cardView.setOnClickListener {
+                    Toast.makeText(
+                        itemView.context,
+                        itemView.context.getString(R.string.categories_coming_soon),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }

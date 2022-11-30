@@ -26,6 +26,6 @@
         android:id="@+id/navigation_notification"
         android:icon="@drawable/ic_notifications"
         app:iconTint="@color/black"
-        android:title="@string/notification" />
+        android:title="@string/notif" />
 
 </menu>

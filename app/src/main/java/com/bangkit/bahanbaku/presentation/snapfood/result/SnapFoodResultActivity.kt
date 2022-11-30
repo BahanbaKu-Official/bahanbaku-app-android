@@ -116,6 +116,8 @@ class SnapFoodResultActivity : AppCompatActivity() {
                 }
 
                 is Resource.Success -> {
+
+                    binding.imgSnapfoodStatus.isVisible = false
                     binding.progressBar.isVisible = false
                     binding.tvStatus.isVisible = false
                     val interFood = result.data!!.internationalFood
@@ -125,13 +127,17 @@ class SnapFoodResultActivity : AppCompatActivity() {
                     data.addAll(tradsFood)
                     data.addAll(interFood)
 
+                    data.sortByDescending {
+                        it.probability
+                    }
+
                     if (data.isEmpty()) {
                         binding.imgSnapfoodStatus.setImageResource(R.drawable.ic_illustration_something_went_wrong)
                         binding.imgSnapfoodStatus.isVisible = true
                     }
 
                     binding.rvFoods.apply {
-                        adapter = SnapFoodResultAdapter(interFood)
+                        adapter = SnapFoodResultAdapter(data)
                         layoutManager = LinearLayoutManager(this@SnapFoodResultActivity)
                     }
                 }

@@ -15,6 +15,7 @@ import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.databinding.FragmentListOrderHistoryBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
+import com.bangkit.bahanbaku.presentation.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,23 +54,29 @@ class OrderHistoryFragment : Fragment() {
     }
 
     private fun setupView(token: String) {
-        viewModel.getDirectOrderHistory(token).observe(requireActivity()) { result ->
-            when (result) {
-                is Resource.Loading -> {
+        if (activity == null) {
+            Log.d("TEST_ACTIVITY_NULL", "Activity is null")
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            requireContext().startActivity(intent)
+        } else {
+            viewModel.getDirectOrderHistory(token).observe(requireActivity()) { result ->
+                when (result) {
+                    is Resource.Loading -> {
 
-                }
+                    }
 
-                is Resource.Error -> {
-                    Toast.makeText(requireContext(), ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT)
-                        .show()
-                }
+                    is Resource.Error -> {
+                        Toast.makeText(requireContext(), ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT)
+                            .show()
+                    }
 
-                is Resource.Success -> {
-                    val data = result.data
-                    if (!data.isNullOrEmpty()) {
-                        binding.rvOrderHistory.apply {
-                            adapter = OrderHistoryAdapter(data)
-                            layoutManager = LinearLayoutManager(requireContext())
+                    is Resource.Success -> {
+                        val data = result.data
+                        if (!data.isNullOrEmpty()) {
+                            binding.rvOrderHistory.apply {
+                                adapter = OrderHistoryAdapter(data)
+                                layoutManager = LinearLayoutManager(requireContext())
+                            }
                         }
                     }
                 }

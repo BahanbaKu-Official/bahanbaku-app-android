@@ -3,16 +3,15 @@ package com.bangkit.bahanbaku.presentation.directpaymentproof
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.data.Resource
 import com.bangkit.bahanbaku.core.utils.fromUriToFile
-import com.bangkit.bahanbaku.databinding.ActivityDirectPaymentBinding
 import com.bangkit.bahanbaku.databinding.ActivityDirectPaymentProofBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.bangkit.bahanbaku.presentation.main.MainActivity
@@ -80,6 +79,7 @@ class DirectPaymentProofActivity : AppCompatActivity() {
 
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
+                            finish()
                         }
                     }
                 }

@@ -274,4 +274,9 @@
     <string name="details">Details</string>
     <string name="disclaimer_payment">We are unable to fulfill the orders at the moment. For testing purposes please do not do real payment and upload fake payment proof.</string>
     <string name="coming_soon_string">This feature will be available soon</string>
+    <string name="label_account_number">Account Number</string>
+    <string name="account_number_copied">Account number copied</string>
+    <string name="categories_coming_soon">Categories feature will be coming soon</string>
+    <string name="still_no_recipe_for_food">We are still constructing a new recipe for this food!</string>
+    <string name="notif">Notif</string>
 </resources>

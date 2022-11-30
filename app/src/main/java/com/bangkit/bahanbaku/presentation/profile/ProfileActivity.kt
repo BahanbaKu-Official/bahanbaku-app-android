@@ -22,8 +22,6 @@ import com.bangkit.bahanbaku.databinding.ActivityProfileBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.bangkit.bahanbaku.presentation.preference.PreferenceFragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.signature.ObjectKey
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import kotlin.random.Random
@@ -177,15 +175,19 @@ class ProfileActivity : AppCompatActivity() {
                             getString(R.string.format_name).format(data.firstName, data.lastName)
 
                         Glide.with(this)
-                            .load(data.profileImage + "?rand=${Random(2000000)}")
-                            .apply(
-                                RequestOptions().signature(
-                                    ObjectKey(
-                                        System.currentTimeMillis().toString()
-                                    )
-                                )
-                            )
+                            .load(data.profileImage)
                             .into(binding.imgProfile)
+
+//                        Glide.with(this)
+//                            .load(data.profileImage + "?rand=${Random(2000000)}")
+//                            .apply(
+//                                RequestOptions().signature(
+//                                    ObjectKey(
+//                                        System.currentTimeMillis().toString()
+//                                    )
+//                                )
+//                            )
+//                            .into(binding.imgProfile)
 
                         Glide.with(this)
                             .load(data.profileImage + "?rand=${Random(2000000)}")

@@ -2,8 +2,10 @@ package com.bangkit.bahanbaku.core.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.data.remote.response.OrderHistoryItem
 import com.bangkit.bahanbaku.databinding.ItemCardOrderHistoryBinding
 
@@ -35,6 +37,10 @@ class OrderHistoryAdapter(private val list: List<OrderHistoryItem>) : RecyclerVi
                         adapter = OrderHistoryItemAdapter(product.products)
                         layoutManager = LinearLayoutManager(itemView.context)
                     }
+                }
+
+                it.cardOrderHistory.setOnClickListener {
+                    Toast.makeText(itemView.context, itemView.context.getString(R.string.coming_soon_string), Toast.LENGTH_SHORT).show()
                 }
             }
         }

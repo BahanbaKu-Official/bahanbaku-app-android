@@ -54,7 +54,7 @@ class CheckoutAdapter(private val list: List<Product>, val onItemClicked: () -> 
             }
 
             binding.btnCardMinus.setOnClickListener {
-                if (product?.quantity!! > 0) {
+                if (product?.quantity!! > 1) {
                     product.quantity--
                     onItemClicked.invoke()
                     binding.tvTotalCheckout.text = product.quantity.toString()
