@@ -43,6 +43,8 @@ class SnapFoodResultAdapter(private val list: List<SnapFoodItem>) :
                 probabilityInt
             )
 
+            binding.tvDescSnapfood.text = "The probability level of the uploaded image to this food is $probabilityInt%"
+
             Glide.with(itemView)
                 .load(itemFood.imageLink)
                 .into(binding.imgRecipe)

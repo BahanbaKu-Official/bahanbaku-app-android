@@ -20,6 +20,7 @@ import com.bangkit.bahanbaku.core.utils.reduceFileImage
 import com.bangkit.bahanbaku.core.utils.rotateBitmap
 import com.bangkit.bahanbaku.databinding.ActivitySnapFoodResultBinding
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
+import com.bangkit.bahanbaku.presentation.snapfood.SnapFoodActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -46,6 +47,11 @@ class SnapFoodResultActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        binding.btnSnap.setOnClickListener {
+            val intent = Intent(this, SnapFoodActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         bindResult()
     }
 
@@ -96,6 +102,7 @@ class SnapFoodResultActivity : AppCompatActivity() {
                     binding.tvStatus.text = getString(R.string.our_machine_is_detecting_the_food)
                     binding.tvStatus.isVisible = true
                     binding.imgSnapfoodStatus.setImageResource(R.drawable.ic_illustration_thinking)
+                    binding.imgSnapfoodStatus.isVisible = true
                 }
 
                 is Resource.Error -> {
@@ -118,7 +125,10 @@ class SnapFoodResultActivity : AppCompatActivity() {
                     data.addAll(tradsFood)
                     data.addAll(interFood)
 
-                    binding.imgSnapfoodStatus.isVisible = data.isEmpty()
+                    if (data.isEmpty()) {
+                        binding.imgSnapfoodStatus.setImageResource(R.drawable.ic_illustration_something_went_wrong)
+                        binding.imgSnapfoodStatus.isVisible = true
+                    }
 
                     binding.rvFoods.apply {
                         adapter = SnapFoodResultAdapter(interFood)
