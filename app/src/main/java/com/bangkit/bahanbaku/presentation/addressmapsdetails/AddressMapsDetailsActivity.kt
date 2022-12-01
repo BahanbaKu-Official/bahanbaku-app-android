@@ -86,8 +86,8 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
             val receiverName = binding.etReceiverName.text.toString()
             val receiverPhoneNumber = binding.etReceiverNumber.text.toString()
 
-            if (label.isEmpty()) {
-                Toast.makeText(this, "Label cannot be empty", Toast.LENGTH_SHORT).show()
+            if (label.isEmpty() || receiverName.isEmpty() || receiverPhoneNumber.isEmpty()) {
+                Toast.makeText(this, "No attribute should be empty", Toast.LENGTH_SHORT).show()
             } else {
                 address?.apply {
                     viewModel.addAddress(

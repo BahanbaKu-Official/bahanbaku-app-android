@@ -117,7 +117,7 @@ class DetailActivity : AppCompatActivity() {
                                             name = product.name,
                                             stock = product.stock,
                                             updatedAt = product.updatedAt,
-                                            productImage = "",
+                                            productImage = product.productImage,
                                             quantity = 1
                                         )
                                     )
