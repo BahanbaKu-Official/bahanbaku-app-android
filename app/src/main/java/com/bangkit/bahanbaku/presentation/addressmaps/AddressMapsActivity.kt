@@ -29,6 +29,7 @@ import com.bangkit.bahanbaku.core.utils.addressObjectToString
 import com.bangkit.bahanbaku.databinding.ActivityAddressMapsBinding
 import com.bangkit.bahanbaku.presentation.addressmapsdetails.AddressMapsDetailsActivity
 import com.bangkit.bahanbaku.presentation.checkout.CheckoutActivity
+import com.bangkit.bahanbaku.presentation.directpayment.DirectPaymentActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -57,6 +58,7 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val addressLiveData = MutableLiveData<AddressInput>()
     private var profile: Profile? = null
     private lateinit var recipeName: String
+    private lateinit var recipeId: String
 
     private val recipe = MutableLiveData<CheckoutDataClass>()
 
@@ -73,6 +75,7 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         recipe.postValue(intent.getParcelableExtra(CheckoutActivity.EXTRA_RECIPE))
         recipeName = intent.getStringExtra(CheckoutActivity.EXTRA_FOOD_NAME) ?: ""
+        recipeId = intent.getStringExtra(DirectPaymentActivity.EXTRA_RECIPE_ID) ?: ""
 
         init()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -188,6 +191,10 @@ class AddressMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 intent.putExtra(
                     CheckoutActivity.EXTRA_FOOD_NAME,
                     recipeName
+                )
+                intent.putExtra(
+                    DirectPaymentActivity.EXTRA_RECIPE_ID,
+                    recipeId
                 )
                 startActivity(intent)
             }

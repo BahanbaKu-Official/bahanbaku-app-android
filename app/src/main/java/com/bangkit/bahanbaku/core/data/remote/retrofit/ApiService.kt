@@ -44,7 +44,7 @@ interface ApiService {
     ): Flowable<UpdateLocationResponse>
 
     @Multipart
-    @POST("user/upload-picture")
+    @POST("users/update/picture")
     fun uploadPicture(
         @Header("Authorization") token: String,
         @Part file: MultipartBody.Part
@@ -123,7 +123,8 @@ interface ApiService {
     @POST("direct-pay/{id}")
     fun createDirectPayment(
         @Header("Authorization") token: String,
-        @Body productsData: ProductsData
+        @Body productsData: ProductsData,
+        @Path("id") id: String,
     ): Flowable<PostCreateDirectPaymentResponse>
 
     @Multipart

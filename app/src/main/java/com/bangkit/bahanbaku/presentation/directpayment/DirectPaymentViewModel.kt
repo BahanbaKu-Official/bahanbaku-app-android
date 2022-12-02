@@ -16,8 +16,8 @@ class DirectPaymentViewModel @Inject constructor(
 
     fun getToken() = profileUseCase.getToken()
 
-    fun createDirectPayment(token: String, products: ProductsData) =
-        LiveDataReactiveStreams.fromPublisher(paymentUseCase.createDirectPayment(token, products))
+    fun createDirectPayment(token: String, products: ProductsData, id: String) =
+        LiveDataReactiveStreams.fromPublisher(paymentUseCase.createDirectPayment(token, products, id))
 
     fun getDirectPaymentInfo(token: String) =
         LiveDataReactiveStreams.fromPublisher(paymentUseCase.getDirectPaymentInfo(token))

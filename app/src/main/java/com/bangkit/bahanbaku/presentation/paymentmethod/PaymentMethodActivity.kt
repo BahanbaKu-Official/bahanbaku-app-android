@@ -27,12 +27,14 @@ class PaymentMethodActivity : AppCompatActivity() {
     }
 
     private val products = MutableLiveData<CheckoutDataClass>()
+    private lateinit var recipeId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         products.postValue(intent.getParcelableExtra(EXTRA_PRODUCTS))
+        recipeId = intent.getStringExtra(DirectPaymentActivity.EXTRA_RECIPE_ID) ?: ""
 
         getToken()
     }
@@ -87,6 +89,10 @@ class PaymentMethodActivity : AppCompatActivity() {
                                 intent.putExtra(
                                     DirectPaymentActivity.EXTRA_PRODUCT_LIST,
                                     products.value
+                                )
+                                intent.putExtra(
+                                    DirectPaymentActivity.EXTRA_RECIPE_ID,
+                                    recipeId
                                 )
                                 startActivity(intent)
                             }

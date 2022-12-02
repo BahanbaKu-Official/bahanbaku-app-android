@@ -12,7 +12,8 @@ import java.io.File
 interface IPaymentRepository {
     fun createDirectPayment(
         token: String,
-        products: ProductsData
+        products: ProductsData,
+        id: String
     ): Flowable<Resource<PostCreateDirectPaymentResponse>>
 
     fun submitPaymentProof(token: String, file: File, id: String): Flowable<Resource<PostSubmitProofResponse>>

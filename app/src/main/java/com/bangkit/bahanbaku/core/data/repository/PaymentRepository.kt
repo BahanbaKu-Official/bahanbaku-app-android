@@ -18,8 +18,9 @@ class PaymentRepository(private val remoteDataSource: RemoteDataSource) : IPayme
     override fun createDirectPayment(
         token: String,
         products: ProductsData,
+        id: String
     ): Flowable<Resource<PostCreateDirectPaymentResponse>> =
-        remoteDataSource.createDirectPayment(token, products)
+        remoteDataSource.createDirectPayment(token, products, id)
 
     override fun submitPaymentProof(
         token: String,

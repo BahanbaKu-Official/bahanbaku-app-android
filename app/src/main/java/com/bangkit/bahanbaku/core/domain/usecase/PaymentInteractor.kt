@@ -10,8 +10,8 @@ import io.reactivex.Flowable
 import java.io.File
 
 class PaymentInteractor(private val paymentRepository: IPaymentRepository) : PaymentUseCase {
-    override fun createDirectPayment(token: String, products: ProductsData) =
-        paymentRepository.createDirectPayment(token, products)
+    override fun createDirectPayment(token: String, products: ProductsData, id: String) =
+        paymentRepository.createDirectPayment(token, products, id)
 
     override fun submitPaymentProof(
         token: String,

@@ -520,11 +520,12 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
 
     fun createDirectPayment(
         token: String,
-        products: ProductsData
+        products: ProductsData,
+        id: String
     ): Flowable<Resource<PostCreateDirectPaymentResponse>> {
         val resultData = PublishSubject.create<Resource<PostCreateDirectPaymentResponse>>()
         val client =
-            apiService.createDirectPayment(token, products)
+            apiService.createDirectPayment(token, products, id)
 
         val disposable = client
             .subscribeOn(Schedulers.io())

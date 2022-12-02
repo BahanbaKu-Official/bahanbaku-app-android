@@ -12,7 +12,8 @@ import java.io.File
 interface PaymentUseCase {
     fun createDirectPayment(
         token: String,
-        products: ProductsData
+        products: ProductsData,
+        id: String
     ): Flowable<Resource<PostCreateDirectPaymentResponse>>
     fun getDirectPaymentInfo(token: String): Flowable<Resource<GetDirectPaymentInfoResponse>>
     fun submitPaymentProof(

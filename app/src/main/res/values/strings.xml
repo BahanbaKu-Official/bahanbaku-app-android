@@ -279,4 +279,5 @@
     <string name="categories_coming_soon">Categories feature will be coming soon</string>
     <string name="still_no_recipe_for_food">We are still constructing a new recipe for this food!</string>
     <string name="notif">Notif</string>
+    <string name="cannot_empty">Cannot be empty</string>
 </resources>

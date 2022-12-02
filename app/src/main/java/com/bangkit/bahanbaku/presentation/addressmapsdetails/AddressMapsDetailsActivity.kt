@@ -13,6 +13,7 @@ import com.bangkit.bahanbaku.core.domain.model.AddressInput
 import com.bangkit.bahanbaku.core.domain.model.CheckoutDataClass
 import com.bangkit.bahanbaku.databinding.ActivityAddressMapsDetailsBinding
 import com.bangkit.bahanbaku.presentation.checkout.CheckoutActivity
+import com.bangkit.bahanbaku.presentation.directpayment.DirectPaymentActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,6 +29,7 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
     private val recipe = MutableLiveData<CheckoutDataClass>()
     private val isFirstAddress = MutableLiveData(false)
     private lateinit var recipeName: String
+    private lateinit var recipeId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,7 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
 
         recipe.postValue(intent.getParcelableExtra(CheckoutActivity.EXTRA_RECIPE))
         recipeName = intent.getStringExtra(CheckoutActivity.EXTRA_FOOD_NAME) ?: ""
+        recipeId = intent.getStringExtra(DirectPaymentActivity.EXTRA_RECIPE_ID) ?: ""
 
         getToken(address)
     }
@@ -135,6 +138,10 @@ class AddressMapsDetailsActivity : AppCompatActivity() {
                                     intent.putExtra(
                                         CheckoutActivity.EXTRA_FOOD_NAME,
                                         recipeName
+                                    )
+                                    intent.putExtra(
+                                        DirectPaymentActivity.EXTRA_RECIPE_ID,
+                                        recipeId
                                     )
                                     startActivity(intent)
                                     finish()

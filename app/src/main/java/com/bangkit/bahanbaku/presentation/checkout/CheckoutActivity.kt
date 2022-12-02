@@ -17,6 +17,7 @@ import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.core.utils.addressObjectToString
 import com.bangkit.bahanbaku.databinding.ActivityCheckoutBinding
 import com.bangkit.bahanbaku.presentation.address.AddressActivity
+import com.bangkit.bahanbaku.presentation.directpayment.DirectPaymentActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.bangkit.bahanbaku.presentation.paymentmethod.PaymentMethodActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +35,7 @@ class CheckoutActivity : AppCompatActivity() {
     private val recipe = MutableLiveData<CheckoutDataClass>()
     private val isAddressNotEmpty = MutableLiveData(false)
     private lateinit var recipeName: String
+    private lateinit var recipeId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,7 @@ class CheckoutActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         recipe.postValue(intent.getParcelableExtra(EXTRA_RECIPE)!!)
         recipeName = intent.getStringExtra(EXTRA_FOOD_NAME) ?: ""
+        recipeId = intent.getStringExtra(DirectPaymentActivity.EXTRA_RECIPE_ID) ?: ""
         binding.tvTitleCheckoutRecipe.text = recipeName
 
         getToken()
@@ -73,6 +76,10 @@ class CheckoutActivity : AppCompatActivity() {
                 if (isAddressNotEmpty.value == true && recipe.value != null) {
                     val intent = Intent(this, PaymentMethodActivity::class.java)
                     intent.putExtra(PaymentMethodActivity.EXTRA_PRODUCTS, recipe.value)
+                    intent.putExtra(
+                        DirectPaymentActivity.EXTRA_RECIPE_ID,
+                        recipeId
+                    )
                     startActivity(intent)
                 } else {
                     Toast.makeText(this, getString(R.string.pick_your_address), Toast.LENGTH_SHORT)
@@ -85,6 +92,10 @@ class CheckoutActivity : AppCompatActivity() {
                 intent.putExtra(EXTRA_RECIPE, recipe.value)
                 intent.putExtra(
                     EXTRA_FOOD_NAME, recipeName
+                )
+                intent.putExtra(
+                    DirectPaymentActivity.EXTRA_RECIPE_ID,
+                    recipeId
                 )
                 startActivity(intent)
             }

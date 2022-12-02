@@ -33,12 +33,14 @@ class DirectPaymentActivity : AppCompatActivity() {
     private val viewModel: DirectPaymentViewModel by viewModels()
     private val products = MutableLiveData<CheckoutDataClass>()
     private var productsJson: ProductsData? = null
+    private lateinit var recipeId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         products.postValue(intent.getParcelableExtra(EXTRA_PRODUCT_LIST))
+        recipeId = intent.getStringExtra(EXTRA_RECIPE_ID) ?: ""
 
         getToken()
     }
@@ -126,7 +128,7 @@ class DirectPaymentActivity : AppCompatActivity() {
                         )
                     }
 
-                    viewModel.createDirectPayment(token, ProductsData(productList))
+                    viewModel.createDirectPayment(token, ProductsData(productList), recipeId)
                         .observe(this) { result ->
                             when (result) {
                                 is Resource.Loading -> {
@@ -159,6 +161,7 @@ class DirectPaymentActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_PRODUCT_LIST = "EXTRA_PRODUCT_LIST"
+        const val EXTRA_PRODUCT_LIST = "extra_product_list"
+        const val EXTRA_RECIPE_ID = "extra_recipe_id"
     }
 }

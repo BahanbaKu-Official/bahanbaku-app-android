@@ -42,9 +42,14 @@ class RecipeDetailIngredientsGridAdapter(private val list: List<IngredientsItem>
                 binding.tvCardIngredientPrice.text =
                     itemView.context.getString(R.string.format_currency_rupiah)
                         .format(formattedNumber)
-                binding.tvCardIngredientMeasurement.text =
-                    itemView.context.getString(R.string.format_measurement)
-                        .format(ingredient?.amount?.toInt(), ingredient?.unit)
+
+                if (ingredient?.amount?.toInt() == 0) {
+                    binding.tvCardIngredientMeasurement.text = ingredient.unit
+                } else {
+                    binding.tvCardIngredientMeasurement.text =
+                        itemView.context.getString(R.string.format_measurement)
+                            .format(ingredient?.amount?.toInt(), ingredient?.unit)
+                }
 
                 if (ingredient?.products != null) {
                     it.btnAdd.setOnClickListener {

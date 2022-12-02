@@ -27,6 +27,7 @@ import com.bangkit.bahanbaku.core.utils.ERROR_DEFAULT_MESSAGE
 import com.bangkit.bahanbaku.databinding.ActivityDetailBinding
 import com.bangkit.bahanbaku.presentation.checkout.CheckoutActivity
 import com.bangkit.bahanbaku.presentation.cookingguide.CookingGuideActivity
+import com.bangkit.bahanbaku.presentation.directpayment.DirectPaymentActivity
 import com.bangkit.bahanbaku.presentation.login.LoginActivity
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -132,6 +133,10 @@ class DetailActivity : AppCompatActivity() {
                                 intent.putExtra(
                                     CheckoutActivity.EXTRA_FOOD_NAME,
                                     recipe.title
+                                )
+                                intent.putExtra(
+                                    DirectPaymentActivity.EXTRA_RECIPE_ID,
+                                    recipe.recipeId
                                 )
                                 startActivity(intent)
                             } else {
