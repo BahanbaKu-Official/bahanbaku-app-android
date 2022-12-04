@@ -95,6 +95,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="H,1.024:0.5"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
             app:cardCornerRadius="24dp"
@@ -243,9 +246,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            style="@style/Text.Title.Large"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/morning_recommendation"
-            app:layout_constraintStart_toStartOf="@id/tv_home_greetings"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/placeholder_banner"
             app:layout_constraintTop_toBottomOf="@id/tv_home_greetings" />
 
         <TextView
@@ -304,7 +308,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            style="@style/Text.Title.Large"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/categories"
             app:layout_constraintStart_toStartOf="@id/tv_label_morning_recommendation"
             app:layout_constraintTop_toBottomOf="@id/shimmer_morning_recommendation_recipe" />
@@ -338,7 +343,8 @@
             android:id="@+id/tv_label_recommendation_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Text.Title.Large"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium"
             android:layout_marginTop="32dp"
             android:text="Western Foods"
             app:layout_constraintStart_toStartOf="@+id/tv_label_categories"
@@ -402,8 +408,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            style="@style/Text.Title.Large"
-            android:text="Our Recommendations"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/our_recommendations"
             app:layout_constraintStart_toStartOf="@+id/tv_label_recommendation_1"
             app:layout_constraintTop_toBottomOf="@id/shimmer_recipe_recommendation_1" />
 
@@ -465,7 +472,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            style="@style/Text.Title.Large"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/discover_more"
             app:layout_constraintStart_toStartOf="@id/tv_label_recommendation_2"
             app:layout_constraintTop_toBottomOf="@id/shimmer_recipe_recommendation_2" />

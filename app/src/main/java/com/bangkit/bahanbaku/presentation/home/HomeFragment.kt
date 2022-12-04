@@ -115,12 +115,12 @@ class HomeFragment : Fragment() {
         }
 
         val calendar = Calendar.getInstance()
-        var time = when (calendar.get(Calendar.HOUR_OF_DAY)) {
-            in 2.until(11) -> "Morning"
-            in 11.until(14) -> "Day"
-            in 14.until(16) -> "Afternoon"
-            in 16.until(19) -> "Evening"
-            else -> "Night"
+        val time = when (calendar.get(Calendar.HOUR_OF_DAY)) {
+            in 2.until(11) -> getString(R.string.morning)
+            in 11.until(14) -> getString(R.string.day)
+            in 14.until(16) -> getString(R.string.afternoon)
+            in 16.until(19) -> getString(R.string.evening)
+            else -> getString(R.string.night)
         }
 
         loadGreetings(viewModel, time)

@@ -1,6 +1,7 @@
 package com.bangkit.bahanbaku.core.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.bahanbaku.R
@@ -52,19 +53,11 @@ class RecipeDetailIngredientsGridAdapter(private val list: List<IngredientsItem>
                 }
 
                 if (ingredient?.products != null) {
+                    updateUiState(ingredient, binding, itemView)
+
                     it.btnAdd.setOnClickListener {
-                        if (ingredient.products.stock > 0 && ingredient.products.price > 0) {
-                            ingredient.isSelected = !ingredient.isSelected
-                            if (ingredient.isSelected) {
-                                binding.btnAdd.setBackgroundColor(itemView.context.getColor(R.color.primary))
-                                binding.btnAdd.text = "Added"
-                                binding.btnAdd.setTextColor(itemView.context.getColor(R.color.black))
-                            } else {
-                                binding.btnAdd.setBackgroundColor(itemView.context.getColor(R.color.black))
-                                binding.btnAdd.text = "Add"
-                                binding.btnAdd.setTextColor(itemView.context.getColor(R.color.white))
-                            }
-                        }
+                        ingredient.isSelected = !ingredient.isSelected
+                        updateUiState(ingredient, binding, itemView)
                     }
 
                     if (ingredient.products.stock <= 0 || ingredient.products.price <= 0) {
@@ -85,6 +78,24 @@ class RecipeDetailIngredientsGridAdapter(private val list: List<IngredientsItem>
                 Glide.with(itemView.context)
                     .load(ingredient?.imageUrl)
                     .into(binding.imgCardIngredient)
+            }
+        }
+    }
+
+    private fun updateUiState(
+        ingredient: IngredientsItem,
+        binding: ItemCardIngredientGridBinding,
+        itemView: View
+    ) {
+        if (ingredient.products.stock > 0 && ingredient.products.price > 0) {
+            if (ingredient.isSelected) {
+                binding.btnAdd.setBackgroundColor(itemView.context.getColor(R.color.primary))
+                binding.btnAdd.text = itemView.context.getString(R.string.added)
+                binding.btnAdd.setTextColor(itemView.context.getColor(R.color.black))
+            } else {
+                binding.btnAdd.setBackgroundColor(itemView.context.getColor(R.color.black))
+                binding.btnAdd.text = itemView.context.getString(R.string.add)
+                binding.btnAdd.setTextColor(itemView.context.getColor(R.color.white))
             }
         }
     }

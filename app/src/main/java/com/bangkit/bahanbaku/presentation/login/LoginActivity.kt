@@ -39,6 +39,22 @@ class LoginActivity : AppCompatActivity() {
 
 //        Toast.makeText(this, "For this testing, press LOGIN directly!", Toast.LENGTH_LONG).show()
 
+        binding.loginEmail.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrEmpty()) {
+                binding.textfieldLoginEmail.error = getString(R.string.cannot_empty)
+            } else {
+                binding.textfieldLoginEmail.error = null
+            }
+        }
+
+        binding.loginPassword.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrEmpty()) {
+                binding.textfieldLoginPassword.error = getString(R.string.cannot_empty)
+            } else {
+                binding.textfieldLoginPassword.error = null
+            }
+        }
+
         binding.btnLogin.setOnClickListener {
             val email = binding.loginEmail.text.toString()
             val password = binding.loginPassword.text.toString()
@@ -47,22 +63,6 @@ class LoginActivity : AppCompatActivity() {
 //            val intent = Intent(this@LoginActivity, MainActivity::class.java)
 //            startActivity(intent)
 //            finish()
-
-            binding.loginEmail.doOnTextChanged { text, _, _, _ ->
-                if (text.isNullOrEmpty()) {
-                    binding.textfieldLoginEmail.error = getString(R.string.cannot_empty)
-                } else {
-                    binding.textfieldLoginPassword.error = null
-                }
-            }
-
-            binding.loginPassword.doOnTextChanged { text, _, _, _ ->
-                if (text.isNullOrEmpty()) {
-                    binding.textfieldLoginPassword.error = getString(R.string.cannot_empty)
-                } else {
-                    binding.textfieldLoginPassword.error = null
-                }
-            }
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Email and password cannot be empty", Toast.LENGTH_SHORT)

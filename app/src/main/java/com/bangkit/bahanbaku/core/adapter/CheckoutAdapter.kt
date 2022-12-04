@@ -49,7 +49,11 @@ class CheckoutAdapter(private val list: List<Product>, val onItemClicked: () -> 
                     binding.tvTotalCheckout.text = product.quantity.toString()
                     onItemClicked.invoke()
                 } else {
-                    Toast.makeText(itemView.context, "Quantity cannot exceed product stock", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        itemView.context,
+                        itemView.context.getString(R.string.quantity_cannot_exceed_stock),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

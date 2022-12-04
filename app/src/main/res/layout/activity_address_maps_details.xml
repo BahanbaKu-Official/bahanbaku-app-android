@@ -20,7 +20,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:startIconDrawable="@drawable/badge">
+      app:startIconDrawable="@drawable/ic_baseline_directions_walk_24">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_street"
@@ -44,7 +44,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/tf_street"
-      app:startIconDrawable="@drawable/badge">
+      app:startIconDrawable="@drawable/ic_baseline_domain_24">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_district"
@@ -68,7 +68,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/tf_district"
-      app:startIconDrawable="@drawable/mail">
+      app:startIconDrawable="@drawable/ic_baseline_location_city_24">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_city"
@@ -91,7 +91,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/tf_city"
-      app:startIconDrawable="@drawable/password">
+      app:startIconDrawable="@drawable/ic_baseline_emoji_flags_24">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_province"
@@ -137,7 +137,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/tf_zip_code"
-      app:startIconDrawable="@drawable/password">
+      app:startIconDrawable="@drawable/ic_baseline_label_24">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_label"
@@ -160,7 +160,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/tf_label"
-      app:startIconDrawable="@drawable/password">
+      app:startIconDrawable="@drawable/badge">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_receiver_name"

@@ -142,10 +142,9 @@ class DetailActivity : AppCompatActivity() {
                             } else {
                                 Toast.makeText(
                                     this,
-                                    "Pick at least one ingredient",
+                                    getString(R.string.pick_one_ingredient),
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                isIngredientsViewGrid.postValue(true)
                             }
 
                         }
@@ -165,7 +164,7 @@ class DetailActivity : AppCompatActivity() {
 
                         binding.topAppBarRecipeDetail.title = recipe.title
                         binding.tvDescription.text = recipe.description
-                        binding.tvServings.text = "${recipe.portion} servings"
+                        binding.tvServings.text = getString(R.string.serving).format(recipe.portion)
 
                         ingredientsRv.apply {
                             adapter = RecipeDetailIngredientsListAdapter(recipe!!.ingredients)

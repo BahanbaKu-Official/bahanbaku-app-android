@@ -2,9 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/white"/>
 
-    <item>
-        <bitmap
-            android:src="@drawable/logo_bahanbaku"
-            android:gravity="center"/>
-    </item>
+    <item
+        android:drawable="@drawable/splash_screen_logo"
+        android:gravity="center"/>
 </layer-list>

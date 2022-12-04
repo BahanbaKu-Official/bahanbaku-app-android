@@ -42,27 +42,38 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.etPassword.text.toString()
             val phoneNumber = binding.etNomorTelp.text.toString()
 
-            viewModel.register(firstName, lastName, email, password, phoneNumber).observe(this) { result ->
-                when (result) {
-                    is Resource.Error -> {
-                        val error = result.message
-                        Log.d(TAG, error ?: ERROR_DEFAULT_MESSAGE)
-                        binding.progressBar.isVisible = false
-                        Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
-                    }
-                    is Resource.Loading -> {
-                        binding.progressBar.isVisible = true
-                    }
-                    is Resource.Success -> {
-                        Toast.makeText(this, getString(R.string.register_success), Toast.LENGTH_SHORT).show()
-                        binding.progressBar.isVisible = false
+            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || phoneNumber.isEmpty()) {
+                Toast.makeText(this, getString(R.string.fields_cannot_empty), Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                viewModel.register(firstName, lastName, email, password, phoneNumber)
+                    .observe(this) { result ->
+                        when (result) {
+                            is Resource.Error -> {
+                                val error = result.message
+                                Log.d(TAG, error ?: ERROR_DEFAULT_MESSAGE)
+                                binding.progressBar.isVisible = false
+                                Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
+                            }
+                            is Resource.Loading -> {
+                                binding.progressBar.isVisible = true
+                            }
+                            is Resource.Success -> {
+                                Toast.makeText(
+                                    this,
+                                    getString(R.string.register_success),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                binding.progressBar.isVisible = false
 
-                        val intent = Intent(this, LoginActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        finish()
+                                val intent = Intent(this, LoginActivity::class.java)
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
                     }
-                }
             }
         }
 

@@ -105,8 +105,8 @@
     <string name="order">Order</string>
     <string name="text_our_service_uses_location">Our service uses location to get the best ingredients prices for you :)</string>
     <string name="update_your_location">Update your location!</string>
-    <string name="title_introduction">Welcome to Bahan Baku!</string>
-    <string name="introduction">In this application you can find recipes and ingredients foods that are suitable for business with best price from many stores.</string>
+    <string name="title_introduction" translatable="false">Welcome to Bahan Baku!</string>
+    <string name="introduction" translatable="false">In this application you can find recipes and ingredients foods that are suitable for business with best price from many stores.</string>
     <string name="skip">Skip</string>
     <string name="start">Start</string>
     <string name="title_introduction_menu_food">introduce the food recognition menu</string>
@@ -124,7 +124,7 @@
     <string name="wrong_credentials">Wrong credentials</string>
     <string name="login_failed">Login failed</string>
     <string name="did_you_know_various_bakso">Did you know that there are various of bakso?</string>
-    <string name="did_you_know_bakso_desc">Bakso is a comfort food for a lot of people. But little did we know, there are more bakso than we thought.Wanna know?</string>
+    <string name="did_you_know_bakso_desc">Bakso is a comfort food for a lot of people. But little did we know, there are more bakso than we thought.Want to know?</string>
     <string name="click_to_see_what_we_mean">Click to see what we mean</string>
     <string name="our_local_cuisine_highlight">Our Local Cuisine Highlight</string>
     <string name="opening_camera">Opening camera</string>
@@ -158,11 +158,11 @@
     <string name="minutes">15 Menit</string>
     <string name="price">Rp.1.500.000</string>
     <string name="Upload_gallery">Upload from Gallery</string>
-    <string name="alamat_pengiriman">Alamat Pengiriman</string>
+    <string name="alamat_pengiriman" translatable="false">Alamat Pengiriman</string>
     <string name="shipping_address">Alamat Pengiriman</string>
-    <string name="Name_User">John Doe</string>
-    <string name="number_telp">(08123456778)</string>
-    <string name="address">Perum. West Valley Blok 07 No. 07</string>
+    <string name="Name_User" translatable="false">John Doe</string>
+    <string name="number_telp" translatable="false">(08123456778)</string>
+    <string name="address" translatable="false">Perum. West Valley Blok 07 No. 07</string>
     <string name="Title_recipe_checkout">Ayam Geprek</string>
     <string name="Total_payment">Total Pembayaran</string>
     <string name="pay">Bayar</string>
@@ -235,6 +235,7 @@
     <string name="placeholder_price_zero">Rp0</string>
     <string name="checkout">Checkout</string>
     <string name="unavailable">Unavailable</string>
+    <string name="format_unavailable">(Unavailable) %s</string>
     <string name="title_activity_address">AddressActivity</string>
     <string name="street">Street</string>
     <string name="district">District</string>
@@ -280,4 +281,18 @@
     <string name="still_no_recipe_for_food">We are still constructing a new recipe for this food!</string>
     <string name="notif">Notif</string>
     <string name="cannot_empty">Cannot be empty</string>
+    <string name="fields_cannot_empty">Fields cannot be empty</string>
+    <string name="added">Added</string>
+
+    <!--    FIRST VERSION-->
+    <string name="morning">Morning</string>
+    <string name="day">Day</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="evening">Evening</string>
+    <string name="night">Night</string>
+    <string name="our_recommendations">Our Recommendations</string>
+    <string name="pick_one_ingredient">Pick at least one ingredient</string>
+    <string name="quantity_cannot_exceed_stock">Quantity cannot exceed product stock</string>
+    <string name="payment_method_coming_sood">This payment method will be coming soon</string>
+    <string name="probability_level">The probability level of the uploaded image to this food is %d%</string>
 </resources>

@@ -46,7 +46,8 @@ class SnapFoodResultAdapter(private val list: List<SnapFoodItem>) :
             binding.progressBarCircular.progress = probabilityInt
             binding.tvPercentageAccuracy.text = "$probabilityInt%"
 
-            binding.tvDescSnapfood.text = "The probability level of the uploaded image to this food is $probabilityInt%"
+            binding.tvDescSnapfood.text =
+                itemView.context.getString(R.string.probability_level).format(probabilityInt)
 
             Glide.with(itemView)
                 .load(itemFood.imageLink)
