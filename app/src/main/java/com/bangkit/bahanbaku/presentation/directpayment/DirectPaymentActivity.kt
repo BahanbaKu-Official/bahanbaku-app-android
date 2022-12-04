@@ -79,6 +79,18 @@ class DirectPaymentActivity : AppCompatActivity() {
                 totalPrice += product.price * product.quantity
             }
 
+            binding.btnImgCopyAmount.setOnClickListener {
+                val clipboard: ClipboardManager =
+                    getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText(
+                    getString(R.string.payment_amount),
+                    totalPrice.toString()
+                )
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(this, getString(R.string.payment_amount_copied), Toast.LENGTH_SHORT)
+                    .show()
+            }
+
             val formatter = DecimalFormat("#,###")
             val formattedNumber = formatter.format(totalPrice)
 

@@ -165,9 +165,11 @@ class DetailActivity : AppCompatActivity() {
                         binding.topAppBarRecipeDetail.title = recipe.title
                         binding.tvDescription.text = recipe.description
                         binding.tvServings.text = getString(R.string.serving).format(recipe.portion)
+                        binding.tvReview.text =
+                            getString(R.string.format_review).format(recipe.rating)
 
                         ingredientsRv.apply {
-                            adapter = RecipeDetailIngredientsListAdapter(recipe!!.ingredients)
+                            adapter = RecipeDetailIngredientsListAdapter(recipe.ingredients)
                             layoutManager = LinearLayoutManager(this@DetailActivity)
                         }
 
@@ -200,7 +202,8 @@ class DetailActivity : AppCompatActivity() {
 
                     ingredientsRv.apply {
                         adapter = RecipeDetailIngredientsGridAdapter(recipe!!.ingredients)
-                        layoutManager = StaggeredGridLayoutManager(spanCount, LinearLayoutManager.VERTICAL)
+                        layoutManager =
+                            StaggeredGridLayoutManager(spanCount, LinearLayoutManager.VERTICAL)
                     }
                     binding.btnIconIngredientsView.icon = AppCompatResources.getDrawable(
                         this,

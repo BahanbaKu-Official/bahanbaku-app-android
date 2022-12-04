@@ -130,7 +130,7 @@
     <string name="placeholder_measurement">300gr</string>
     <string name="add">Tambah</string>
     <string name="servings">Porsi</string>
-    <string name="placeholder_review_label">Ulasan (300)</string>
+    <string name="placeholder_review_label">Ulasan</string>
     <string name="placeholder_serving_amount">3 Porsi</string>
     <string name="placeholder_review_amount">4.5 from 5.0</string>
     <string name="one">1</string>
@@ -289,4 +289,7 @@
     <string name="quantity_cannot_exceed_stock">Kuantitas tidak dapat melebihi stok</string>
     <string name="payment_method_coming_sood">Metode pembayaran ini akan hadir segera</string>
     <string name="probability_level">Tingkat probabilitas kebenaran deteksi ini adalah %d\%%</string>
+    <string name="payment_amount">Jumlah Pembayaran</string>
+    <string name="format_review">%.1f dari 5.0</string>
+    <string name="payment_amount_copied">Jumlah pembayaran disalin</string>
 </resources>
