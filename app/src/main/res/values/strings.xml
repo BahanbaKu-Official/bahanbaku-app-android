@@ -294,5 +294,5 @@
     <string name="pick_one_ingredient">Pick at least one ingredient</string>
     <string name="quantity_cannot_exceed_stock">Quantity cannot exceed product stock</string>
     <string name="payment_method_coming_sood">This payment method will be coming soon</string>
-    <string name="probability_level">The probability level of the uploaded image to this food is %d%</string>
+    <string name="probability_level">The probability level of the uploaded image to this food is %d\%%</string>
 </resources>

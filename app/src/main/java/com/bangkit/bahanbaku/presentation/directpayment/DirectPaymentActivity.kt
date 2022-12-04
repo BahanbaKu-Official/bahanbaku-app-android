@@ -128,33 +128,38 @@ class DirectPaymentActivity : AppCompatActivity() {
                         )
                     }
 
-                    viewModel.createDirectPayment(token, ProductsData(productList), recipeId)
-                        .observe(this) { result ->
-                            when (result) {
-                                is Resource.Loading -> {
+                    val addressId = viewModel.getAddress().value
+                    if (addressId != null) {
+                        viewModel.createDirectPayment(token, ProductsData(productList, addressId), recipeId)
+                            .observe(this) { result ->
+                                when (result) {
+                                    is Resource.Loading -> {
 
-                                }
+                                    }
 
-                                is Resource.Error -> {
+                                    is Resource.Error -> {
 
-                                }
+                                    }
 
-                                is Resource.Success -> {
-                                    val paymentData = result.data?.results
-                                    if (paymentData != null) {
-                                        val intent =
-                                            Intent(this, DirectPaymentProofActivity::class.java)
+                                    is Resource.Success -> {
+                                        val paymentData = result.data?.results
+                                        if (paymentData != null) {
+                                            val intent =
+                                                Intent(this, DirectPaymentProofActivity::class.java)
 
-                                        intent.putExtra(
-                                            DirectPaymentProofActivity.EXTRA_PAYMENT_ID,
-                                            paymentData.directPayId
-                                        )
+                                            intent.putExtra(
+                                                DirectPaymentProofActivity.EXTRA_PAYMENT_ID,
+                                                paymentData.directPayId
+                                            )
 
-                                        startActivity(intent)
+                                            startActivity(intent)
+                                        }
                                     }
                                 }
                             }
-                        }
+                    } else {
+                        Toast.makeText(this, ERROR_DEFAULT_MESSAGE, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

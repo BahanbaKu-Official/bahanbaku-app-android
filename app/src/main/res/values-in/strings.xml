@@ -288,5 +288,5 @@
     <string name="pick_one_ingredient">Pilih setidaknya satu bahan</string>
     <string name="quantity_cannot_exceed_stock">Kuantitas tidak dapat melebihi stok</string>
     <string name="payment_method_coming_sood">Metode pembayaran ini akan hadir segera</string>
-    <string name="probability_level">Tingkat probabilitas kebenaran deteksi ini adalah %d%</string>
+    <string name="probability_level">Tingkat probabilitas kebenaran deteksi ini adalah %d\%%</string>
 </resources>
