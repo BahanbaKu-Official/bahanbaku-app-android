@@ -21,6 +21,7 @@
     <color name="secondary">#555555</color>
 
     <color name="transparent_black">#BD000000</color>
+    <color name="transparent_black_more">#4B000000</color>
     <color name="gray_text">#747474</color>
 
     <color name="container_primary">#F4F4F4</color>

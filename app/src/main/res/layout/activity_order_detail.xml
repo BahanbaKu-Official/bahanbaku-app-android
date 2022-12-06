@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.orderdetail.OrderDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_card_recipe"
+            layout="@layout/item_recipe_search_list" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/pure_white"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_text_state"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="#F5F5F5"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_order_status"
+                            style="@style/Text.Title.Medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginVertical="8dp"
+                            android:text="@string/succeed" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tv_products_label"
+                    style="@style/Text.Title.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/products"
+                    app:layout_constraintTop_toBottomOf="@id/card_text_state" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_order_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_products_label"
+                    tools:listitem="@layout/item_ingredient_order_history" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/pure_white"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_order_info_label"
+                    style="@style/Text.Title.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/order_information"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="13dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_order_info_label">
+
+                    <TableRow>
+
+                        <TextView
+                            android:padding="3dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/order_date" />
+
+                        <TextView
+                            android:padding="3dp"
+                            android:text="@string/colon" />
+
+                        <TextView
+                            android:padding="3dp"
+                            android:id="@+id/tv_order_date"/>
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:padding="3dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/total_cost" />
+
+                        <TextView
+                            android:padding="3dp"
+                            android:text="@string/colon" />
+
+                        <TextView
+                            android:padding="3dp"
+                            android:id="@+id/tv_total_cost"/>
+                    </TableRow>
+                </TableLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/pure_white"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_destination_label"
+                    style="@style/Text.Title.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/destination"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TableLayout
+                    android:id="@+id/table_destination_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="13dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_destination_label">
+
+                    <TableRow>
+
+                        <TextView
+                            android:padding="3dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/address" />
+
+                        <TextView
+                            android:padding="3dp"
+                            android:text="@string/colon" />
+
+                        <TextView
+                            android:padding="3dp"
+                            android:id="@+id/tv_address"/>
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:padding="3dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/receiver" />
+
+                        <TextView
+                            android:padding="3dp"
+                            android:text="@string/colon" />
+
+                        <TextView
+                            android:padding="3dp"
+                            android:id="@+id/tv_receiver_name"/>
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:padding="3dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/phone_number" />
+
+                        <TextView
+                            android:padding="3dp"
+                            android:text="@string/colon" />
+
+                        <TextView
+                            android:padding="3dp"
+                            android:id="@+id/tv_receiver_number"/>
+                    </TableRow>
+                </TableLayout>
+
+                <Button
+                    android:id="@+id/btn_open_maps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/table_destination_info"
+                    android:text="@string/open_maps"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

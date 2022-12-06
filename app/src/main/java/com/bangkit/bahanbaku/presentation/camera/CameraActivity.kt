@@ -50,6 +50,10 @@ class CameraActivity : AppCompatActivity() {
             Toast.makeText(this, "Capturing photo, please wait", Toast.LENGTH_SHORT).show()
             takePhoto()
         }
+
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onResume() {

@@ -22,9 +22,17 @@
         android:theme="@style/Theme.BahanbaKu"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.directpaymentproof.DirectPaymentProofActivity"
-            android:label="Payment Proof"
+            android:name=".presentation.orderdetail.OrderDetailActivity"
+            android:label="@string/order"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".presentation.directpaymentproof.DirectPaymentProofActivity"
+            android:exported="false"
+            android:label="@string/payment_proof">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -32,7 +40,7 @@
         <activity
             android:name=".presentation.directpayment.DirectPaymentActivity"
             android:exported="false"
-            android:label="Payment Information">
+            android:label="@string/payment_information">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -93,6 +101,7 @@
         </activity>
         <activity
             android:name=".presentation.snapfood.SnapFoodActivity"
+            android:label="@string/snapfood"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

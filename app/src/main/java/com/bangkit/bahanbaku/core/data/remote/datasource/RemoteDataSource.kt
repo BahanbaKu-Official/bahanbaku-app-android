@@ -61,14 +61,10 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             .observeOn(AndroidSchedulers.mainThread())
             .take(1)
             .subscribe({ response ->
-                val data = response.results
-                val entity = DataMapper.mapRecipeResponseToRecipeEntity(data.recipes)
+                val data = response.results.recipes
+                val entity = DataMapper.mapRecipeResponseToRecipeEntity(data)
                 val domain = DataMapper.mapRecipeEntitiesToRecipeDomain(entity)
-                resultData.onNext(
-                    if (domain.isNotEmpty()) Resource.Success(domain) else Resource.Error(
-                        ERROR_NULL_VALUE
-                    )
-                )
+                resultData.onNext(Resource.Success(domain))
             }, { error ->
                 resultData.onNext(Resource.Error(error.message.toString()))
                 Log.e(TAG, error.toString())
@@ -593,6 +589,27 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         val resultData = PublishSubject.create<Resource<List<OrderHistoryItem>>>()
         val client =
             apiService.getDirectOrderHistory(token)
+
+        val disposable = client
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                val data = response.results
+                resultData.onNext(Resource.Success(data))
+            }, { error ->
+                resultData.onNext(Resource.Error(error.message.toString()))
+                Log.e(TAG, error.toString())
+            })
+
+        Log.d(TAG, if (disposable.isDisposed) "Disposed" else "Not yet disposed")
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun getDirectOrderDetail(token: String, id: String): Flowable<Resource<DirectPaymentDetailResult>> {
+        val resultData = PublishSubject.create<Resource<DirectPaymentDetailResult>>()
+        val client = apiService.getDirectOrderDetail(token, id)
 
         val disposable = client
             .subscribeOn(Schedulers.io())

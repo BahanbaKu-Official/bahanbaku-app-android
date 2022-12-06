@@ -1,13 +1,13 @@
 package com.bangkit.bahanbaku.core.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkit.bahanbaku.R
 import com.bangkit.bahanbaku.core.data.remote.response.OrderHistoryItem
 import com.bangkit.bahanbaku.databinding.ItemCardOrderHistoryBinding
+import com.bangkit.bahanbaku.presentation.orderdetail.OrderDetailActivity
 
 class OrderHistoryAdapter(private val list: List<OrderHistoryItem>) : RecyclerView.Adapter<OrderHistoryAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,7 +40,27 @@ class OrderHistoryAdapter(private val list: List<OrderHistoryItem>) : RecyclerVi
                 }
 
                 it.cardOrderHistory.setOnClickListener {
-                    Toast.makeText(itemView.context, itemView.context.getString(R.string.coming_soon_string), Toast.LENGTH_SHORT).show()
+                    if (product != null) {
+                        val intent = Intent(itemView.context, OrderDetailActivity::class.java)
+                        intent.putExtra(OrderDetailActivity.EXTRA_ORDER_ID, product.directPayId)
+                        itemView.context.startActivity(intent)
+                    }
+                }
+
+                it.rvCheckout.setOnClickListener {
+                    if (product != null) {
+                        val intent = Intent(itemView.context, OrderDetailActivity::class.java)
+                        intent.putExtra(OrderDetailActivity.EXTRA_ORDER_ID, product.directPayId)
+                        itemView.context.startActivity(intent)
+                    }
+                }
+
+                it.btnOrderDetails.setOnClickListener {
+                    if (product != null) {
+                        val intent = Intent(itemView.context, OrderDetailActivity::class.java)
+                        intent.putExtra(OrderDetailActivity.EXTRA_ORDER_ID, product.directPayId)
+                        itemView.context.startActivity(intent)
+                    }
                 }
             }
         }

@@ -162,7 +162,7 @@
     <string name="shipping_address">Alamat Pengiriman</string>
     <string name="Name_User" translatable="false">John Doe</string>
     <string name="number_telp" translatable="false">(08123456778)</string>
-    <string name="address" translatable="false">Perum. West Valley Blok 07 No. 07</string>
+    <string name="address">Address</string>
     <string name="Title_recipe_checkout">Ayam Geprek</string>
     <string name="Total_payment">Total Pembayaran</string>
     <string name="pay">Bayar</string>
@@ -298,4 +298,15 @@
     <string name="payment_amount">Payment Amount</string>
     <string name="format_review">%.1f from 5.0</string>
     <string name="payment_amount_copied">Payment amount copied</string>
+    <string name="products">Products</string>
+    <string name="order_date">Order date</string>
+    <string name="total_cost">Total cost</string>
+    <string name="placeholder_date">27 November 2021, 14.00</string>
+    <string name="colon" translatable="false">:</string>
+    <string name="order_information">Order Information</string>
+    <string name="destination">Destination</string>
+    <string name="open_maps">Open Maps</string>
+    <string name="receiver">Receiver</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="payment_information">Payment Information</string>
 </resources>

@@ -6,6 +6,7 @@ import io.reactivex.Flowable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
+
 interface ApiService {
     @FormUrlEncoded
     @POST("register")
@@ -144,5 +145,11 @@ interface ApiService {
     fun getDirectOrderHistory(
         @Header("Authorization") token: String
     ): Flowable<GetOrderHistoryResponse>
+
+    @GET("direct-pay/{id}")
+    fun getDirectOrderDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+    ): Flowable<GetOrderDetailResponse>
 }
 

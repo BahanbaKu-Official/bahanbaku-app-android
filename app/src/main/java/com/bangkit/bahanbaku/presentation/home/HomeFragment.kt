@@ -162,9 +162,7 @@ class HomeFragment : Fragment() {
             viewModel.getRecipes(token).observe(requireActivity()) { result ->
                 when (result) {
                     is Resource.Loading -> {
-                        binding.shimmerMorningRecommendationRecipe.startShimmer()
-                        binding.shimmerRecipeRecommendation1.startShimmer()
-                        binding.shimmerRecipeRecommendation2.startShimmer()
+
                     }
 
                     is Resource.Error -> {
@@ -172,39 +170,6 @@ class HomeFragment : Fragment() {
                     }
 
                     is Resource.Success -> {
-                        val constraintLayout = binding.layoutConstraintHome
-                        val constraintSet = ConstraintSet()
-                        constraintSet.clone(constraintLayout)
-                        constraintSet.connect(
-                            R.id.tv_label_categories,
-                            ConstraintSet.TOP,
-                            R.id.rv_morning_recommendation_recipe,
-                            ConstraintSet.BOTTOM,
-                            32
-                        )
-
-                        constraintSet.connect(
-                            R.id.tv_label_recommendation_2,
-                            ConstraintSet.TOP,
-                            R.id.rv_recipe_recommendation_1,
-                            ConstraintSet.BOTTOM,
-                            32
-                        )
-
-                        constraintSet.connect(
-                            R.id.tv_label_others,
-                            ConstraintSet.TOP,
-                            R.id.rv_recipe_recommendation_2,
-                            ConstraintSet.BOTTOM,
-                            32
-                        )
-
-                        constraintSet.applyTo(constraintLayout)
-
-                        binding.shimmerMorningRecommendationRecipe.isVisible = false
-                        binding.shimmerRecipeRecommendation1.isVisible = false
-                        binding.shimmerRecipeRecommendation2.isVisible = false
-
                         var spanCount = 2
 
                         when (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) {
@@ -219,32 +184,132 @@ class HomeFragment : Fragment() {
                                 spanCount, LinearLayoutManager.VERTICAL
                             )
                         }
+                    }
+                }
+            }
 
-                        binding.rvRecipeRecommendation1.apply {
-                            adapter = RecipeCardMediumAdapter(data)
-                            layoutManager = LinearLayoutManager(
-                                requireContext(),
-                                LinearLayoutManager.HORIZONTAL,
-                                false
+            viewModel.getRecipesByTag(token, "sarapan").observe(requireActivity()) { result ->
+                when (result) {
+                    is Resource.Loading -> {
+                        binding.shimmerMorningRecommendationRecipe.startShimmer()
+                    }
+
+                    is Resource.Error -> {
+
+                    }
+
+                    is Resource.Success -> {
+                        val data = result.data
+
+                        if (data != null) {
+                            val constraintLayout = binding.layoutConstraintHome
+                            val constraintSet = ConstraintSet()
+                            constraintSet.clone(constraintLayout)
+                            constraintSet.connect(
+                                R.id.tv_label_categories,
+                                ConstraintSet.TOP,
+                                R.id.rv_morning_recommendation_recipe,
+                                ConstraintSet.BOTTOM,
+                                32
                             )
+
+                            constraintSet.applyTo(constraintLayout)
+
+                            binding.shimmerMorningRecommendationRecipe.isVisible = false
+
+                            binding.rvMorningRecommendationRecipe.apply {
+                                adapter = RecipeCardMediumAdapter(data)
+                                layoutManager = LinearLayoutManager(
+                                    requireContext(),
+                                    LinearLayoutManager.HORIZONTAL,
+                                    false
+                                )
+                            }
                         }
+                    }
+                }
+            }
 
-                        binding.rvRecipeRecommendation2.apply {
-                            adapter = RecipeCardMediumAdapter(data)
-                            layoutManager = LinearLayoutManager(
-                                requireContext(),
-                                LinearLayoutManager.HORIZONTAL,
-                                false
+            viewModel.getRecipesByTag(token, "western").observe(requireActivity()) { result ->
+                when (result) {
+                    is Resource.Loading -> {
+                        binding.shimmerRecipeRecommendation1.startShimmer()
+                    }
+
+                    is Resource.Error -> {
+
+                    }
+
+                    is Resource.Success -> {
+                        val data = result.data
+
+                        if (data != null) {
+                            val constraintLayout = binding.layoutConstraintHome
+                            val constraintSet = ConstraintSet()
+                            constraintSet.clone(constraintLayout)
+
+                            constraintSet.connect(
+                                R.id.tv_label_recommendation_2,
+                                ConstraintSet.TOP,
+                                R.id.rv_recipe_recommendation_1,
+                                ConstraintSet.BOTTOM,
+                                32
                             )
+
+                            constraintSet.applyTo(constraintLayout)
+
+                            binding.shimmerRecipeRecommendation1.isVisible = false
+
+                            binding.rvRecipeRecommendation1.apply {
+                                adapter = RecipeCardMediumTimeAdapter(data)
+                                layoutManager = LinearLayoutManager(
+                                    requireContext(),
+                                    LinearLayoutManager.HORIZONTAL,
+                                    false
+                                )
+                            }
                         }
+                    }
+                }
+            }
 
-                        binding.rvMorningRecommendationRecipe.apply {
-                            adapter = RecipeCardMediumTimeAdapter(data)
-                            layoutManager = LinearLayoutManager(
-                                requireContext(),
-                                LinearLayoutManager.HORIZONTAL,
-                                false
+            viewModel.getRecipesByTag(token, "tradisional").observe(requireActivity()) { result ->
+                when (result) {
+                    is Resource.Loading -> {
+                        binding.shimmerRecipeRecommendation2.startShimmer()
+                    }
+
+                    is Resource.Error -> {
+
+                    }
+
+                    is Resource.Success -> {
+                        val data = result.data
+
+                        if (data != null) {
+                            val constraintLayout = binding.layoutConstraintHome
+                            val constraintSet = ConstraintSet()
+                            constraintSet.clone(constraintLayout)
+                            constraintSet.connect(
+                                R.id.tv_label_others,
+                                ConstraintSet.TOP,
+                                R.id.rv_recipe_recommendation_2,
+                                ConstraintSet.BOTTOM,
+                                32
                             )
+
+                            constraintSet.applyTo(constraintLayout)
+
+                            binding.shimmerRecipeRecommendation2.isVisible = false
+
+                            binding.rvRecipeRecommendation2.apply {
+                                adapter = RecipeCardMediumTimeAdapter(data)
+                                layoutManager = LinearLayoutManager(
+                                    requireContext(),
+                                    LinearLayoutManager.HORIZONTAL,
+                                    false
+                                )
+                            }
                         }
                     }
                 }
