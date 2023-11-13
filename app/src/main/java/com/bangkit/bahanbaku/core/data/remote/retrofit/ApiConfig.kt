@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    private const val BASE_URL = "https://api.bahanbaku.app/"
+    private const val BASE_URL = "http://34.27.119.196:8000"
     private const val BASE_URL_ML = "http://34.101.92.14:8080"
 
     fun getApiService(): ApiService {
