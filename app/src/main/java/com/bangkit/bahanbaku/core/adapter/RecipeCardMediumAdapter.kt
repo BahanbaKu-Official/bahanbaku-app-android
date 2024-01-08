@@ -9,9 +9,13 @@ import com.bangkit.bahanbaku.databinding.ItemCardRecipeMediumBinding
 import com.bangkit.bahanbaku.presentation.detail.DetailActivity
 import com.bumptech.glide.Glide
 
-class RecipeCardMediumAdapter(private val list: List<Recipe>) : RecyclerView.Adapter<RecipeCardMediumAdapter.ViewHolder>() {
+class RecipeCardMediumAdapter(
+    private val list: List<Recipe>,
+    private val isResourceImage: Boolean = false
+) : RecyclerView.Adapter<RecipeCardMediumAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemCardRecipeMediumBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemCardRecipeMediumBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -28,7 +32,8 @@ class RecipeCardMediumAdapter(private val list: List<Recipe>) : RecyclerView.Ada
 
     override fun getItemCount() = list.size
 
-    inner class ViewHolder(val binding: ItemCardRecipeMediumBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemCardRecipeMediumBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: Recipe?) {
             binding.let {
                 binding.tvRecipeName.text = recipe?.title
@@ -36,7 +41,7 @@ class RecipeCardMediumAdapter(private val list: List<Recipe>) : RecyclerView.Ada
                 binding.tvRating.text = recipe?.rating.toString()
 
                 Glide.with(itemView.context)
-                    .load(recipe?.imageUrl)
+                    .load(if (isResourceImage) recipe?.imageResource else recipe?.imageUrl)
                     .into(binding.imgRecipe)
             }
         }

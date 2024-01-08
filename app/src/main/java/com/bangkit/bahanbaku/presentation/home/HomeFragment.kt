@@ -21,6 +21,7 @@ import com.bangkit.bahanbaku.core.adapter.RecipeCardLargeAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeCardMediumAdapter
 import com.bangkit.bahanbaku.core.adapter.RecipeCardMediumTimeAdapter
 import com.bangkit.bahanbaku.core.data.Resource
+import com.bangkit.bahanbaku.core.domain.model.DummyData
 import com.bangkit.bahanbaku.core.domain.model.Profile
 import com.bangkit.bahanbaku.core.utils.categories
 import com.bangkit.bahanbaku.databinding.FragmentHomeBinding
@@ -159,119 +160,93 @@ class HomeFragment : Fragment() {
         if (token != null) {
             val token = this.token as String
 
-            viewModel.getRecipes(token).observe(requireActivity()) { result ->
-                when (result) {
-                    is Resource.Loading -> {
+//            viewModel.getRecipesByTag(token, "sarapan").observe(requireActivity()) { result ->
+//                when (result) {
+//                    is Resource.Loading -> {
+//                        binding.shimmerMorningRecommendationRecipe.startShimmer()
+//                    }
+//
+//                    is Resource.Error -> {
+//
+//                    }
+//
+//                    is Resource.Success -> {
+//                        val data = result.data
+//
+//                        if (data != null) {
+//                        }
+//                    }
+//                }
+//            }
+            val constraintLayout = binding.layoutConstraintHome
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(constraintLayout)
+            constraintSet.connect(
+                R.id.tv_label_categories,
+                ConstraintSet.TOP,
+                R.id.rv_morning_recommendation_recipe,
+                ConstraintSet.BOTTOM,
+                32
+            )
 
-                    }
+            constraintSet.applyTo(constraintLayout)
 
-                    is Resource.Error -> {
+            binding.shimmerMorningRecommendationRecipe.isVisible = false
 
-                    }
-
-                    is Resource.Success -> {
-                        var spanCount = 2
-
-                        when (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) {
-                            Configuration.SCREENLAYOUT_SIZE_LARGE -> spanCount = 3
-                            Configuration.SCREENLAYOUT_SIZE_XLARGE -> spanCount = 4
-                        }
-
-                        val data = result.data!!
-                        binding.rvMoreRecipes.apply {
-                            adapter = RecipeCardLargeAdapter(data)
-                            layoutManager = StaggeredGridLayoutManager(
-                                spanCount, LinearLayoutManager.VERTICAL
-                            )
-                        }
-                    }
-                }
+            binding.rvMorningRecommendationRecipe.apply {
+                adapter = RecipeCardMediumAdapter(DummyData.recipe, true)
+                layoutManager = LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
             }
 
-            viewModel.getRecipesByTag(token, "sarapan").observe(requireActivity()) { result ->
-                when (result) {
-                    is Resource.Loading -> {
-                        binding.shimmerMorningRecommendationRecipe.startShimmer()
-                    }
-
-                    is Resource.Error -> {
-
-                    }
-
-                    is Resource.Success -> {
-                        val data = result.data
-
-                        if (data != null) {
-                            val constraintLayout = binding.layoutConstraintHome
-                            val constraintSet = ConstraintSet()
-                            constraintSet.clone(constraintLayout)
-                            constraintSet.connect(
-                                R.id.tv_label_categories,
-                                ConstraintSet.TOP,
-                                R.id.rv_morning_recommendation_recipe,
-                                ConstraintSet.BOTTOM,
-                                32
-                            )
-
-                            constraintSet.applyTo(constraintLayout)
-
-                            binding.shimmerMorningRecommendationRecipe.isVisible = false
-
-                            binding.rvMorningRecommendationRecipe.apply {
-                                adapter = RecipeCardMediumAdapter(data)
-                                layoutManager = LinearLayoutManager(
-                                    requireContext(),
-                                    LinearLayoutManager.HORIZONTAL,
-                                    false
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-
-            viewModel.getRecipesByTag(token, "western").observe(requireActivity()) { result ->
-                when (result) {
-                    is Resource.Loading -> {
-                        binding.shimmerRecipeRecommendation1.startShimmer()
-                    }
-
-                    is Resource.Error -> {
-
-                    }
-
-                    is Resource.Success -> {
-                        val data = result.data
-
-                        if (data != null) {
-                            val constraintLayout = binding.layoutConstraintHome
-                            val constraintSet = ConstraintSet()
-                            constraintSet.clone(constraintLayout)
-
-                            constraintSet.connect(
-                                R.id.tv_label_recommendation_2,
-                                ConstraintSet.TOP,
-                                R.id.rv_recipe_recommendation_1,
-                                ConstraintSet.BOTTOM,
-                                32
-                            )
-
-                            constraintSet.applyTo(constraintLayout)
-
-                            binding.shimmerRecipeRecommendation1.isVisible = false
-
-                            binding.rvRecipeRecommendation1.apply {
-                                adapter = RecipeCardMediumTimeAdapter(data)
-                                layoutManager = LinearLayoutManager(
-                                    requireContext(),
-                                    LinearLayoutManager.HORIZONTAL,
-                                    false
-                                )
-                            }
-                        }
-                    }
-                }
-            }
+//            viewModel.getRecipesByTag(token, "western").observe(requireActivity()) { result ->
+//                when (result) {
+//                    is Resource.Loading -> {
+//                        binding.shimmerRecipeRecommendation1.startShimmer()
+//                    }
+//
+//                    is Resource.Error -> {
+//
+//                    }
+//
+//                    is Resource.Success -> {
+//                        val data = result.data
+//
+//                        if (data != null) {
+//                            val constraintLayout = binding.layoutConstraintHome
+//                            val constraintSet = ConstraintSet()
+//                            constraintSet.clone(constraintLayout)
+//
+//                            constraintSet.connect(
+//                                R.id.tv_label_recommendation_2,
+//                                ConstraintSet.TOP,
+//                                R.id.rv_recipe_recommendation_1,
+//                                ConstraintSet.BOTTOM,
+//                                32
+//                            )
+//
+//                            constraintSet.applyTo(constraintLayout)
+//
+//                            binding.shimmerRecipeRecommendation1.isVisible = false
+//
+//                            binding.rvRecipeRecommendation1.apply {
+//                                adapter = RecipeCardMediumTimeAdapter(data)
+//                                layoutManager = LinearLayoutManager(
+//                                    requireContext(),
+//                                    LinearLayoutManager.HORIZONTAL,
+//                                    false
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+            binding.tvLabelRecommendation1.visibility = View.GONE
+            binding.shimmerRecipeRecommendation1.visibility = View.GONE
+            binding.rvRecipeRecommendation1.visibility = View.GONE
 
             viewModel.getRecipesByTag(token, "tradisional").observe(requireActivity()) { result ->
                 when (result) {
@@ -303,11 +278,24 @@ class HomeFragment : Fragment() {
                             binding.shimmerRecipeRecommendation2.isVisible = false
 
                             binding.rvRecipeRecommendation2.apply {
-                                adapter = RecipeCardMediumTimeAdapter(data)
+                                adapter = RecipeCardMediumTimeAdapter(data.reversed().subList(0, 3))
                                 layoutManager = LinearLayoutManager(
                                     requireContext(),
                                     LinearLayoutManager.HORIZONTAL,
                                     false
+                                )
+                            }
+                            var spanCount = 2
+
+                            when (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) {
+                                Configuration.SCREENLAYOUT_SIZE_LARGE -> spanCount = 3
+                                Configuration.SCREENLAYOUT_SIZE_XLARGE -> spanCount = 4
+                            }
+
+                            binding.rvMoreRecipes.apply {
+                                adapter = RecipeCardLargeAdapter(data)
+                                layoutManager = StaggeredGridLayoutManager(
+                                    spanCount, LinearLayoutManager.VERTICAL
                                 )
                             }
                         }
