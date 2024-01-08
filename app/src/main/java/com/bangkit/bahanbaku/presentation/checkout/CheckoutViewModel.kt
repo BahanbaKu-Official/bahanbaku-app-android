@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.checkout
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,8 +15,8 @@ class CheckoutViewModel @Inject constructor(private val profileUseCase: ProfileU
     fun getMainAddress() = profileUseCase.getMainAddress()
 
     fun getAddress(token: String) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.getAddress(token))
+        profileUseCase.getAddress(token).toLiveData()
 
     fun getAddressById(token: String, id: String) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.getAddressById(token, id))
+        profileUseCase.getAddressById(token, id).toLiveData()
 }

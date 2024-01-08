@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.register
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,14 +15,11 @@ class RegisterViewModel @Inject constructor(private val profileUseCase: ProfileU
         email: String,
         password: String,
         phoneNumber: String
-    ) =
-        LiveDataReactiveStreams.fromPublisher(
-            profileUseCase.register(
-                firstName,
-                lastName,
-                email,
-                password,
-                phoneNumber
-            )
-        )
+    ) = profileUseCase.register(
+        firstName,
+        lastName,
+        email,
+        password,
+        phoneNumber
+    ).toLiveData()
 }

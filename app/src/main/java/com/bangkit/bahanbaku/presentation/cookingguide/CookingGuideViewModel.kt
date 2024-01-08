@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.cookingguide
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import com.bangkit.bahanbaku.core.domain.usecase.RecipeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,5 +15,5 @@ class CookingGuideViewModel @Inject constructor(
     fun getToken() = profileUseCase.getToken()
 
     fun getRecipeById(token: String, id: String) =
-        LiveDataReactiveStreams.fromPublisher(recipeUseCase.getRecipeById(token, id))
+        recipeUseCase.getRecipeById(token, id).toLiveData()
 }

@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.detail
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import com.bangkit.bahanbaku.core.domain.usecase.RecipeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,19 +13,19 @@ class DetailViewModel @Inject constructor(
     private val profileUseCase: ProfileUseCase
 ) : ViewModel() {
     fun getRecipe(token: String, id: String) =
-        LiveDataReactiveStreams.fromPublisher(recipeUseCase.getRecipeById(token, id))
+        recipeUseCase.getRecipeById(token, id).toLiveData()
 
     fun checkIfRecipeBookmarked(token: String, id: String) =
-        LiveDataReactiveStreams.fromPublisher(recipeUseCase.checkIfRecipeBookmarked(token, id))
+        recipeUseCase.checkIfRecipeBookmarked(token, id).toLiveData()
 
     fun addBookmark(token: String, id: String) =
-        LiveDataReactiveStreams.fromPublisher(recipeUseCase.addFavorites(token, id))
+        recipeUseCase.addFavorites(token, id).toLiveData()
 
     fun deleteBookmark(token: String, id: String) =
-        LiveDataReactiveStreams.fromPublisher(recipeUseCase.deleteFavorites(token, id))
+        recipeUseCase.deleteFavorites(token, id).toLiveData()
 
     fun getToken() = profileUseCase.getToken()
 
     fun getProfile(token: String) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.getProfile(token))
+        profileUseCase.getProfile(token).toLiveData()
 }

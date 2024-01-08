@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.addressmapsdetails
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -20,14 +20,12 @@ class AddressMapsDetailsViewModel @Inject constructor(private val profileUseCase
         label: String,
         receiverName: String,
         receiverNumber: String,
-    ) = LiveDataReactiveStreams.fromPublisher(
-        profileUseCase.addAddress(
-            token, street, district, city, province, zipCode, label, receiverName, receiverNumber
-        )
-    )
+    ) = profileUseCase.addAddress(
+        token, street, district, city, province, zipCode, label, receiverName, receiverNumber
+    ).toLiveData()
 
     fun getAddress(token: String) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.getAddress(token))
+        profileUseCase.getAddress(token).toLiveData()
 
     fun setMainAddress(addressId: String) = profileUseCase.setMainAddress(addressId)
 

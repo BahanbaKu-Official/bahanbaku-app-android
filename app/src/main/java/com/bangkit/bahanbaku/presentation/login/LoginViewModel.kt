@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.login
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -11,7 +11,7 @@ class LoginViewModel @Inject constructor(
     private val profileUseCase: ProfileUseCase,
 ) : ViewModel() {
     fun login(email: String, password: String) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.login(email, password))
+        profileUseCase.login(email, password).toLiveData()
 
     fun saveToken(token: String) {
         profileUseCase.saveToken(token)

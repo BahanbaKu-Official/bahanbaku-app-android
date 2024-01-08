@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.address
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -14,10 +14,10 @@ class AddressViewModel @Inject constructor(
     fun getToken() = profileUseCase.getToken()
 
     fun getAddress(token: String) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.getAddress(token))
+        profileUseCase.getAddress(token).toLiveData()
 
     fun getProfile(token: String) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.getProfile(token))
+        profileUseCase.getProfile(token).toLiveData()
 
     fun setMainAddress(addressId: String) = profileUseCase.setMainAddress(addressId)
 

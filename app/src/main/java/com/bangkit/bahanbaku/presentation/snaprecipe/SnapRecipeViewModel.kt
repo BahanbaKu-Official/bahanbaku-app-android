@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.snaprecipe
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import com.bangkit.bahanbaku.core.domain.usecase.RecipeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,5 +16,5 @@ class SnapRecipeViewModel @Inject constructor(
     fun getToken() = profileUseCase.getToken()
 
     fun getRecipes(token: String, foodName: String) =
-        LiveDataReactiveStreams.fromPublisher(recipeUseCase.searchRecipe(token, foodName))
+        recipeUseCase.searchRecipe(token, foodName).toLiveData()
 }

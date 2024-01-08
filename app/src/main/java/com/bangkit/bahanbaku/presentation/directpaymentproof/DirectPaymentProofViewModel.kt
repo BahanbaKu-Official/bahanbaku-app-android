@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.directpaymentproof
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.PaymentUseCase
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,5 +17,5 @@ class DirectPaymentProofViewModel @Inject constructor(
     fun getToken() = profileUseCase.getToken()
 
     fun submitPaymentProof(token: String, file: File, id: String) =
-        LiveDataReactiveStreams.fromPublisher(paymentUseCase.submitPaymentProof(token, file, id))
+        paymentUseCase.submitPaymentProof(token, file, id).toLiveData()
 }

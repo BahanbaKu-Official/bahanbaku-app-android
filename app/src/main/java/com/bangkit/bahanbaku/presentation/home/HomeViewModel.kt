@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.home
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import com.bangkit.bahanbaku.core.domain.usecase.RecipeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,15 +13,15 @@ class HomeViewModel @Inject constructor(
     private val profileUseCase: ProfileUseCase
 ) : ViewModel() {
     fun getRecipes(token: String) =
-        LiveDataReactiveStreams.fromPublisher(recipeUseCase.getNewRecipes(token))
+        recipeUseCase.getNewRecipes(token).toLiveData()
 
     fun getRecipesByTag(token: String, tag: String) =
-        LiveDataReactiveStreams.fromPublisher(recipeUseCase.getRecipesByTag(token, tag))
+        recipeUseCase.getRecipesByTag(token, tag).toLiveData()
 
 //    fun getFeaturedRecipe(token: String) = recipeRepository.getFeaturedRecipe(token)
 
     fun getToken() = profileUseCase.getToken()
 
     fun getProfile(token: String) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.getProfile(token))
+        profileUseCase.getProfile(token).toLiveData()
 }

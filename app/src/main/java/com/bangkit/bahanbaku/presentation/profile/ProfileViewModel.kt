@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.profile
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
@@ -12,19 +12,17 @@ class ProfileViewModel @Inject constructor(
     private val profileUseCase: ProfileUseCase
 ) : ViewModel() {
     fun getProfile(token: String) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.getProfile(token))
+        profileUseCase.getProfile(token).toLiveData()
 
     fun updateProfile(token: String, firstName: String, lastName: String) =
-        LiveDataReactiveStreams.fromPublisher(
-            profileUseCase.updateUser(
-                token,
-                firstName,
-                lastName
-            )
-        )
+        profileUseCase.updateUser(
+            token,
+            firstName,
+            lastName
+        ).toLiveData()
 
     fun uploadPicture(token: String, file: File) =
-        LiveDataReactiveStreams.fromPublisher(profileUseCase.uploadPicture(token, file))
+        profileUseCase.uploadPicture(token, file).toLiveData()
 
     fun getToken() = profileUseCase.getToken()
 

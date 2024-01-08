@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.orderhistory
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.usecase.PaymentUseCase
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,5 +16,5 @@ class OrderHistoryViewModel @Inject constructor(
     fun getToken() = profileUseCase.getToken()
 
     fun getDirectOrderHistory(token: String) =
-        LiveDataReactiveStreams.fromPublisher(paymentUseCase.getDirectOrderHistory(token))
+        paymentUseCase.getDirectOrderHistory(token).toLiveData()
 }

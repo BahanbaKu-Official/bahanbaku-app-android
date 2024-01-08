@@ -1,7 +1,7 @@
 package com.bangkit.bahanbaku.presentation.directpayment
 
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.toLiveData
 import com.bangkit.bahanbaku.core.domain.model.ProductsData
 import com.bangkit.bahanbaku.core.domain.usecase.PaymentUseCase
 import com.bangkit.bahanbaku.core.domain.usecase.ProfileUseCase
@@ -17,16 +17,14 @@ class DirectPaymentViewModel @Inject constructor(
     fun getToken() = profileUseCase.getToken()
 
     fun createDirectPayment(token: String, products: ProductsData, id: String) =
-        LiveDataReactiveStreams.fromPublisher(
-            paymentUseCase.createDirectPayment(
-                token,
-                products,
-                id
-            )
-        )
+        paymentUseCase.createDirectPayment(
+            token,
+            products,
+            id
+        ).toLiveData()
 
     fun getDirectPaymentInfo(token: String) =
-        LiveDataReactiveStreams.fromPublisher(paymentUseCase.getDirectPaymentInfo(token))
+        paymentUseCase.getDirectPaymentInfo(token).toLiveData()
 
     fun getAddress() = profileUseCase.getMainAddress()
 }
