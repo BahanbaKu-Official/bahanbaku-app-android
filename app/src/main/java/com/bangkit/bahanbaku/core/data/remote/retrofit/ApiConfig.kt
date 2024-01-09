@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 object ApiConfig {
     private const val BASE_URL = "http://34.27.119.196:8000"
-    private const val BASE_URL_ML = "http://34.101.92.14:8080"
+    private const val BASE_URL_ML = "http://144.126.241.102:5000"
 
     fun getApiService(context: Context): ApiService {
         val loggingInterceptor =
