@@ -9,9 +9,13 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
 import com.bangkit.bahanbaku.R
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.io.OutputStream
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 
 private const val FILENAME_FORMAT = "dd-MM-yyyy"
@@ -84,15 +88,15 @@ fun fromUriToFile(selectedImage: Uri, context: Context): File {
 fun reduceFileImage(file: File): File {
     val bitmap = BitmapFactory.decodeFile(file.path)
 
-//    var compressQuality = 100
-//    var streamLength: Int
-//    do {
-//        val bmpStream = ByteArrayOutputStream()
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
-//        val bmpPicByteArray = bmpStream.toByteArray()
-//        streamLength = bmpPicByteArray.size
-//        compressQuality -= 5
-//    } while (streamLength > 100000 && compressQuality > 30)
-//    bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
+    var compressQuality = 100
+    var streamLength: Int
+    do {
+        val bmpStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
+        val bmpPicByteArray = bmpStream.toByteArray()
+        streamLength = bmpPicByteArray.size
+        compressQuality -= 5
+    } while (streamLength > 100000 && compressQuality > 30)
+    bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
     return file
 }
